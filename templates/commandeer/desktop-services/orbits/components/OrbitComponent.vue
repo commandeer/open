@@ -64,8 +64,6 @@ export default class OrbitComponent extends Vue {
   $router: any;
   isLoading: boolean = false;
 
-  @Getter('instanceByInstanceId', { namespace }) instanceByInstanceId: any;
-
   @Prop() id!: string;
 
   @State('orbitStore') orbitStore?: IOrbitState;
