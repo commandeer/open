@@ -12,6 +12,16 @@ const state: IOrbitState = {
 
 const actions: ActionTree<IOrbitState, IRootState> = {
 
+  async clearCache({ commit }): Promise<any> {
+    try {
+      await OrbitService.clearCache();
+      commit('orbitsCleared');
+    } catch (error) {
+      commit('orbitError');
+      throw error;
+    }
+  },
+
   async fetchOrbits({ commit }): Promise<any> {
     try {
       const orbits = await OrbitService.getOrbits();
@@ -27,6 +37,11 @@ const actions: ActionTree<IOrbitState, IRootState> = {
 const getters: GetterTree<IOrbitState, IRootState> = {};
 
 const mutations: MutationTree<IOrbitState> = {
+
+  orbitsCleared(state) {
+    state.error = false;
+    state.orbits = [];
+  },
 
   orbitsLoaded(state, orbits: Orbit[]) {
     state.error = false;

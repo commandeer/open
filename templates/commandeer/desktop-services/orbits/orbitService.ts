@@ -2,6 +2,13 @@ import { Orbit } from './orbit';
 
 export class OrbitService {
 
+  public async clearCache(): Promise<void> {
+    try {
+    } catch (ex) {
+      throw ex;
+    }
+  }
+
   public static getOrbits(): Orbit[] {
     const orbits: Orbit[] = [];
     
