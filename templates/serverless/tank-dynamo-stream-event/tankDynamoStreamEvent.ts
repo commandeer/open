@@ -18,7 +18,7 @@ interface DynamoStreamEvent {
  * @returns {boolean} status
  */
 const process: Handler = async (event: DynamoStreamEvent, context: Context) => {
-  console.log('tankSqsMessageReceivedEvent.handleMessage', { event, context });
+  console.log('tankDynamoStreamEvent.process', { event, context });
 
   try {
     for (const record of event.Records) {
