@@ -1,6 +1,9 @@
 tankS3FileCreatedEvent:
   handler: tankS3FileCreatedEvent.handleFile
   timeout: 900
+  tags:
+    DEPARTMENT: MACHINERY
+    ENVIRONMENT: DEV
 
   events:
     - existingS3:

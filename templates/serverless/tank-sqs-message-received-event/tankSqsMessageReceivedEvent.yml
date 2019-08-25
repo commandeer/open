@@ -1,6 +1,9 @@
 tankSqsMessageReceivedEvent:
   handler: tankSqsMessageReceivedEvent.handleMessage
   timeout: 900
+  tags:
+    DEPARTMENT: MACHINERY
+    ENVIRONMENT: DEV
 
   events:
     events:
