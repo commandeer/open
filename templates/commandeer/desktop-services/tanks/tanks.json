@@ -1,0 +1,9 @@
+[
+  { "name": "British Mark 1", "tankType": "HEAVY" },
+  { "name": "Tank, Medium Mark A", "tankType": "MEDIUM" },
+  { "name": "Renault FT", "tankType": "LIGHT" },
+  { "name": "Char 2C", "tankType": "SUPER_HEAVY" },
+  { "name": "PT-76", "tankType": "LIGHT" },
+  { "name": "FV101 Scorpion", "tankType": "LIGHT" },
+  { "name": "FV107 Scimitar", "tankType": "LIGHT" }
+]
