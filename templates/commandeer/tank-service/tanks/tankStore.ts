@@ -49,7 +49,7 @@ const mutations: MutationTree<ITankState> = {
     state.tanks = tanks;
   },
 
-  orbitError(state) {
+  tankError(state) {
     state.error = true;
     state.tanks = [];
   }

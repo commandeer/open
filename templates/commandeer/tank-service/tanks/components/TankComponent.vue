@@ -35,12 +35,14 @@
           <h3>{{ $t('general_information') }}</h3>
           <v-divider class="mb-3" />
 
-          <p>{{ $t('id') }}: {{ orbit.id }}
+          <p>{{ $t('id') }}: {{ tank.id }}
+          <p>{{ $t('type') }}: {{ tank.type }}
+          <p>{{ $t('status') }}: {{ tank.status }}
 
           <h3>{{ $t('raw_data') }}</h3>
           <v-divider class="mb-3" />
 
-          <pre>{{ orbit }}</pre>
+          <pre>{{ tank }}</pre>
         </v-flex>
       </v-layout>
     </v-card-text>
