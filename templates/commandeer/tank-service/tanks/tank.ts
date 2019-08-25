@@ -2,7 +2,9 @@ import { v4 as uuid } from 'uuid';
 import { ITank, TankStatus, TankType } from './types';
 
 const tankSample: ITank = {
-  name: 'USS Destroyer',
+  name: 'US Big Boy',
+  status: TankStatus.OPERATIONAL,
+  type: TankType.HEAVY
 };
 
 export class Tank implements ITank {
