@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "b" {
-  bucket = "commandeer-tanks"
+  bucket = "commandeer-tanks-history"
   acl    = "private"
 
   tags = {

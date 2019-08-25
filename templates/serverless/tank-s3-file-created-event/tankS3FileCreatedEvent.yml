@@ -1,10 +1,10 @@
-myFileEvent:
-  handler: myFileEvent.handleSftpFile
+tankS3FileCreatedEvent:
+  handler: tankS3FileCreatedEvent.handleFile
   timeout: 900
 
   events:
     - existingS3:
-        bucket: ${self:custom.bucket-name}
+        bucket: ${self:custom.commandeer-tanks}
         event: s3:ObjectCreated:*
         rules:
-          - suffix: .csv
+          - suffix: .json
