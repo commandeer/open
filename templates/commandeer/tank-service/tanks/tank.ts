@@ -4,7 +4,7 @@ import { ITank, TankStatus, TankType } from './types';
 const tankSample: ITank = {
   name: 'US Big Boy',
   status: TankStatus.OPERATIONAL,
-  type: TankType.HEAVY
+  type: TankType.HEAVY,
 };
 
 export class Tank implements ITank {
