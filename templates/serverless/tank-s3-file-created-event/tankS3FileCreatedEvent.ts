@@ -1,7 +1,7 @@
 import { Context, Handler, S3CreateEvent } from 'aws-lambda';
 
 /**
- * @description handle receiving a file from s3
+ * @description handle receiving a tank file from s3
  * @param {S3CreateEvent} event event object
  * @param {Context} context context object
  * @returns {boolean} status

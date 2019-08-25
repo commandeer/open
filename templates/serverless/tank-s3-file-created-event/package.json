@@ -1,5 +1,5 @@
 {
-  "name": "my-file-created-event",
+  "name": "tank-s3-file-created-event",
   "author": "commandeer",
   "license": "MIT",
   "main": "handlers/index",
