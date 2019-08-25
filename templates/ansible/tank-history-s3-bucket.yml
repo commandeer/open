@@ -1,4 +1,4 @@
-# Create commandeer-tanks-history s3 bucket for saving tanks
+# Create commandeer-tanks-history s3 bucket for saving history of tanks
 - s3_bucket:
     name: commandeer-tanks-history
     versioning: yes

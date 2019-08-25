@@ -1,0 +1,11 @@
+tankDynamoStreamEvent:
+  handler: tankDynamoStreamEvent.process
+  timeout: 900
+
+  events:
+    - stream:
+      type: dynamodb
+      batchSize: 1
+      startingPosition: LATEST
+      tableName: Tank
+      arn: { Fn::GetAtt: [ Tank, StreamArn ] }
