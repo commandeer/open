@@ -9,8 +9,8 @@
       </v-flex>
 
       <v-flex xs8>
-        <h3>{{ $t('orbit_detail') }}</h3>
-        <h4>{{ $t('orbit') }}: {{ orbit.name }}</h4>
+        <h3>{{ $t('tank_detail') }}</h3>
+        <h4>{{ $t('tank') }}: {{ tank.name }}</h4>
       </v-flex>
     </v-card-title>
 
@@ -19,11 +19,10 @@
     <v-card-actions>
       <v-layout row wrap>
         <v-flex shrink>
-          <v-icon v-if="instance.state === 'running'">directions_run</v-icon>
-          <v-icon v-else color="error lighten-2">power_off</v-icon>
+          <v-icon>{{ tankStateIcon(tank.state) }}</v-icon>
         </v-flex>
         <v-flex mt-1 ml-2>
-          {{ $t(instance.state) }}
+          {{ $t(tank.state) }}
         </v-flex>
       </v-layout>
     </v-card-actions>
@@ -51,31 +50,28 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { State, Action, Getter } from 'vuex-class';
-import { IOrbitState, Orbit } from '../types';
+import { ITankState, Tank } from '../types';
 
-const namespace: string = 'orbitStore';
+const namespace: string = 'tankStore';
 
-@Component({
-  components: {
-  },
-})
-export default class OrbitComponent extends Vue {
+@Component()
+export default class TankComponent extends Vue {
 
   $router: any;
   isLoading: boolean = false;
 
   @Prop() id!: string;
 
-  @State('orbitStore') orbitStore?: IOrbitState;
+  @State('tankStore') tankStore?: ITankState;
 
-  get orbit(): Orbit {
-    return (this.orbitStore && this.id) ?
-      this.orbitStore.orbits.find(o => o.id === this.id)
-      : new Orbit();
+  get tank(): Tank {
+    return (this.tankStore && this.id) ?
+      this.tankStore.tanks.find(t => t.id === this.id)
+      : new Tank();
   }
 
   close() {
-    this.$router.push({ name: 'orbit' });
+    this.$router.push({ name: 'tank' });
   }
 
   async mounted() {

@@ -1,7 +1,6 @@
-# Create a bucket, add a policy from a file, enable requester pays, enable versioning and tag
+# Create commandeer-tanks-history s3 bucket for saving tanks
 - s3_bucket:
     name: commandeer-tanks-history
-    policy: "{{ lookup('file','policy.json') }}"
     versioning: yes
     tags:
       DEPARTMENT: MACHINERY

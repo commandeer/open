@@ -1,7 +1,8 @@
-import { TankType } from './TankType';
+import { TankStatus, TankType } from './';
 
 export interface ITank {
   id?: string;
   name?: string;
-  tankType?: TankType;
+  status?: TankStatus;
+  type?: TankType;
 }
