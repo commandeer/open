@@ -1,4 +1,5 @@
 import { Tank } from './tank';
+import { IPosition } from './types/IPosition';
 
 const tanksLocal = require(`./tanks.json`);
 
@@ -14,6 +15,12 @@ export class TankService {
     }
   }
 
+  /**
+   * @description get a list of tanks
+   * @static
+   * @returns {Tank[]}
+   * @memberof TankService
+   */
   public static getTanks(): Tank[] {
     // if already cached, return the tanks
     if (this._tanks && this._tanks.length) {
