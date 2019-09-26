@@ -52,7 +52,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { State, Action, Getter } from 'vuex-class';
-import { ITankState, Tank } from '../types';
+import { ITankState, Tank } from '../stores/tankStore';
 
 const namespace: string = 'tankStore';
 
@@ -67,7 +67,7 @@ export default class TankComponent extends Vue {
   @State('tankStore') tankStore?: ITankState;
 
   get tank(): Tank {
-    return (this.tankStore && this.id) ?
+    return (this.tankStore && this.tankStore.tanks && this.id) ?
       this.tankStore.tanks.find(t => t.id === this.id)
       : new Tank();
   }

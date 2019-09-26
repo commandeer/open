@@ -1,6 +1,6 @@
 import { Battle } from './battle';
-import { BattleType, IPosition } from './types';
-import { Tank } from '../tanks/tank';
+import { BattleType, IPosition } from '.';
+import { Tank } from '../src/tanks/tank';
 
 export class BattleService {
 

@@ -41,7 +41,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { State, Action, Getter } from 'vuex-class';
-import { ITankState, Tank } from '../types';
+import { IBattleState, Battle } from '../stores/battleStore';
 
 const namespace: string = 'battleStore';
 
@@ -51,9 +51,7 @@ export default class BattleComponent extends Vue {
   $router: any;
   isLoading: boolean = false;
 
-  @Prop() id!: string;
-
-  @State('tankStore') tankStore?: ITankState;
+  @State('battleStore') battleStore?: IBattleState;
 
   get tank(): Tank {
     return (this.tankStore && this.id) ?

@@ -1,7 +1,6 @@
 import { Tank } from './tank';
-import { IPosition } from './types/IPosition';
 
-const tanksLocal = require(`./tanks.json`);
+const tanksLocal = require('../_mocks/tanks.json');
 
 export class TankService {
 
@@ -28,7 +27,7 @@ export class TankService {
     }
 
     // save the local json tanks file to the local _tanks array
-    this._tanks = tanksLocal.map(t => {
+    this._tanks = tanksLocal.map((t: Tank) => {
       return new Tank(t);
     });
 

@@ -1,5 +1,5 @@
-import { TankStatus, TankType } from './';
-import { ITrackable } from '../../_base/ITrackable';
+import { TankStatus, TankType } from '.';
+import { ITrackable } from '../_base/ITrackable';
 
 /**
  * @description represents the inteface for a tank
