@@ -5,7 +5,9 @@
  *   RETIRED - tank is ready for the museum
  */
 export enum TankStatus {
+
   OPERATIONAL = 'OPERATIONAL',
   INOPERABLE = 'INOPERABLE',
   RETIRED = 'RETIRED',
+
 }

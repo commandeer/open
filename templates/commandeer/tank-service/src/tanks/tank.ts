@@ -11,8 +11,8 @@ export class Tank implements ITank {
 
   public id?: string;
   public name?: string;
-  public status: TankStatus = TankStatus.OPERATIONAL;
-  public type: TankType = TankType.LIGHT;
+  public status?: TankStatus = TankStatus.OPERATIONAL;
+  public type?: TankType = TankType.LIGHT;
 
   public constructor(tank: ITank = tankSample) {
     this.id = (tank.id)

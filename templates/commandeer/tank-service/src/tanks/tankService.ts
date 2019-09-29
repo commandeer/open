@@ -1,6 +1,6 @@
 import { Tank } from './tank';
 
-const tanksLocal = require(`./tanks.json`);
+const tanksLocal = require('../_mocks/tanks.json');
 
 export class TankService {
 
@@ -14,6 +14,12 @@ export class TankService {
     }
   }
 
+  /**
+   * @description get a list of tanks
+   * @static
+   * @returns {Tank[]}
+   * @memberof TankService
+   */
   public static getTanks(): Tank[] {
     // if already cached, return the tanks
     if (this._tanks && this._tanks.length) {
@@ -21,7 +27,7 @@ export class TankService {
     }
 
     // save the local json tanks file to the local _tanks array
-    this._tanks = tanksLocal.map(t => {
+    this._tanks = tanksLocal.map((t: Tank) => {
       return new Tank(t);
     });
 

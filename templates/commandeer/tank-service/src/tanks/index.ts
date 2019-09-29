@@ -1,4 +1,5 @@
 export { ITank } from './ITank';
-export { ITankState } from './ITankState';
+export { Tank } from './tank';
+export { TankService } from './TankService';
 export { TankStatus } from './TankStatus';
 export { TankType } from './TankType';
