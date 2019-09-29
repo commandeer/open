@@ -82,12 +82,11 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { State, Action, Getter } from 'vuex-class';
-import { ITankState } from './types';
-import { Tank } from './tank';
+import { ITankState, Tank } from '../stores/tankStore';
 
 const namespace: string = 'tankStore';
 
-@Component()
+@Component
 export default class TankPage extends Vue {
 
   $t: any;
@@ -100,7 +99,7 @@ export default class TankPage extends Vue {
   @State('tankStore') tankStore?: ITankState;
 
   get tankViewMode(): boolean {
-    return (this.$route.name && ['tankDetail'].includes(this.$route.name));
+    return (this.$route.name && ['tankDetail'].includes(this.$route.name)) as boolean;
   }
 
   get headers(): any[] {
@@ -113,7 +112,7 @@ export default class TankPage extends Vue {
   }
 
   get tanks(): Tank[] | undefined {
-    return this.tanks
+    return this.tankStore
       ? this.tankStore.tanks
       : [];
   }
@@ -158,7 +157,7 @@ export default class TankPage extends Vue {
   }
 
   openDocs() {
-    shell.openExternal('https://getcommandeer.com/docs/openSource/submitService');
+    window.open('https://getcommandeer.com/docs/openSource/submitService');
   }
 
   async refreshClicked() {
@@ -184,7 +183,7 @@ export default class TankPage extends Vue {
     this.$router.push({
       name: 'tankDetail',
       params: {
-        id: tank.id,
+        id: tank.id as string,
       },
     });
   }
@@ -194,7 +193,7 @@ export default class TankPage extends Vue {
       this.isLoading = true;
       await this.fetchTanks();
     } catch (ex) {
-      this.logger.error(ex);
+      console.error(ex);
     } finally {
       this.isLoading = false;
     }

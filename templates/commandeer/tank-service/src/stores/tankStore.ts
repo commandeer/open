@@ -1,10 +1,16 @@
 import { ActionTree, GetterTree, Module, MutationTree } from 'vuex';
-import { TankService } from './tankService';
-import { IRootState } from '../../store';
-import { ITankState } from './types';
-import { Tank } from './tank';
+import { TankService } from '../tanks/tankService';
+import { IRootState } from '../store';
+import { Tank } from '../tanks/tank';
 
 const namespaced: boolean = true;
+
+export { Tank };
+
+export interface ITankState {
+  tanks?: Tank[];
+  error: boolean;
+};
 
 const state: ITankState = {
   tanks: [],
@@ -56,7 +62,7 @@ const mutations: MutationTree<ITankState> = {
 
 };
 
-export const ec2Store: Module<ITankState, IRootState> = {
+export const tankStore: Module<ITankState, IRootState> = {
   namespaced,
   state,
   getters,
