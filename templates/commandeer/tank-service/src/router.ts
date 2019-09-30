@@ -9,7 +9,21 @@ const router = new Router({
   routes: [{
     path: '/',
     name: 'home',
+    redirect: { name: 'tanksPage' },
+  }, {
+    path: '/tanks',
+    name: 'tanksPage',
     component: () => import('./tanks/TankPage.vue'),
+    children: [{
+      path: ':id/view',
+      name: 'tankDetail',
+      component: () => import('./tanks/TankComponent.vue') ,
+      props: true,
+    }],
+  }, {
+    path: '/battles',
+    name: 'battlePage',
+    component: () => import('./battles/BattlePage.vue'),
   }],
 });
 

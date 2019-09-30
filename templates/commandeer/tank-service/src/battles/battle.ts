@@ -1,5 +1,7 @@
 import { v4 as uuid } from 'uuid';
-import { BattleType, BattleStatus, IBattle } from '.';
+import { BattleStatus } from './BattleStatus';
+import { BattleType } from './BattleType';
+import { IBattle } from './IBattle';
 import { Tank } from '../tanks/tank';
 
 const battleSample: IBattle = {
@@ -13,10 +15,10 @@ export class Battle implements IBattle {
 
   // properties
   public id?: string;
-  public name: string;
-  public description: string;
-  public status: BattleStatus = BattleStatus.CREATED;
-  public type: BattleType = BattleType.ONE_ON_ONE;
+  public name?: string;
+  public description?: string;
+  public status?: BattleStatus = BattleStatus.CREATED;
+  public type?: BattleType = BattleType.ONE_ON_ONE;
 
   // relationships
   public opponents?: Tank[] = [];

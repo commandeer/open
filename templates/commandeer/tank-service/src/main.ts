@@ -1,21 +1,19 @@
+import App from './App.vue';
 import Vue from 'vue';
 import Vuetify from 'vuetify';
-import App from './App.vue';
+import './plugins/vuetify';
 import router from './router';
 import store from './store';
 import 'vuetify/dist/vuetify.min.css';
 import vuexI18n from 'vuex-i18n';
-import en from 'common/src/translations/en';
+import en from './translations/en';
 
 const VueHighlightJs = require('vue-highlightjs');
 
 Vue.config.productionTip = false;
 
-// @ts-ignore
 Vue.use(vuexI18n.plugin, store);
-// @ts-ignore
 Vue.i18n.add('en', en);
-// @ts-ignore
 Vue.i18n.set('en');
 
 Vue.use(Vuetify, {
