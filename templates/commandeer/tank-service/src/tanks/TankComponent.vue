@@ -56,7 +56,7 @@ import { ITankState, Tank } from '../stores/tankStore';
 
 const namespace: string = 'tankStore';
 
-@Component()
+@Component
 export default class TankComponent extends Vue {
 
   $router: any;

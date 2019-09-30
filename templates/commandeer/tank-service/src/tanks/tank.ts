@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid';
-import { ITank, TankStatus, TankType } from './types';
+import { ITank, TankStatus, TankType } from '.';
 
 const tankSample: ITank = {
   name: 'US Big Boy',
