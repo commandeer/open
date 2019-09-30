@@ -14,6 +14,12 @@ const router = new Router({
     path: '/tanks',
     name: 'tankPage',
     component: () => import('./tanks/TankPage.vue'),
+    children: [{
+      path: ':id/view',
+      name: 'tankDetail',
+      component: () => import('./tanks/TankComponent.vue') ,
+      props: true,
+    }],
   }, {
     path: '/battles',
     name: 'battlePage',

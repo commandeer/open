@@ -57,9 +57,10 @@
                   @click="selectedRow(props.item)"
                 >
                   <td>{{ props.item.id }}</td>
+
                   <td>{{ props.item.name }}</td>
-                  <td>{{ props.item.type }}</td>
-                  <td>{{ props.item.status }}</td>
+                  <td>{{ $t(props.item.type) }}</td>
+                  <td>{{ $t(props.item.status) }}</td>
                 </tr>
               </template>
             </v-data-table>

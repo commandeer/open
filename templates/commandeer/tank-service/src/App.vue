@@ -7,7 +7,6 @@
 
       <v-flex xs10 pl-2>
         <div>
-          <breadcrumbs />
           <router-view :key="$route.fullPath" />
         </div>
       </v-flex>
