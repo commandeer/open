@@ -9,7 +9,15 @@ const router = new Router({
   routes: [{
     path: '/',
     name: 'home',
+    redirect: { name: 'tankPage' },
+  }, {
+    path: '/tanks',
+    name: 'tankPage',
     component: () => import('./tanks/TankPage.vue'),
+  }, {
+    path: '/battles',
+    name: 'battlePage',
+    component: () => import('./battles/BattlePage.vue'),
   }],
 });
 
