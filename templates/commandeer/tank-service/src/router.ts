@@ -9,10 +9,10 @@ const router = new Router({
   routes: [{
     path: '/',
     name: 'home',
-    redirect: { name: 'tankPage' },
+    redirect: { name: 'tanksPage' },
   }, {
     path: '/tanks',
-    name: 'tankPage',
+    name: 'tanksPage',
     component: () => import('./tanks/TankPage.vue'),
     children: [{
       path: ':id/view',

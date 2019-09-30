@@ -79,7 +79,7 @@ export default class TankComponent extends Vue {
   }
 
   close() {
-    this.$router.push({ name: 'tank' });
+    this.$router.push({ name: 'tanksPage' });
   }
 
   async mounted() {

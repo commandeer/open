@@ -98,7 +98,7 @@ export default class SideNavigation extends Vue {
   get items() {
     return [{
       title: `${this.$t('tanks')}`,
-      to: { 'name': 'tankPage' },
+      to: { 'name': 'tanksPage' },
       active: true,
     }, {
       title: `${this.$t('battles')}`,
