@@ -66,7 +66,7 @@ export default class TankComponent extends Vue {
 
   @State('tankStore') tankStore?: ITankState;
 
-  get tank(): Tank {
+  get tank(): Tank | undefined {
     return (this.tankStore && this.tankStore.tanks && this.id) ?
       this.tankStore.tanks.find(t => t.id === this.id)
       : new Tank();
