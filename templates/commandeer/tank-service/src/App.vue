@@ -1,8 +1,14 @@
 <template>
   <v-app>
-    <v-layout>
-      <v-flex xs12>
-        <router-view :key="$route.fullPath" />
+    <v-layout row wrap id="app">
+      <v-flex xs2 color="grey darken-4">
+        <side-navigation />
+      </v-flex>
+
+      <v-flex xs10 pl-2>
+        <div>
+          <router-view :key="$route.fullPath" />
+        </div>
       </v-flex>
     </v-layout>
   </v-app>
@@ -10,8 +16,13 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import SideNavigation from '@/_base/SideNavigation.vue';
 
-@Component
+@Component({
+  components: {
+    SideNavigation,
+  }
+})
 export default class App extends Vue {
 
 }

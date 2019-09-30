@@ -19,7 +19,6 @@
     <v-card-actions>
       <v-layout row wrap>
         <v-flex shrink>
-          <v-icon>{{ tankStateIcon(tank.state) }}</v-icon>
         </v-flex>
         <v-flex mt-1 ml-2>
           {{ $t(tank.state) }}
@@ -35,14 +34,16 @@
           <h3>{{ $t('general_information') }}</h3>
           <v-divider class="mb-3" />
 
-          <p>{{ $t('id') }}: {{ tank.id }}
-          <p>{{ $t('type') }}: {{ tank.type }}
-          <p>{{ $t('status') }}: {{ tank.status }}
+          <attribute title="id" :value="tank.id" />
+          <attribute title="type" :value=" $t(tank.type)" />
+          <attribute title="status" :value="$t(tank.status)" />
 
           <h3>{{ $t('raw_data') }}</h3>
           <v-divider class="mb-3" />
 
-          <pre>{{ tank }}</pre>
+          <code class="pl-2 accent-text" style="width: 100%">
+  {{ tank }}
+          </code>
         </v-flex>
       </v-layout>
     </v-card-text>
@@ -52,11 +53,16 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { State, Action, Getter } from 'vuex-class';
+import Attribute from '../_base/Attribute.vue';
 import { ITankState, Tank } from '../stores/tankStore';
 
 const namespace: string = 'tankStore';
 
-@Component()
+@Component({
+  components: {
+    Attribute,
+  },
+})
 export default class TankComponent extends Vue {
 
   $router: any;
@@ -66,14 +72,14 @@ export default class TankComponent extends Vue {
 
   @State('tankStore') tankStore?: ITankState;
 
-  get tank(): Tank {
+  get tank(): Tank | undefined {
     return (this.tankStore && this.tankStore.tanks && this.id) ?
       this.tankStore.tanks.find(t => t.id === this.id)
       : new Tank();
   }
 
   close() {
-    this.$router.push({ name: 'tank' });
+    this.$router.push({ name: 'tanksPage' });
   }
 
   async mounted() {

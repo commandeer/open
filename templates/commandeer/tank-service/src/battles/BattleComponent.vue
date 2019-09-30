@@ -42,22 +42,17 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { State, Action, Getter } from 'vuex-class';
 import { IBattleState, Battle } from '../stores/battleStore';
+import { Tank } from '../stores/tankStore';
 
 const namespace: string = 'battleStore';
 
-@Component()
+@Component
 export default class BattleComponent extends Vue {
 
   $router: any;
   isLoading: boolean = false;
 
   @State('battleStore') battleStore?: IBattleState;
-
-  get tank(): Tank {
-    return (this.tankStore && this.id) ?
-      this.tankStore.tanks.find(t => t.id === this.id)
-      : new Tank();
-  }
 
   close() {
     this.$router.push({ name: 'tank' });
