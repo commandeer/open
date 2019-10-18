@@ -34,7 +34,7 @@ export default class AppFooter extends Vue {
 
   get items(): any[] {
     const items = [
-      { name: 'home', to: 'homePage' },
+      { name: 'dashboard', to: 'homePage' },
       { name: 'docs', to: 'docsPage' },
     ];
 
@@ -43,7 +43,7 @@ export default class AppFooter extends Vue {
 
   get links(): any[] {
     const items = [
-      { name: 'github_repo', to: 'https://github.com/commandeer/open/tree/development/templates/commandeer/tank-service' },
+      { name: 'github_repo', to: 'https://github.com/commandeer/open/tree/development/templates/commandeer/website' },
     ];
 
     return items;
