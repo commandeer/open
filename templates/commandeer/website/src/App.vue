@@ -1,5 +1,9 @@
 <template>
-  <v-app>
+  <v-app :dark="isDarkMode">
+    <app-header
+      @darkModeChanged="onDarkModeChanged"
+     />
+
     <v-layout row wrap id="app">
       <v-flex xs2 color="grey darken-4">
         <side-navigation />
@@ -11,19 +15,37 @@
         </div>
       </v-flex>
     </v-layout>
+
+    <app-footer />
   </v-app>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
+import AppFooter from '@/_base/AppFooter.vue';
+import AppHeader from '@/_base/AppHeader.vue';
 import SideNavigation from '@/_base/SideNavigation.vue';
 
 @Component({
   components: {
+    AppFooter,
+    AppHeader,
     SideNavigation,
   }
 })
 export default class App extends Vue {
+
+  isDarkMode: boolean = false;
+
+  @Watch('isDarkMode')
+  onDarkModeChanged(mode: boolean) {
+    this.isDarkMode = mode;
+  }
+
+  mounted() {
+    const mode = localStorage.getItem('isDarkMode');
+    this.isDarkMode = (!mode || mode === "true");
+  }
 
 }
 </script>
