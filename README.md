@@ -7,7 +7,7 @@ Welcome to the Commandeer Open Source Project.
 A demo application for help in creating a service to run in Commandeer
 
 - [Submit a Service Docs](https://getcommandeer.com/docs/openSource/submitService)
-- [Demo Website](https://commandeer-open-source-demo.firebaseapp.com/tanks)
+- [Tank Demo Website](https://tanks.getcommandeer.com)
 - [Code and Readme](https://github.com/commandeer/open/tree/development/templates/commandeer/website)
 
 ![Tank Service Animation](https://commander-development-images.s3.amazonaws.com/tank-service-2.gif)
