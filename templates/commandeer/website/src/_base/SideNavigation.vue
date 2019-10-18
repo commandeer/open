@@ -1,7 +1,23 @@
 <template>
   <v-navigation-drawer permanent>
     <v-list expand dense >
-      <v-divider />
+      <!-- top section -->
+      <v-list-tile v-for="item in topSectionItems"
+        :key="item.title"
+        avatar
+        :href="item.to"
+        target="_blank"
+      >
+        <v-list-tile-content>
+          <v-list-tile-title>
+            {{ $t(item.title) }}
+          </v-list-tile-title>
+        </v-list-tile-content>
+
+        <v-list-tile-avatar>
+          <v-icon>open_in_new</v-icon>
+        </v-list-tile-avatar>
+      </v-list-tile>
 
       <!-- top level grouping -->
       <v-list-group
@@ -97,6 +113,10 @@ export default class SideNavigation extends Vue {
 
   get items() {
     return [{
+      title: `${this.$t('dashboard')}`,
+      to: { 'name': 'homePage' },
+      active: true,
+    }, {
       title: `${this.$t('tanks')}`,
       to: { 'name': 'tanksPage' },
       active: true,
@@ -105,6 +125,14 @@ export default class SideNavigation extends Vue {
       to: { 'name': 'battlePage' },
       active: true,
     }];
+  }
+
+  get topSectionItems() {
+    return [
+      { title: 'docs', to: 'https://getcommandeer.com/docs' },
+      { title: 'github_repo', to: 'https://github.com/commandeer/open/tree/development/templates/commandeer/website' },
+      { title: 'submit_a_service', to: 'https://getcommandeer.com/docs/openSource/submitService' },
+    ];
   }
 
   async mounted() {}

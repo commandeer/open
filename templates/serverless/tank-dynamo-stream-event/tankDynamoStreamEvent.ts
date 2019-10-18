@@ -1,5 +1,5 @@
 import { Context, Handler } from 'aws-lambda';
-import { Tank } from '../../commandeer/tank-service/tanks/tank';
+import { Tank } from '../../commandeer/website/src/tanks/tank';
 
 interface Record {
   messageId: string;
