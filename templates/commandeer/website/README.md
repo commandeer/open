@@ -2,7 +2,11 @@
 
 This website is an example of how to build a Commandeer Service.  It consists of a fictitious tank and battle service.  These serve as the building blocks for how you could submit a service to Commandeer to have it integrated into the system.
 
-[Submit a Service Instructions](https://getcommandeer.com/docs/openSource/submitService)
+If you would like to make any enhancements to this, simply submit a PR to develoment, and one of our teammates will git it merged.
+
+- [Submit Issues](https://github.com/commandeer/open/issues)
+- [Submit a Service to Commandeer Instructions](https://getcommandeer.com/docs/openSource/submitService)
+
 
 ![Tank Service Animation](https://commander-development-images.s3.amazonaws.com/tank-service-2.gif)
 > Tank Service running on http://localhost:8081 after running `yarn install && yarn serve`

@@ -9,6 +9,7 @@ const enLang = {
   RETIRED: 'Retired',
 
   battles: 'Battles',
+  commandeer: 'Commandeer',
   dashboard: 'Dashboard',
   dark_mode: 'Dark Mode',
   docs: 'Docs',

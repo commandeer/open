@@ -99,7 +99,7 @@ export default class AppHeader extends Vue {
   isDarkMode: boolean = false;
 
   get items(): any[] {
-    const items = [
+    const items: any[] = [
       /*{ icon: 'library_books', name: 'docs', to: 'docsPage' },*/
     ];
 
