@@ -5,7 +5,7 @@ This website is an example of how to build a Commandeer Service.  It consists of
 If you would like to make any enhancements to this, simply submit a PR to develoment, and one of our teammates will git it merged.
 
 ## Important Links
-- [Tank Demo](https://commandeer-open-source-demo.firebaseapp.com/tanks)
+- [Tank Demo Website](https://tanks.getcommandeer.com)
 - [Submit Issues](https://github.com/commandeer/open/issues)
 - [Submit a Service to Commandeer Instructions](https://getcommandeer.com/docs/openSource/submitService)
 - [Vue Cli Configuration Reference](https://cli.vuejs.org/config/)
