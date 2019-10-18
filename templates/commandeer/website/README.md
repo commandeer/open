@@ -4,6 +4,9 @@ This website is an example of how to build a Commandeer Service.  It consists of
 
 [Submit a Service Instructions](https://getcommandeer.com/docs/openSource/submitService)
 
+![Tank Service Animation](https://commander-development-images.s3.amazonaws.com/tank-service.gif)
+> Tank Service running on http://localhost:8081 after running `yarn install && yarn serve`
+
 ## Project setup
 ```
 yarn install
