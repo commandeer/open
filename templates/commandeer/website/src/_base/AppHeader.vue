@@ -5,7 +5,7 @@
     >
       <v-layout row align-center>
         <v-img width="50" :src="appIcon" @click="gotoHome" class="appIcon" />
-        <h2 class="mt-3 ml-1" v-if="$vuetify.breakpoint.mdAndUp">{{ $t('commandeer') }}</h2>
+        <h2 class="mt-3 ml-1" v-if="$vuetify.breakpoint.mdAndUp">{{ $t('commandeer_open_source_demo') }}</h2>
       </v-layout>
     </v-toolbar-title>
 

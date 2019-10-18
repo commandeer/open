@@ -10,7 +10,7 @@
       </v-flex>
 
       <v-flex xs10 pl-2>
-        <div>
+        <div class="mt-2">
           <router-view :key="$route.fullPath" />
         </div>
       </v-flex>

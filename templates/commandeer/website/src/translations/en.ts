@@ -10,6 +10,7 @@ const enLang = {
 
   battles: 'Battles',
   commandeer: 'Commandeer',
+  commandeer_open_source_demo: 'Commandeer Tank Demo',
   dashboard: 'Dashboard',
   dark_mode: 'Dark Mode',
   docs: 'Docs',
@@ -20,6 +21,7 @@ const enLang = {
   id: 'Id',
   more_links: 'More Links',
   name: 'Name',
+  no_tanks: 'No Tanks',
   raw_data: 'Raw Data',
   status: 'Status',
   submit_a_service: 'Submit a Service',
