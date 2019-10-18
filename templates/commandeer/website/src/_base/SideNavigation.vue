@@ -130,6 +130,7 @@ export default class SideNavigation extends Vue {
   get topSectionItems() {
     return [
       { title: 'docs', to: 'https://getcommandeer.com/docs' },
+      { title: 'github_repo', to: 'https://github.com/commandeer/open/tree/development/templates/commandeer/website' },
       { title: 'submit_a_service', to: 'https://getcommandeer.com/docs/openSource/submitService' },
     ];
   }
