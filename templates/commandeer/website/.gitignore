@@ -6,6 +6,9 @@ yarn-debug.log*
 yarn-error.log*
 firebase-debug.log*
 
+# distribution folder
+dist/
+
 # Firebase cache
 .firebase/
 
