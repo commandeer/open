@@ -1,5 +1,7 @@
 <template>
-  <v-footer v-if="$vuetify.breakpoint.mdAndUp"style="height: 320px;">
+  <v-footer v-if="$vuetify.breakpoint.mdAndUp"
+    style="height: 320px;"
+  >
     <v-layout justify-center row>
       <v-flex xs12 md2>
         <h3 class="mb-2">{{ $t('general_information') }}</h3>
