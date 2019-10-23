@@ -7,7 +7,7 @@
         <v-img width="50" :src="appIcon" @click="gotoHome" class="appIcon" />
 
         <h2 class="mt-3 ml-1" v-if="$vuetify.breakpoint.mdAndUp">{{ $t('commandeer_open_source_demo_title') }}</h2>
-        <p class="mt-5 ml-1 subtitle" v-if="$vuetify.breakpoint.mdAndUp">-  {{ $t('commandeer_open_source_demo_description') }}</p>
+        <h4 class="mt-4 ml-1" v-if="$vuetify.breakpoint.mdAndUp">-  {{ $t('commandeer_open_source_demo_description') }}</h4>
       </v-layout>
     </v-toolbar-title>
 
@@ -138,9 +138,4 @@ export default class AppHeader extends Vue {
 
 .pointer
   cursor: pointer;
-
-.subtitle
-  font-size: 18px;
-  font-weight: medium;
-  padding-left: 9px;
 </style>
