@@ -1,5 +1,5 @@
 {
-  "name": "tank-s3-file-created-event",
+  "name": "tank-serverless-setup",
   "author": "commandeer",
   "license": "MIT",
   "main": "handlers/index",
