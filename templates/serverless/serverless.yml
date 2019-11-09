@@ -15,10 +15,13 @@ plugins:
 functions:
 
   # Dynamo Streams
-  tankDynamoStreamEvent: ${file(./handlers/dynamo-streams/tankDynamoStreamEvent.yml):tankDynamoStreamEvent}
+  tankDynamoStreamEvent: ${file(./handlers/dynamo-streams/tankDynamoStreamHandler.yml):tankDynamoStreamHandler}
 
   # S3 Events
-  tankS3FileCreatedEvent: ${file(./handlers/s3/tankS3FileCreatedEvent.yml):tankS3FileCreatedEvent}
+  tankS3FileCreatedEvent: ${file(./handlers/s3/tankS3FileCreatedHandler.yml):tankS3FileCreatedHandler}
 
   # SQS Events
-  tankSqsMessageReceiveEvent: ${file(./handlers/sqs/tankSqsMessageReceiveEvent.yml):tankSqsMessageReceiveEvent}
+  tankSqsMessageReceiveEvent: ${file(./handlers/sqs/tankSqsMessageReceivedHandler.yml):tankSqsMessageReceivedHandler}
+
+custom:
+  tanksBucket: ${self:service}-${self:provider.stage}-tanks
