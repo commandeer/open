@@ -20,7 +20,7 @@ interface ITankMessage {
  * @param {Context} context context object
  * @returns {boolean} status
  */
-const handleMessage: Handler = async (event: SqsEvent, context: Context) => {
+const process: Handler = async (event: SqsEvent, context: Context) => {
   console.log('tankSqsMessageReceivedEvent.handleMessage', { event, context });
 
   try {
@@ -35,4 +35,4 @@ const handleMessage: Handler = async (event: SqsEvent, context: Context) => {
   }
 };
 
-export { handleMessage };
+export { process };

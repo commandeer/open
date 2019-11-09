@@ -6,7 +6,7 @@ import { Context, Handler, S3CreateEvent } from 'aws-lambda';
  * @param {Context} context context object
  * @returns {boolean} status
  */
-const handleFile: Handler = async (event: S3CreateEvent, context: Context) => {
+const process: Handler = async (event: S3CreateEvent, context: Context) => {
   console.log('tankS3FileCreatedEvent.handleFile', { event, context });
 
   try {
@@ -19,4 +19,4 @@ const handleFile: Handler = async (event: S3CreateEvent, context: Context) => {
   }
 };
 
-export { handleFile };
+export { process };
