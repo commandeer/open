@@ -11,6 +11,7 @@ provider:
 
 plugins:
   - serverless-plugin-typescript
+  - serverless-localstack
 
 functions:
 
@@ -25,3 +26,26 @@ functions:
 
 custom:
   tanksBucket: ${self:service}-${self:provider.stage}-tanks
+  localstack:
+    stages:
+      # list of stages for which the plugin should be enabled
+      - local
+    host: http://localhost  # optional - LocalStack host to connect to
+    autostart: true  # optional - start LocalStack in Docker on Serverless deploy
+    endpoints:
+      # This section is optional - can be used for customizing the target endpoints
+      S3: http://localhost:4572
+      DynamoDB: http://localhost:4570
+      CloudFormation: http://localhost:4581
+      Elasticsearch: http://localhost:4571
+      ES: http://localhost:4578
+      SNS: http://localhost:4575
+      SQS: http://localhost:4576
+      Lambda: http://localhost:4574
+      Kinesis: http://localhost:4568
+    lambda:
+      # Enable this flag to improve performance
+      mountCode: True
+    docker:
+      # Enable this flag to run "docker ..." commands as sudo
+      sudo: False
