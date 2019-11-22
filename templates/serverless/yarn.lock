@@ -1126,18 +1126,18 @@ semver@^6.1.1:
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.0.tgz#ee0a64c8af5e8ceea67687b133761e1becbd1d3d"
   integrity sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==
 
-serverless-localstack@0.4.19:
-  version "0.4.19"
-  resolved "https://registry.yarnpkg.com/serverless-localstack/-/serverless-localstack-0.4.19.tgz#b99dc4bfd3547bb0a43e1f769f964d05379f5211"
-  integrity sha512-RVJQbrB7I6PCzKpi33YBWUaxgMgc5wFJ6InGB02lLT0I3T/C8x6cOOfLHiLZ64FGsAu1w4WMku/qEHXlqvuSCA==
+serverless-localstack@0.4.21:
+  version "0.4.21"
+  resolved "https://registry.yarnpkg.com/serverless-localstack/-/serverless-localstack-0.4.21.tgz#bf47d50e1232cf57a5677156d1c31e092c7cb0cf"
+  integrity sha512-bCqRSXOciUdVYVDqyugxsuYqfpBFQYZpDkZaGhHNkyhq/auUcf3xJ9bipUjkepu2LoqqBCH++KORlVuqvf5X8Q==
   dependencies:
     aws-sdk "^2.402.0"
     es6-promisify "6.0.1"
 
-serverless-plugin-typescript@1.1.9:
-  version "1.1.9"
-  resolved "https://registry.yarnpkg.com/serverless-plugin-typescript/-/serverless-plugin-typescript-1.1.9.tgz#75348a93f3f5dae19aad7006d51a545618892028"
-  integrity sha512-OmZrD1uArNx+1MPrXck39zsa76k/H7QYOOAg/Uz9xpLGJPUsvW0pXRSE9NN7LRid6IuM/WpY3VWkD5DPusY4cA==
+serverless-plugin-typescript@1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/serverless-plugin-typescript/-/serverless-plugin-typescript-1.1.7.tgz#a26bee076bf9b091c3be0e0fef17de551bf58079"
+  integrity sha512-5kBas1x2elOwc4Ov2vhxBv0gffUQALOGVNmsIrCjPx7qQ93SPD8rccyQDrNVMWMAj4ziFH/dr5UcW+53V/N4Tw==
   dependencies:
     fs-extra "^7.0.1"
     globby "^9.2.0"
