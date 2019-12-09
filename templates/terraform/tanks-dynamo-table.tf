@@ -1,4 +1,4 @@
-resource "aws_dynamodb_table" "basic-dynamodb-table" {
+resource "aws_dynamodb_table" "tank" {
   name           = "Tank"
   billing_mode   = "PROVISIONED"
   read_capacity  = 20
