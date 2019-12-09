@@ -10,21 +10,6 @@ resource "aws_dynamodb_table" "tank" {
     type = "S"
   }
 
-  attribute {
-    name = "name"
-    type = "S"
-  }
-
-  attribute {
-    name = "type"
-    type = "S"
-  }
-
-  attribute {
-    name = "status"
-    type = "S"
-  }
-
   tags = {
     DEPARTMENT  = "MACHINERY"
     ENVIRONMENT = "DEV"
