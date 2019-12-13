@@ -1,0 +1,24 @@
+service: commandeer-tanks
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  memorySize: 256
+  region: us-west-1
+  stage: ${opt:stage, 'development'}
+  timeout: 30
+  versionFunctions: false
+
+plugins:
+  - serverless-plugin-typescript
+
+functions:
+
+  # Dynamo Streams
+  tankDynamoStreamEvent: ${file(./handlers/dynamo-streams/tankDynamoStreamEvent.yml):tankDynamoStreamEvent}
+
+  # S3 Events
+  tankS3FileCreatedEvent: ${file(./handlers/s3/tankS3FileCreatedEvent.yml):tankS3FileCreatedEvent}
+
+  # SQS Events
+  tankSqsMessageReceiveEvent: ${file(./handlers/sqs/tankSqsMessageReceiveEvent.yml):tankSqsMessageReceiveEvent}

@@ -10,7 +10,8 @@ const enLang = {
 
   battles: 'Battles',
   commandeer: 'Commandeer',
-  commandeer_open_source_demo: 'Commandeer Tank Demo',
+  commandeer_open_source_demo_title: 'Battle Tanks',
+  commandeer_open_source_demo_description: 'The Commandeer Open Source Tank Demo',
   dashboard: 'Dashboard',
   dark_mode: 'Dark Mode',
   docs: 'Docs',

@@ -1,5 +1,5 @@
-tankS3FileCreatedEvent:
-  handler: tankS3FileCreatedEvent.handleFile
+tankS3FileCreatedHandler:
+  handler: tankS3FileCreatedHandler.process
   timeout: 900
   tags:
     DEPARTMENT: MACHINERY

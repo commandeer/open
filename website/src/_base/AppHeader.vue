@@ -1,11 +1,13 @@
 <template>
-  <v-toolbar>
+  <v-toolbar :color="backgroundColor">
     <v-toolbar-title
       class="font-weight-thin"
     >
       <v-layout row align-center>
         <v-img width="50" :src="appIcon" @click="gotoHome" class="appIcon" />
-        <h2 class="mt-3 ml-1" v-if="$vuetify.breakpoint.mdAndUp">{{ $t('commandeer_open_source_demo') }}</h2>
+
+        <h2 class="mt-3 ml-1" v-if="$vuetify.breakpoint.mdAndUp">{{ $t('commandeer_open_source_demo_title') }}</h2>
+        <h4 class="mt-4 ml-1" v-if="$vuetify.breakpoint.mdAndUp">-  {{ $t('commandeer_open_source_demo_description') }}</h4>
       </v-layout>
     </v-toolbar-title>
 
@@ -98,6 +100,10 @@ export default class AppHeader extends Vue {
   appIcon: string = 'https://commander-development-images.s3-us-west-1.amazonaws.com/commandeer-logo.png';
   isDarkMode: boolean = false;
 
+  get backgroundColor() {
+    return (this.$vuetify.dark) ? 'black' : 'white';
+  }
+
   get items(): any[] {
     const items: any[] = [
       /*{ icon: 'library_books', name: 'docs', to: 'docsPage' },*/
@@ -128,5 +134,8 @@ export default class AppHeader extends Vue {
 
 <style lang="stylus" scoped>
 .appIcon
+  cursor: pointer;
+
+.pointer
   cursor: pointer;
 </style>
