@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+
+  #  container for serverless
+  #    entrypoint: ansible-runner
+  ansible-runner:
+    container_name: commandeer-ansible-runner
+    image: ansible/ansible-runner:1.4.4
+
+  #  container for localstack
+  #    entrypoint: localstack
+  localstack:
+    container_name: commandeer-localstack
+    image: localstack/localstack:0.10.6
+    ports:
+      - "4567-4597:4567-4597"
+      - "${PORT_WEB_UI-8080}:${PORT_WEB_UI-8080}"
+    environment:
+      - SERVICES=${SERVICES- }
+      - DEBUG=${DEBUG- }
+      - DATA_DIR=${DATA_DIR- }
+      - PORT_WEB_UI=${PORT_WEB_UI- }
+      - LAMBDA_EXECUTOR=${LAMBDA_EXECUTOR- }
+      - KINESIS_ERROR_PROBABILITY=${KINESIS_ERROR_PROBABILITY- }
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - "${TMPDIR:-/tmp/localstack}:/tmp/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
+  #  container for serverless
+  #    entrypoint: serverless
+  serverless:
+    container_name: commandeer-serverless
+    image: softinstigate/serverless:1.59.0
+
+  #  container for terraform
+  #    entrypoint: terraform
+  terraform:
+    container_name: commandeer-terraform
+    image: hashicorp/terraform:0.12.18
+
