@@ -1,0 +1,10 @@
+export enum BattleStatus {
+
+  CREATED = 'CREATED',
+  STARTING = 'STARTING',
+  IN_PROGRESS = 'IN_PROGRESS',
+
+  CANCELLED = 'CANCELLED',
+  COMPLETED = 'COMPLETED',
+
+}

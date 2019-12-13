@@ -1,9 +1,0 @@
-[
-  { "name": "British Mark 1", "type": "HEAVY", "status": "RETIRED" },
-  { "name": "Tank, Medium Mark A", "type": "MEDIUM", "status": "RETIRED" },
-  { "name": "Renault FT", "type": "LIGHT", "status": "OPERATIONAL" },
-  { "name": "Char 2C", "type": "SUPER_HEAVY", "status": "OPERATIONAL" },
-  { "name": "PT-76", "type": "LIGHT", "status": "OPERATIONAL" },
-  { "name": "FV101 Scorpion", "type": "LIGHT", "status": "OPERATIONAL" },
-  { "name": "FV107 Scimitar", "tßype": "LIGHT", "status": "OPERATIONAL" }
-]
