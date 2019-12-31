@@ -1,12 +1,11 @@
 tankSqsMessageReceivedHandler:
-  handler: tankSqsMessageReceivedHandler.handleMessage
+  handler: handlers/sqs/tankSqsMessageReceivedHandler.handleMessage
   timeout: 900
   tags:
     DEPARTMENT: MACHINERY
     ENVIRONMENT: DEV
 
   events:
-    events:
-      - sqs:
+    - sqs:
         arn: arn:aws:sqs:*:*:TANK_CREATED
         batchSize: 10

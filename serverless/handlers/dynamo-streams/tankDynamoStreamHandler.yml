@@ -1,5 +1,5 @@
 tankDynamoStreamHandler:
-  handler: tankDynamoStreamHandler.process
+  handler: handlers/dynamo-streams/tankDynamoStreamHandler.process
   timeout: 900
   tags:
     DEPARTMENT: MACHINERY
@@ -12,4 +12,3 @@ tankDynamoStreamHandler:
       startingPosition: LATEST
       tableName: Tank
       arn: { Fn::GetAtt: [ Tank, StreamArn ] }
-

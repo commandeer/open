@@ -18,7 +18,8 @@
     "chai-shallow-deep-equal": "1.4.6",
     "lambda-tester": "3.6.0",
     "mocha": "5.2.0",
-    "serverless-plugin-typescript": "1.1.9",
+    "serverless-plugin-typescript": "1.1.7",
+    "serverless-localstack": "0.4.21",
     "ts-node": "8.1.0",
     "typescript": "3.6.4"
   }

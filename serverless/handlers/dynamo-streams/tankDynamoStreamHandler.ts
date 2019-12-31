@@ -1,5 +1,4 @@
 import { Context, Handler } from 'aws-lambda';
-import { Tank } from '../../../commandeer/website/src/tanks/tank';
 
 interface Record {
   messageId: string;
@@ -22,7 +21,7 @@ const process: Handler = async (event: DynamoStreamEvent, context: Context) => {
 
   try {
     for (const record of event.Records) {
-      const tank = JSON.parse(record.body) as Tank;
+      const tank = JSON.parse(record.body);
       console.log(tank);
     }
 
