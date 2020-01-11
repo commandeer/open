@@ -1,4 +1,4 @@
-import { TankStatus, TankType } from '.';
+import { TankStatus, TankType } from '../tanks';
 import { ITrackable } from '../_base/ITrackable';
 
 /**
