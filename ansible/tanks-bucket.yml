@@ -1,7 +1,9 @@
-# Create commandeer-tanks s3 bucket for saving tanks
-- s3_bucket:
-    name: commandeer-tanks
-    versioning: yes
-    tags:
-      DEPARTMENT: MACHINERY
-      ENVIRONMENT: DEV
+- hosts: localhost
+  tasks:
+    - name: Create the S3 Tanks bucket
+      s3_bucket:
+        name: commandeer-tanks-test
+        versioning: yes
+        tags:
+          name: Tanks
+          type: demo
