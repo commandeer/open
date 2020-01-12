@@ -12,6 +12,7 @@ provider:
 plugins:
   - serverless-plugin-typescript
   - serverless-localstack
+  - serverless-dynamo-stream-plugin
 
 functions:
 

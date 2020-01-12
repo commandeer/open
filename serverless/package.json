@@ -18,6 +18,7 @@
     "chai-shallow-deep-equal": "1.4.6",
     "lambda-tester": "3.6.0",
     "mocha": "5.2.0",
+    "serverless-dynamo-stream-plugin": "0.0.2",
     "serverless-plugin-typescript": "1.1.7",
     "serverless-localstack": "0.4.21",
     "ts-node": "8.1.0",
