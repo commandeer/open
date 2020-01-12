@@ -13,7 +13,7 @@ const process: Handler = async (event: S3CreateEvent, context: Context) => {
     const fileName: string = decodeURIComponent(event.Records[0].s3.object.key);
     console.log(fileName);
 
-    context.succeed(status);
+    context.succeed(true);
   } catch (exception) {
     context.fail(exception);
   }

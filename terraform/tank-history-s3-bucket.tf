@@ -1,4 +1,4 @@
-resource "aws_s3_bucket" "b" {
+resource "aws_s3_bucket" "commandeer-tanks-history" {
   bucket = "commandeer-tanks-history"
   acl    = "private"
 
