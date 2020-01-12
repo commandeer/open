@@ -20,7 +20,7 @@ class ServerlessDynamoStreamPlugin {
 
     // set the plugin to be runnable as a command
     this.commands = {
-      dynamoStream: {
+      'dynamo-stream': {
         usage: 'Creates and connects DynamoDB streams for pre-existing tables with AWS Lambdas',
         lifecycleEvents: ['create', 'connect'],
       },
