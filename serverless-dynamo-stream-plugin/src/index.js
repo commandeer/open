@@ -3,6 +3,7 @@
 const aws = require('aws-sdk');
 
 class ServerlessDynamoStreamPlugin {
+
   constructor(serverless, options) {
     // serverless parameters
     this.serverless = serverless;
