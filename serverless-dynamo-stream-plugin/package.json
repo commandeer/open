@@ -4,9 +4,13 @@
   "description": "Creates and connects DynamoDB streams for pre-existing tables with AWS Lambdas using Serverless",
   "main": "src/index.js",
   "repository": "https://github.com/commandeer/open/tree/development/serverless-dynamo-stream-plugin",
+  "homepage": "https://github.com/commandeer/open/tree/development/serverless-dynamo-stream-plugin",
+  "bugs": "https://github.com/commandeer/open/projects/3",
   "author": "Alex Tamoykin from Commandeer | https://getcommandeer.com",
+  "keywords": ["AWS", "Serverless", "Dynamo DB", "Commandeer", "Lambda", "DynamoDB Stream", "Dynamo Stream", "Dynamo"],
   "license": "MIT",
   "private": false,
+
   "devDependencies": {
     "@types/aws-sdk": "2.7.0"
   }
