@@ -1,6 +1,6 @@
 import { ActionTree, GetterTree, Module, MutationTree } from 'vuex';
 import { IRootState } from '../store';
-import { Battle, BattleService } from '../battles';
+import { Battle, BattleService } from '.';
 
 const namespaced: boolean = true;
 
