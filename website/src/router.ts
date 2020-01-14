@@ -11,6 +11,16 @@ const router = new Router({
     name: 'home',
     redirect: { name: 'tanksPage' },
   }, {
+    path: '/personnel',
+    name: 'personnelPage',
+    component: () => import('./personnel/PersonnelPage.vue'),
+    children: [{
+      path: ':id/view',
+      name: 'personnelDetail',
+      component: () => import('./personnel/PersonnelComponent.vue') ,
+      props: true,
+    }],
+  }, {
     path: '/tanks',
     name: 'tanksPage',
     component: () => import('./tanks/TankPage.vue'),

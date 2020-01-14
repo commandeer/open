@@ -1,94 +1,18 @@
 <template>
   <v-layout row wrap>
-    <v-flex xs12>
-      <h1>
-        <v-layout row wrap>
-          {{ $t('tanks') }}
-
-          <v-flex shrink>
-            <v-btn small icon flat color="primary"
-              :loading="isLoading"
-              @click="refreshClicked"
-            >
-              <v-icon>refresh</v-icon>
-            </v-btn>
-          </v-flex>
-
-          <v-flex shrink>
-            <v-btn color="primary" outline small
-              @click="openDocs"
-            >
-              <v-icon class="mr-2">library_books</v-icon>
-              {{ $t('docs') }}
-            </v-btn>
-          </v-flex>
-        </v-layout>
-      </h1>
-    </v-flex>
-
-    <v-flex xs12 pr-2>
-      <v-layout row wrap>
-        <v-flex shrink>
-          <v-text-field
-            :label="$t('filter_with_dots')"
-            append-icon="search"
-            :hint="searchHint"
-            :persistent-hint="true"
-            v-model="filter"
-          />
-        </v-flex>
-      </v-layout>
-
-      <v-layout row wrap>
-        <v-flex :class="{ 'md7': tankViewMode, 'md12': !tankViewMode }" pr-2>
-          <v-card>
-            <v-data-table
-              :loading="isLoading"
-              :headers="headers"
-              :items="filteredTanks"
-              :no-data-text="$t('no_tanks')"
-              :rows-per-page-items="[10, 25, 50]"
-              class="elevation-1"
-            >
-              <template slot="items" slot-scope="props">
-                <tr
-                  :id="`tankRow-${props.item.id}`"
-                  class="pointer"
-                  @click="selectedRow(props.item)"
-                >
-                  <td>{{ props.item.id }}</td>
-
-                  <td>{{ props.item.name }}</td>
-                  <td>{{ $t(props.item.type) }}</td>
-                  <td>{{ $t(props.item.status) }}</td>
-                </tr>
-              </template>
-            </v-data-table>
-          </v-card>
-        </v-flex>
-
-        <!-- show the tank to the right hand side on a medium and up screen
-             otherwise show it in a full screen dialog -->
-        <v-flex md5 pr-2 v-if="$vuetify.breakpoint.mdAndUp && tankViewMode">
-          <router-view :key="$route.fullPath" />
-        </v-flex>
-        <v-dialog v-else fullscreen v-model="tankViewMode">
-          <router-view :key="$route.fullPath" />
-        </v-dialog>
-      </v-layout>
-    </v-flex>
+    <h1>Personnel</h1>
   </v-layout>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { State, Action, Getter } from 'vuex-class';
-import { ITankState, Tank } from './tankStore';
+import { ITankState, Tank } from '../stores/tankStore';
 
-const namespace: string = 'tankStore';
+const namespace: string = 'battleStore';
 
 @Component
-export default class TankPage extends Vue {
+export default class BattlePage extends Vue {
 
   $t: any;
   filter: string = '';
