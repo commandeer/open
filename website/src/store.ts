@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex, { StoreOptions } from 'vuex';
 import  { battleStore } from './battles/battleStore';
 import  { tankStore } from './tanks/tankStore';
-import  { teamStore } from './teams/teamStore';
+import  { userStore } from './users/userStore';
 
 export interface IRootState {
   version: string;
@@ -17,7 +17,7 @@ const store: StoreOptions<IRootState> = {
   modules: {
     battleStore,
     tankStore,
-    teamStore,
+    userStore,
   },
 };
 
