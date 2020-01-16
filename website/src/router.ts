@@ -13,11 +13,11 @@ const router = new Router({
   }, {
     path: '/team',
     name: 'teamPage',
-    component: () => import('./team/TeamPage.vue'),
+    component: () => import('./users/TeamPage.vue'),
     children: [{
       path: ':id/view',
       name: 'userDetail',
-      component: () => import('./team/UserComponent.vue') ,
+      component: () => import('./users/UserComponent.vue') ,
       props: true,
     }],
   }, {
