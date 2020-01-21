@@ -7,3 +7,14 @@
         tags:
           name: Tanks
           type: demo
+    - name: Upload tank A1 configuration
+      aws_s3:
+        bucket: commandeer-tanks-test
+        object: tanks/a1.json
+        src: "./a1.json"
+        mode: put
+    - name: Create a hangar folder for tanks
+      aws_s3:
+        bucket: commandeer-tanks-test
+        object: tanks/hangar
+        mode: create
