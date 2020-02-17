@@ -1,0 +1,5 @@
+- name: Create a demo bucket
+  aws_s3:
+    bucket: commandeer-{{ stage }}-orders
+    mode: create
+    permission: public-read
