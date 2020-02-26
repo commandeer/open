@@ -1,0 +1,48 @@
+- name: Create MESSAGE_DELIVERED SNS topic
+  sns_topic:
+    name: "MESSAGE_DELIVERED"
+    state: present
+    display_name: "message delivered SNS topic"
+    subscriptions:
+      - endpoint: "contact@getcommandeer.com"
+        protocol: "email"
+- name: Create MESSAGE_FAILED SNS topic
+  sns_topic:
+    name: "MESSAGE_FAILED"
+    state: present
+    display_name: "message failed SNS topic"
+- name: Create NOTIFY_RELATED_SERVICES SNS topic
+  sns_topic:
+    name: "NOTIFY_RELATED_SERVICES"
+    state: present
+    display_name: "notify another service SNS topic"
+- name: Create ORDER_SHIPPED SNS topic
+  sns_topic:
+    name: "ORDER_SHIPPED"
+    state: present
+    display_name: "notify another service SNS topic"
+- name: Create RECORD_UPDATED SNS topic
+  sns_topic:
+    name: "RECORD_UPDATED"
+    state: present
+    display_name: "notify another service SNS topic"
+- name: Create SEND_EMAIL SNS topic
+  sns_topic:
+    name: "SEND_EMAIL"
+    state: present
+    display_name: "send push notification SNS topic"
+- name: Create SEND_PUSH_NOTIFICATION SNS topic
+  sns_topic:
+    name: "SEND_EMAIL"
+    state: present
+    display_name: "send email SNS topic"
+- name: Create SEND_SMS SNS topic
+  sns_topic:
+    name: "SEND_SMS"
+    state: present
+    display_name: "send sms SNS topic"
+- name: Create USER_CREATED SNS topic
+  sns_topic:
+    name: "USER_CREATED"
+    state: present
+    display_name: "user created SNS topic"

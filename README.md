@@ -18,8 +18,7 @@ A demo application for help in creating a service to run in Commandeer
 
 ## Docker Compose
 
-This is the docker compose file to install ansible runner, locastack, serverless, and
-terraform.
+This is the docker compose file to install Ansible runner, LocalStack, Serverless, and Terraform.
 
 ## Other Templates
 
