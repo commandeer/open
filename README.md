@@ -1,5 +1,7 @@
 # Commandeer - The Desktop App to Manage AWS Services and Localstack
 
+[![MadeWithVueJs.com shield](https://madewithvuejs.com/storage/repo-shields/1867-shield.svg)](https://madewithvuejs.com/p/commandeer/shield-link)
+
 Commandeer is a tool built by developers for developers that solves three things in the cloud. First, we are focused on the deployment of your IAC. Secondly, we enable you to 'Test your Plumbing'. Lastly, Commandeer provides you the ability to easily view your data.
 
 <img src="https://s3.us-west-1.amazonaws.com/commander-development-images/commandeer-logo.png" alt="commandeer" width="200"/>
