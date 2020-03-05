@@ -2,7 +2,7 @@
 
 [![MadeWithVueJs.com shield](https://madewithvuejs.com/storage/repo-shields/1867-shield.svg)](https://madewithvuejs.com/p/commandeer/shield-link)
 
-<a href="https://www.producthunt.com/posts/commandeer-2?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-commandeer-2" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=169496&theme=light" alt="Commandeer - Cloud management, reimagined. | Product Hunt Embed" style="width: 250px; height: 54px;" width="250px" height="54px" /></a>
+<a href="https://www.producthunt.com/posts/commandeer-2?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-commandeer-2" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=169496&theme=dark" alt="Commandeer - Cloud management, reimagined. | Product Hunt Embed" style="width: 250px; height: 54px;" width="250px" height="54px" /></a>
 
 Commandeer is a tool built by developers for developers that solves three things in the cloud. First, we are focused on the deployment of your IAC. Secondly, we enable you to 'Test your Plumbing'. Lastly, Commandeer provides you the ability to easily view your data.
 
