@@ -113,7 +113,7 @@ class ServerlessDynamoStreamPlugin {
 
     this.serverless.cli.log(`Following lambdas needs some connections: ${Object.keys(lambdaToStreams)}`);
 
-    const promises = [];
+    const promise = Promise.resolve();
 
     for (const [lambdaName, events] of Object.entries(lambdaToStreams)) {
       const functionObject = this.serverless.service.functions[lambdaName];
@@ -122,7 +122,8 @@ class ServerlessDynamoStreamPlugin {
       for (const event of events) {
         const update = {};
 
-        promises.push(this.dynamoClient.describeTable({ TableName: event.tableName }).promise() // call aws to describe a table
+        promise
+          .then(() => this.dynamoClient.describeTable({ TableName: event.tableName }).promise() // call aws to describe a table
           .then(response => Promise.resolve(response.Table)) // get a table from the response
           .then(table => { // save the stream arn, fetch the lambda
             if (!table.LatestStreamArn) {
@@ -257,7 +258,7 @@ class ServerlessDynamoStreamPlugin {
       }
     }
 
-    return Promise.all(promises);
+    return promise;
   }
 
   /**

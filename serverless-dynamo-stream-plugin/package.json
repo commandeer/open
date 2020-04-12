@@ -10,7 +10,6 @@
   "keywords": ["AWS", "Serverless", "Dynamo DB", "Commandeer", "Lambda", "DynamoDB Stream", "Dynamo Stream", "Dynamo"],
   "license": "MIT",
   "private": false,
-
   "devDependencies": {
     "@types/aws-sdk": "2.7.0"
   }
