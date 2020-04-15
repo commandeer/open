@@ -9,10 +9,15 @@
   dependencies:
     aws-sdk "*"
 
-"@types/serverless@1.18.4":
-  version "1.18.4"
-  resolved "https://registry.yarnpkg.com/@types/serverless/-/serverless-1.18.4.tgz#0694301574e364126d19bf895a9697468f5857b4"
-  integrity sha512-pjzwo/qy+0keHxSEAUkrROS7O3oEnTA/bMiTrZKQwRRDyd6cAgVThOtWSmcwNXJOsjx3agHmDHvN2CBkYzVkaA==
+"@types/node@13.11.1":
+  version "13.11.1"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-13.11.1.tgz#49a2a83df9d26daacead30d0ccc8762b128d53c7"
+  integrity sha512-eWQGP3qtxwL8FGneRrC5DwrJLGN4/dH1clNTuLfN81HCrxVtxRjygDTUoZJ5ASlDEeo0ppYFQjQIlXhtXpOn6g==
+
+"@types/serverless@1.67.0":
+  version "1.67.0"
+  resolved "https://registry.yarnpkg.com/@types/serverless/-/serverless-1.67.0.tgz#864e192bd4ee451f51178e3beaec057526fa6645"
+  integrity sha512-7iHDo8pys9pl6xBFqg4LkphpF8pNjsH9N9DvXf5aXOguE1uAdMTP8Oc+8LFu95TzEMTULc+ao8QCyBHkSPKk/w==
 
 aws-sdk@*:
   version "2.601.0"
@@ -82,6 +87,11 @@ sax@>=0.6.0:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
   integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
+
+typescript@3.8.3:
+  version "3.8.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.3.tgz#409eb8544ea0335711205869ec458ab109ee1061"
+  integrity sha512-MYlEfn5VrLNsgudQTVJeNaQFUAI7DkhnOjdpAp4T+ku1TfQClewlbSuTVHiA+8skNBgaf02TL/kLOvig4y3G8w==
 
 url@0.10.3:
   version "0.10.3"

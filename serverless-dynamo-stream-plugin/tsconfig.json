@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "strictNullChecks": true,
+    "module": "commonjs",
+    "target": "esnext",
+    "lib": [
+      "esnext"
+    ],
+    "declaration": true,
+    "outDir": "dist",
+    "strict": true,
+    "esModuleInterop": true
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    ".idea",
+    "node_modules",
+    "dist"
+  ]
+}
