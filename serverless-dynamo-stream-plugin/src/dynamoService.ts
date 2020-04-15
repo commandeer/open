@@ -1,24 +1,5 @@
 import Dynamo from 'aws-sdk/clients/dynamodb';
-import { DynamoStreamType } from './types';
-
-export interface IStreamSpecification {
-  isEnabled: boolean;
-  viewType: DynamoStreamType;
-}
-
-export interface ITable {
-  streamSpecification?: IStreamSpecification;
-}
-
-export class Table implements ITable {
-  streamSpecification?: IStreamSpecification;
-
-  constructor(table: ITable) {
-    if (table.streamSpecification) {
-      this.streamSpecification = table.streamSpecification;
-    }
-  }
-}
+import { DynamoStreamType, StreamSpecification, Table } from './types';
 
 export class DynamoService {
   readonly client: Dynamo;
@@ -28,30 +9,46 @@ export class DynamoService {
   }
 
   async describeTable(name: string): Promise<Table | undefined> {
-    const params: Dynamo.DescribeTableInput = {
-      TableName: name,
-    };
 
     try {
+      const params: Dynamo.DescribeTableInput = {
+        TableName: name,
+      };
+
       const response = await this.client.describeTable(params).promise();
+      return response.Table ? DynamoService.parseTableDescription(response.Table) : undefined;
 
-      // if there is no table coming back, return undefined
-      if (!response.Table) {
-        return undefined;
-      }
-
-      // otherwise, parse a table into an internal type
-      const table = response.Table;
-      return new Table({
-        streamSpecification: table.StreamSpecification
-          ? {
-            isEnabled: table.StreamSpecification.StreamEnabled,
-            viewType: table.StreamSpecification.StreamViewType ? table.StreamSpecification.StreamViewType as DynamoStreamType : undefined
-          }
-          : undefined
-      });
     } catch (error) {
       throw error;
     }
+  }
+
+  async updateTable(name: string, stream: StreamSpecification): Promise<Table | undefined> {
+    try {
+      const params: Dynamo.UpdateTableInput = {
+        TableName: name,
+        StreamSpecification: stream.dynamoObject,
+      };
+
+      const response = await this.client.updateTable(params).promise();
+      return response.TableDescription ? DynamoService.parseTableDescription(response.TableDescription) : undefined;
+
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  private static parseTableDescription(description: Dynamo.TableDescription): Table {
+    const streamSpecification = description.StreamSpecification ? {
+      isEnabled: description.StreamSpecification.StreamEnabled,
+      viewType: description.StreamSpecification.StreamViewType
+        ? description.StreamSpecification.StreamViewType as DynamoStreamType
+        : undefined
+    } : undefined;
+
+    // return the table model
+    return new Table({
+      streamSpecification,
+    });
   }
 }

@@ -5,7 +5,7 @@ import Iam from 'aws-sdk/clients/iam';
 import Lambda from 'aws-sdk/clients/lambda';
 import { config } from 'aws-sdk';
 import Serverless from 'serverless'
-import { DynamoStream, IDynamoStream } from './types';
+import { DynamoStream, IDynamoStream, StreamSpecification } from './types';
 import { DynamoService } from './dynamoService';
 
 export class ServerlessDynamoStreamPlugin {
@@ -97,11 +97,8 @@ export class ServerlessDynamoStreamPlugin {
 
     this.serverless.cli.log(`Found some functions for existing dynamo streams: ${functionNames}`);
 
-    // describe each table and create/update the stream if needed
-    const promises = [];
-
+    // update stream specification for each table and even if needed
     for (const [, events] of Object.entries(lambdaToStreams)) {
-
       for (const event of events) {
         try {
           const table = await this.dynamoService.describeTable(event.tableName);
@@ -110,47 +107,26 @@ export class ServerlessDynamoStreamPlugin {
             continue;
           }
 
-          // TODO: continue with the stream creation here
+          const stream = table.streamSpecification;
+
+          // update the stream if it's not enabled or its stream type is not what's specified in serverless.yml
+          if (!stream || !stream.isEnabled || (stream.isEnabled && stream.viewType !== event.streamType)) {
+            this.serverless.cli.log(`Updating the stream for table ${event.tableName} to ${event.streamType}`);
+            let updateStream = new StreamSpecification({
+              isEnabled: true,
+              viewType: event.streamType,
+            });
+            updateStream.isEnabled = true;
+            await this.dynamoService.updateTable(event.tableName, updateStream);
+          }
         } catch (error) {
-          this.serverless.cli.log(`Error describing a table ${event.tableName}: ${error.message ? error.message : error }`
-            + ' Skipping dynamo stream creation.');
+          this.serverless.cli.log(`Error updating a stream for table ${event.tableName}: ${error.message ? error.message : error }`
+            + ' Skipping dynamo stream update.');
         }
-      }
-
-      for (const event of events) {
-        promises.push(this.dynamoClient.describeTable({ TableName: event.tableName }).promise()
-          .then(response => Promise.resolve(response.Table))
-          .then(table => {
-            const stream = table.StreamSpecification;
-
-            // update the stream if it's not enabled or its stream time is not what's specified in serverless.yml
-            if (!stream || !stream.StreamEnabled || stream.StreamEnabled && stream.StreamViewType !== event.streamType) {
-              const updateTableInput = {
-                TableName: table.TableName,
-                StreamSpecification: {
-                  StreamEnabled: true,
-                  StreamViewType: event.streamType,
-                },
-              };
-
-              this.serverless.cli.log(`Updating the stream for table ${event.tableName} to ${event.streamType}`);
-              return this.dynamoClient.updateTable(updateTableInput).promise();
-            }
-          })
-          .then(updateTableResult => {
-            this.serverless.cli.log(`Set the stream for table ${event.tableName} to ${event.streamType}`);
-            Promise.resolve(updateTableResult);
-          })
-          .catch(error => {
-            this.serverless.cli.log(`Error updating the stream ${error.message}`);
-            throw error;
-          })
-        );
       }
     }
 
-    // run it all and return a promise which serverless needs to understand what's up
-    return Promise.all(promises);
+    return true;
   }
 
   connectDynamoStreamToLambda() {
