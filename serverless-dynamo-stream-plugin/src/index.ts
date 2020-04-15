@@ -5,47 +5,13 @@ import Iam from 'aws-sdk/clients/iam';
 import Lambda from 'aws-sdk/clients/lambda';
 import { config } from 'aws-sdk';
 import Serverless from 'serverless'
-
-export enum DynamoStreamType {
-  NEW_IMAGE = 'NEW_IMAGE',
-  OLD_IMAGE = 'OLD_IMAGE',
-  NEW_AND_OLD_IMAGES = 'NEW_AND_OLD_IMAGES',
-  KEYS_ONLY = 'KEYS_ONLY',
-}
-
-export enum EventSourcePosition {
-  TRIM_HORIZON = 'TRIM_HORIZON',
-  LATEST = 'LATEST',
-  AT_TIMESTAMP = 'AT_TIMESTAMP',
-}
-
-export class DynamoStream implements IDynamoStream {
-  tableName: string;
-  streamType: DynamoStreamType = DynamoStreamType.NEW_AND_OLD_IMAGES;
-  startingPosition: EventSourcePosition = EventSourcePosition.LATEST;
-
-  constructor(stream: IDynamoStream) {
-    this.tableName = stream.tableName;
-
-    // set some optional params if they are present
-    if (stream.streamType) {
-      this.streamType = stream.streamType;
-    }
-    if (stream.startingPosition) {
-      this.startingPosition = stream.startingPosition;
-    }
-  }
-}
-
-export interface IDynamoStream {
-  tableName: string;
-  streamType?: DynamoStreamType;
-  startingPosition?: EventSourcePosition;
-}
+import { DynamoStream, IDynamoStream } from './types';
+import { DynamoService } from './dynamoService';
 
 export class ServerlessDynamoStreamPlugin {
 
   readonly dynamoClient: Dynamo;
+  readonly dynamoService: DynamoService;
   readonly iamClient: Iam;
   readonly lambdaClient: Lambda;
 
@@ -110,6 +76,8 @@ export class ServerlessDynamoStreamPlugin {
     this.dynamoClient = new Dynamo();
     this.lambdaClient = new Lambda();
     this.iamClient = new Iam();
+
+    this.dynamoService = new DynamoService();
   }
 
   async runAll() {
@@ -117,20 +85,37 @@ export class ServerlessDynamoStreamPlugin {
     await this.connectDynamoStreamToLambda();
   }
 
-  async createDynamoStream() {
+  async createDynamoStream(): Promise<boolean> {
     this.serverless.cli.log('dynamoStream:create - creating/updating DynamoDB streams if needed');
     const lambdaToStreams = this.getLambdaStreams();
+    const functionNames = Object.keys(lambdaToStreams);
 
     // Exit early if there are no existing streams in serverless.yml
-    if (Object.keys(lambdaToStreams).length <= 0) {
-      return Promise.resolve();
+    if (functionNames.length <= 0) {
+      return false;
     }
 
-    this.serverless.cli.log(`Found some lambdas for existing dynamo streams: ${Object.keys(lambdaToStreams)}`);
+    this.serverless.cli.log(`Found some functions for existing dynamo streams: ${functionNames}`);
 
     // describe each table and create/update the stream if needed
     const promises = [];
-    for (const [lambdaName, events] of Object.entries(lambdaToStreams)) {
+
+    for (const [, events] of Object.entries(lambdaToStreams)) {
+
+      for (const event of events) {
+        try {
+          const table = await this.dynamoService.describeTable(event.tableName);
+          if (!table) {
+            this.serverless.cli.log(`Table ${event.tableName} is not found, skipping dynamo stream creation.`);
+            continue;
+          }
+
+          // TODO: continue with the stream creation here
+        } catch (error) {
+          this.serverless.cli.log(`Error describing a table ${event.tableName}: ${error.message ? error.message : error }`
+            + ' Skipping dynamo stream creation.');
+        }
+      }
 
       for (const event of events) {
         promises.push(this.dynamoClient.describeTable({ TableName: event.tableName }).promise()
