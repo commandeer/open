@@ -49,6 +49,7 @@ export class DynamoService {
     // return the table model
     return new Table({
       streamSpecification,
+      latestStreamArn: description.LatestStreamArn,
     });
   }
 }

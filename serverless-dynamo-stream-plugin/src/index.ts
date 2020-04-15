@@ -85,6 +85,9 @@ export class ServerlessDynamoStreamPlugin {
     await this.connectDynamoStreamToLambda();
   }
 
+  /**
+   * @description creates or updates Dynamo streams if needed.
+   */
   async createDynamoStream(): Promise<boolean> {
     this.serverless.cli.log('dynamoStream:create - creating/updating DynamoDB streams if needed');
     const lambdaToStreams = this.getLambdaStreams();
@@ -129,24 +132,46 @@ export class ServerlessDynamoStreamPlugin {
     return true;
   }
 
-  connectDynamoStreamToLambda() {
-    this.serverless.cli.log('dynamoStream:create - connecting lambdas to DynamoDB streams');
+  async connectDynamoStreamToLambda(): Promise<boolean> {
+    this.serverless.cli.log('dynamoStream:connect - connecting functions to DynamoDB streams');
     const lambdaToStreams = this.getLambdaStreams();
 
     // Exit early if there are no existing streams in serverless.yml
     if (Object.keys(lambdaToStreams).length <= 0) {
-      return Promise.resolve();
+      return true;
     }
 
-    this.serverless.cli.log(`Following lambdas needs some connections: ${Object.keys(lambdaToStreams)}`);
+    this.serverless.cli.log(`The following functions need some connections: ${Object.keys(lambdaToStreams)}`);
 
-    const promise = Promise.resolve();
-
-    for (const [lambdaName, events] of Object.entries(lambdaToStreams)) {
-      const functionObject = this.serverless.service.functions[lambdaName];
-      const fullLambdaName = functionObject.name;
+    for (const [functionName, events] of Object.entries(lambdaToStreams)) {
+      const functionObject = this.serverless.service.getFunction(functionName);
+      const fullFunctionName = functionObject.name;
 
       for (const event of events) {
+
+        // get a table stream arn
+        try {
+          const table = await this.dynamoService.describeTable(event.tableName);
+
+          if (!table) {
+            throw new Error(`Table ${event.tableName} doesn't exist.`);
+          }
+
+          if (!table.latestStreamArn) {
+            throw new Error('Failed to find the stream arn to connect the lambda to.');
+          }
+
+          // TODO: get function configuration
+
+        } catch (error) {
+          this.serverless.cli.log(`Failed to get the stream arn for table ${event.tableName}.`
+            + ` Error: ${error.message ? error.message : error }`);
+          continue;
+        }
+
+
+
+
         const update = {};
 
         promise
@@ -160,7 +185,7 @@ export class ServerlessDynamoStreamPlugin {
               update.streamArn = table.LatestStreamArn;
               this.serverless.cli.log(`Found dynamo stream arn ${update.streamArn}`);
 
-              return this.lambdaClient.getFunctionConfiguration({ FunctionName: fullLambdaName }).promise();
+              return this.lambdaClient.getFunctionConfiguration({ FunctionName: fullFunctionName }).promise();
             })
             .then(functionConfiguration => { // get a lambda role name from the arn, save the name
               const lambdaRoleArn = functionConfiguration.Role;
@@ -173,10 +198,10 @@ export class ServerlessDynamoStreamPlugin {
               const lambdaRoleName = fullLambdaRoleName.split('/').pop();
               if (!lambdaRoleName) {
                 throw new Error(`Lambda role arn ${lambdaRoleArn} doesn\'t have a name.` +
-                  ` Make sure the right role is set on lambda ${fullLambdaName}.`);
+                  ` Make sure the right role is set on lambda ${fullFunctionName}.`);
               }
 
-              this.serverless.cli.log(`Fetched role name ${lambdaRoleName} for lambda ${fullLambdaName}`);
+              this.serverless.cli.log(`Fetched role name ${lambdaRoleName} for lambda ${fullFunctionName}`);
 
               update.lambdaRoleName = lambdaRoleName;
               return Promise.resolve(lambdaRoleName);
@@ -185,7 +210,7 @@ export class ServerlessDynamoStreamPlugin {
             .then(rolePoliciesResponse => { // find the policy name
               const policyNames = rolePoliciesResponse.PolicyNames;
               update.policyName = policyNames.find(name => name.includes(this.serverless.service.service));
-              this.serverless.cli.log(`Found policy name ${update.policyName} for lambda ${fullLambdaName}`);
+              this.serverless.cli.log(`Found policy name ${update.policyName} for lambda ${fullFunctionName}`);
               return Promise.resolve(update.policyName);
             })
             .then(policyName => { // get role policy by policy name
@@ -227,14 +252,14 @@ export class ServerlessDynamoStreamPlugin {
               };
               return this.iamClient.putRolePolicy(params).promise();
             })
-            .then(() => this.lambdaClient.listEventSourceMappings({ FunctionName: fullLambdaName }).promise()) // fetch existing event source mappings
+            .then(() => this.lambdaClient.listEventSourceMappings({ FunctionName: fullFunctionName }).promise()) // fetch existing event source mappings
             .then(eventSourceMappingResponse => { // create the event mapping between the lambda and the stream
               const existingEventSourceMappings = eventSourceMappingResponse.EventSourceMappings;
               const existingMapping = existingEventSourceMappings.find(mapping => mapping.EventSourceArn === update.streamArn);
 
               if (existingMapping) {
                 this.serverless.cli.log(
-                  `Mapping between lambda ${lambdaName} and DynamoDB stream for table ${event.tableName} already exists`
+                  `Mapping between lambda ${functionName} and DynamoDB stream for table ${event.tableName} already exists`
                 );
                 return Promise.resolve();
               }
@@ -269,11 +294,11 @@ export class ServerlessDynamoStreamPlugin {
                   // TODO: set the optional params based on event params from serverless.yml.
                   const params = {
                     EventSourceArn: update.streamArn,
-                    FunctionName: fullLambdaName,
+                    FunctionName: fullFunctionName,
                     StartingPosition: startingPosition,
                   };
                   this.serverless.cli.log(
-                    `Creating event mapping between lambda ${lambdaName} and DynamoDB stream for table ${event.tableName}`
+                    `Creating event mapping between lambda ${functionName} and DynamoDB stream for table ${event.tableName}`
                   );
                   return this.lambdaClient.createEventSourceMapping(params).promise();
                 })
