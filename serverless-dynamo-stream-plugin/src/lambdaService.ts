@@ -1,4 +1,5 @@
 import Lambda from 'aws-sdk/clients/lambda';
+import { EventSourcePosition } from './types';
 
 export interface IFunctionConfiguration {
   roleArn?: string;
@@ -64,15 +65,32 @@ export class LambdaService {
 
       const response = await this.client.listEventSourceMappings(params).promise();
 
-      return response
-        .EventSourceMappings?.map(mapping => {
-          return {
-            eventSourceArn: mapping.EventSourceArn,
-            functionArn: mapping.FunctionArn
-          }
-        }) ?? [];
+      return response.EventSourceMappings?.map(mapping => this.parseEventSourceMapping(mapping)) ?? [];
     } catch (error) {
       throw error
+    }
+  }
+
+  async createEventSourceMapping(eventSourceArn: string, functionName: string, position: EventSourcePosition): Promise<EventSourceMapping> {
+    try {
+      const params: Lambda.CreateEventSourceMappingRequest = {
+        EventSourceArn: eventSourceArn,
+        FunctionName: functionName,
+        StartingPosition: position,
+      };
+
+      const response = await this.client.createEventSourceMapping(params).promise();
+      return this.parseEventSourceMapping(response);
+
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  private parseEventSourceMapping(configuration: Lambda.EventSourceMappingConfiguration): EventSourceMapping {
+    return {
+      eventSourceArn: configuration.EventSourceArn,
+      functionArn: configuration.FunctionArn
     }
   }
 }

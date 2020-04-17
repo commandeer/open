@@ -7,11 +7,15 @@ import { config } from 'aws-sdk';
 import Serverless from 'serverless'
 import { DynamoStream, IDynamoStream, StreamSpecification } from './types';
 import { DynamoService } from './dynamoService';
+import { LambdaService } from './lambdaService';
 
 export class ServerlessDynamoStreamPlugin {
 
-  readonly dynamoClient: Dynamo;
   readonly dynamoService: DynamoService;
+  readonly lambdaService: LambdaService;
+
+  // TODO: delete the clients once all services are in
+  readonly dynamoClient: Dynamo;
   readonly iamClient: Iam;
   readonly lambdaClient: Lambda;
 
@@ -78,6 +82,7 @@ export class ServerlessDynamoStreamPlugin {
     this.iamClient = new Iam();
 
     this.dynamoService = new DynamoService();
+    this.lambdaService = new LambdaService();
   }
 
   async runAll() {
@@ -149,8 +154,9 @@ export class ServerlessDynamoStreamPlugin {
 
       for (const event of events) {
 
-        // get a table stream arn
         try {
+
+          // get a table stream arn
           const table = await this.dynamoService.describeTable(event.tableName);
 
           if (!table) {
@@ -161,7 +167,24 @@ export class ServerlessDynamoStreamPlugin {
             throw new Error('Failed to find the stream arn to connect the lambda to.');
           }
 
-          // TODO: get function configuration
+          // get a function arn, function role name
+          const configuration = await this.lambdaService.getFunctionConfiguration(fullFunctionName);
+          const functionRoleArn = configuration?.roleArn;
+
+          if (!functionRoleArn) {
+            throw new Error('Function configuration doesn\'t have a role.' +
+              ' Please make sure Serverless deploy succeeds to deploy the lambdas first.');
+          }
+
+          const fullLambdaRoleName = functionRoleArn?.split(':').pop();
+          const lambdaRoleName = fullLambdaRoleName?.split('/').pop();
+          if (!lambdaRoleName) {
+            throw new Error(`Lambda role arn ${functionRoleArn} doesn\'t have a name.` +
+              ` Make sure the right role is set on lambda ${fullFunctionName}.`);
+          }
+
+          this.serverless.cli.log(`Fetched role name ${lambdaRoleName} for lambda ${fullFunctionName}`);
+
 
         } catch (error) {
           this.serverless.cli.log(`Failed to get the stream arn for table ${event.tableName}.`
