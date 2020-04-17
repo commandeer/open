@@ -6,9 +6,9 @@ import Lambda from 'aws-sdk/clients/lambda';
 import { config } from 'aws-sdk';
 import Serverless from 'serverless'
 import { DynamoStream, IDynamoStream, StreamSpecification } from './types';
-import { DynamoService } from './dynamoService';
-import { LambdaService } from './lambdaService';
-import { IamService } from './iamService';
+import { DynamoService } from './dynamo/dynamoService';
+import { LambdaService } from './lambda/lambdaService';
+import { IamService } from './iam/iamService';
 
 export class ServerlessDynamoStreamPlugin {
 
@@ -21,7 +21,7 @@ export class ServerlessDynamoStreamPlugin {
   readonly iamClient: Iam;
   readonly lambdaClient: Lambda;
 
-  // serverless parameters
+  // Serverless parameters
   readonly serverless: Serverless;
   readonly options: Serverless.Options;
 

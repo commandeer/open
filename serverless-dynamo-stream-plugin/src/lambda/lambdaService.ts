@@ -1,38 +1,6 @@
 import Lambda from 'aws-sdk/clients/lambda';
-import { EventSourcePosition } from './types';
-
-export interface IFunctionConfiguration {
-  roleArn?: string;
-}
-
-export class FunctionConfiguration implements IFunctionConfiguration {
-  roleArn?: string;
-
-  constructor(configuration?: IFunctionConfiguration) {
-    if (configuration) {
-      if (configuration.roleArn) {
-        this.roleArn = configuration.roleArn;
-      }
-    }
-  }
-}
-
-export interface IEventSourceMapping {
-  eventSourceArn?: string;
-  functionArn?: string;
-}
-
-export class EventSourceMapping implements IEventSourceMapping {
-  eventSourceArn?: string;
-  functionArn?: string;
-
-  constructor(mapping?: IEventSourceMapping) {
-    if (mapping) {
-      this.eventSourceArn = mapping?.eventSourceArn;
-      this.functionArn = mapping?.functionArn;
-    }
-  }
-}
+import { EventSourceMapping, FunctionConfiguration } from './types';
+import { EventSourcePosition } from '@/_base/EventSourcePosition';
 
 export class LambdaService {
   private readonly client: Lambda;

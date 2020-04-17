@@ -1,22 +1,28 @@
 {
+  "baseUrl": ".",
   "compilerOptions": {
-    "strictNullChecks": true,
-    "module": "commonjs",
-    "target": "esnext",
+    "declaration": true,
+    "esModuleInterop": true,
     "lib": [
       "esnext"
     ],
-    "declaration": true,
+    "module": "commonjs",
     "outDir": "dist",
     "strict": true,
-    "esModuleInterop": true
+    "strictNullChecks": true,
+    "target": "esnext"
   },
-  "include": [
-    "src/**/*"
-  ],
   "exclude": [
     ".idea",
     "node_modules",
     "dist"
-  ]
+  ],
+  "include": [
+    "src/**/*"
+  ],
+  "paths": {
+    "@/*": [
+      "src/*"
+    ]
+  }
 }
