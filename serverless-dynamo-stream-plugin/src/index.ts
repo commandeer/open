@@ -126,14 +126,13 @@ export class ServerlessDynamoStreamPlugin {
             : this.serverless.cli.log(`Role ${lambdaRoleName} already has a policy for ${streamArn}`);
 
           // create/activate an event mapping if needed
-          this.serverless.cli.log(`Creating event mapping between lambda ${functionName} and DynamoDB table stream ${event.tableName}`);
           const mappingCreatedOrActivated = await this.createOrActivateMappingIfNeeded(streamArn, fullFunctionName, event.startingPosition);
           mappingCreatedOrActivated
             ? this.serverless.cli.log(`Mapping of lambda ${fullFunctionName} to table ${event.tableName} stream is now active.`)
             : this.serverless.cli.log(`Active mapping lambda ${fullFunctionName} to table ${event.tableName} stream already exists.`);
 
         } catch (error) {
-          this.serverless.cli.log(`Failed to get the stream arn for table ${event.tableName}.`
+          this.serverless.cli.log(`Failed to connect lambda ${fullFunctionName} to table ${event.tableName}.`
             + ` Error: ${error.message ? error.message : error}`);
         }
       }
@@ -292,7 +291,10 @@ export class ServerlessDynamoStreamPlugin {
       createdOrActivated = true;
     } else if (existingMapping && existingMapping.state !== EventSourceMappingState.ENABLED) {
       // activate an inactive mapping if it exists and it's not active
-      await this.lambdaService.updateEventSourceMapping(existingMapping, true);
+      if (!existingMapping.id) {
+        throw new Error('Updating an event source mapping requires an id');
+      }
+      await this.lambdaService.enableEventSourceMapping(existingMapping.id);
       createdOrActivated = true;
     }
 

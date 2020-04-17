@@ -90,6 +90,22 @@ export class LambdaService {
     }
   }
 
+  async enableEventSourceMapping(id: string): Promise<EventSourceMapping> {
+
+    try {
+      const params: Lambda.UpdateEventSourceMappingRequest = {
+        UUID: id,
+        Enabled: true,
+      };
+
+      const response = await this.client.updateEventSourceMapping(params).promise();
+      return LambdaService.parseEventSourceMapping(response);
+
+    } catch (error) {
+      throw error;
+    }
+  }
+
   private static parseEventSourceMapping(configuration: Lambda.EventSourceMappingConfiguration): EventSourceMapping {
     return new EventSourceMapping({
       id: configuration.UUID,
