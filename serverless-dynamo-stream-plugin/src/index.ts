@@ -4,7 +4,8 @@ import Serverless from 'serverless'
 import { DynamoService } from './dynamo/dynamoService';
 import { LambdaService } from './lambda/lambdaService';
 import { IamService } from './iam/iamService';
-import { StreamSpecification, DynamoStream, IDynamoStream } from '@/dynamo/types';
+import { DynamoStream, IDynamoStream, StreamSpecification } from '@/dynamo/types';
+import { RolePolicy } from '@/iam/types';
 
 export class ServerlessDynamoStreamPlugin {
 
@@ -94,7 +95,7 @@ export class ServerlessDynamoStreamPlugin {
 
     this.serverless.cli.log(`Found some functions for existing dynamo streams: ${functionNames}`);
 
-    // update stream specification for each table and even if needed
+    // update stream specification for each table if needed
     for (const [, events] of Object.entries(lambdaToStreams)) {
       for (const event of events) {
         try {
@@ -145,74 +146,24 @@ export class ServerlessDynamoStreamPlugin {
 
         try {
           // get a table stream arn
-          const table = await this.dynamoService.describeTable(event.tableName);
-          const streamArn = table?.latestStreamArn;
+          const streamArn = await this.getTableStreamArn(event.tableName);
 
-          if (!table) {
-            throw new Error(`Table ${event.tableName} doesn't exist.`);
-          }
-
-          if (!streamArn) {
-            throw new Error('Failed to find the stream arn to connect the lambda to.');
-          }
-
-          // get a function arn, function role name
-          const configuration = await this.lambdaService.getFunctionConfiguration(fullFunctionName);
-          const functionRoleArn = configuration?.roleArn;
-
-          if (!functionRoleArn) {
-            throw new Error('Function configuration doesn\'t have a role.' +
-              ' Please make sure Serverless deploy succeeds to deploy the lambdas first.');
-          }
-
-          const fullLambdaRoleName = functionRoleArn?.split(':').pop();
-          const lambdaRoleName = fullLambdaRoleName?.split('/').pop();
-          if (!lambdaRoleName) {
-            throw new Error(`Lambda role arn ${functionRoleArn} doesn\'t have a name.` +
-              ` Make sure the right role is set on lambda ${fullFunctionName}.`);
-          }
-
+          // get a function role name
+          const lambdaRoleName = await this.getLambdaRoleName(fullFunctionName);
           this.serverless.cli.log(`Fetched role name ${lambdaRoleName} for lambda ${fullFunctionName}`);
 
-          // find the role policy
-          const policyNames = await this.iamService.listRolePolicies(lambdaRoleName);
-          const policyName = policyNames.find(name => name.includes(this.serverless.service.getServiceName()));
-          if (!policyName) {
-            throw new Error('Couldn\'t find Serverless policy, please make sure Serverless deploy succeeds first.')
-          }
+          // get the role policy
+          const rolePolicy = await this.getRolePolicy(lambdaRoleName);
+          this.serverless.cli.log(`Found policy name ${rolePolicy.policyName} for lambda ${fullFunctionName}`);
 
-          this.serverless.cli.log(`Found policy name ${policyName} for lambda ${fullFunctionName}`);
-
-          const rolePolicy = await this.iamService.getRolePolicy(lambdaRoleName, policyName);
-
-          // figure out if the stream permissions already exist on the stream
-          const policyDocument = JSON.parse(decodeURIComponent(rolePolicy.policyDocument));
-          const alreadyAllowsDynamoStream = policyDocument.Statement
-            .some((statement: any) => statement.Resource.includes(streamArn)
-              && this.requiredDynamoStreamPermissions.every(requiredPermission => statement.Action.includes(requiredPermission))
-              && statement.Effect === 'Allow');
-
-          // add a new policy to the existing document if needed
-          if (alreadyAllowsDynamoStream) {
-            this.serverless.cli.log(`Role ${lambdaRoleName} already has a policy for ${streamArn}`);
-          } else {
-            policyDocument.Statement.push({
-              Action: this.requiredDynamoStreamPermissions,
-              Resource: [streamArn],
-              Effect: 'Allow',
-            });
-
-            // create the new policy on AWS
-            this.serverless.cli.log(`Creating a new policy for Role ${lambdaRoleName} to access the stream ${streamArn}`);
-
-            rolePolicy.policyDocument = JSON.stringify(policyDocument);
-            await this.iamService.putRolePolicy(rolePolicy);
-          }
+          // add new permissions to the role policy if needed
+          const newPermissionsAdded = await this.addPermissionsIfNeeded(rolePolicy, streamArn, lambdaRoleName);
+          newPermissionsAdded
+            ? this.serverless.cli.log(`Created a new policy for Role ${lambdaRoleName} to access the stream ${streamArn}`)
+            : this.serverless.cli.log(`Role ${lambdaRoleName} already has a policy for ${streamArn}`);
 
           // create an event mapping
-          this.serverless.cli.log(
-            `Creating event mapping between lambda ${functionName} and DynamoDB stream for table ${event.tableName}`
-          );
+          this.serverless.cli.log(`Creating event mapping between lambda ${functionName} and DynamoDB table stream ${event.tableName}`);
           await this.lambdaService.createEventSourceMapping(streamArn, fullFunctionName, event.startingPosition);
 
         } catch (error) {
@@ -223,6 +174,94 @@ export class ServerlessDynamoStreamPlugin {
     }
 
     return true;
+  }
+
+  /**
+   * @description add the permissions to the role policy if necessary.
+   * @param rolePolicy the role policy to add the permissions to.
+   * @param streamArn the stream arn to add the permissions for.
+   * @param lambdaRoleName the role name of the lambda.
+   */
+  private async addPermissionsIfNeeded(rolePolicy: RolePolicy, streamArn: string, lambdaRoleName: string): Promise<boolean> {
+    // figure out if the stream permissions already exist on the stream
+    const policyDocument = JSON.parse(decodeURIComponent(rolePolicy.policyDocument));
+    const alreadyAllowsDynamoStream = policyDocument.Statement
+      .some((statement: any) => statement.Resource.includes(streamArn)
+        && this.requiredDynamoStreamPermissions.every(requiredPermission => statement.Action.includes(requiredPermission))
+        && statement.Effect === 'Allow');
+
+    // add a new policy to the existing document if needed
+    let newPermissionsAdded = false;
+    if (!alreadyAllowsDynamoStream) {
+      policyDocument.Statement.push({
+        Action: this.requiredDynamoStreamPermissions,
+        Resource: [streamArn],
+        Effect: 'Allow',
+      });
+
+      // create the new policy on AWS
+      rolePolicy.policyDocument = JSON.stringify(policyDocument);
+      await this.iamService.putRolePolicy(rolePolicy);
+      newPermissionsAdded = true;
+    }
+
+    return newPermissionsAdded;
+  }
+
+  /**
+   * @description get a role policy object.
+   * @param lambdaRoleName the name of the lambda role.
+   */
+  private async getRolePolicy(lambdaRoleName: string): Promise<RolePolicy> {
+    const policyNames = await this.iamService.listRolePolicies(lambdaRoleName);
+    const policyName = policyNames.find(name => name.includes(this.serverless.service.getServiceName()));
+    if (!policyName) {
+      throw new Error('Couldn\'t find Serverless policy, please make sure Serverless deploy succeeds first.')
+    }
+
+    return this.iamService.getRolePolicy(lambdaRoleName, policyName);
+  }
+
+  /**
+   * @description gets the role name of the lambda.
+   * @param fullFunctionName the full lambda function name including the stage and the service.
+   */
+  private async getLambdaRoleName(fullFunctionName: string): Promise<string> {
+    const configuration = await this.lambdaService.getFunctionConfiguration(fullFunctionName);
+    const functionRoleArn = configuration?.roleArn;
+
+    if (!functionRoleArn) {
+      throw new Error('Function configuration doesn\'t have a role.' +
+        ' Please make sure Serverless deploy succeeds to deploy the lambdas first.');
+    }
+
+    const fullLambdaRoleName = functionRoleArn?.split(':').pop();
+    const lambdaRoleName = fullLambdaRoleName?.split('/').pop();
+    if (!lambdaRoleName) {
+      throw new Error(`Lambda role arn ${functionRoleArn} doesn\'t have a name.` +
+        ` Make sure the right role is set on lambda ${fullFunctionName}.`);
+    }
+    return lambdaRoleName;
+  }
+
+  /**
+   * @description get stream arn for the table.
+   * @throws an exception if either a table doesn't exist or an arn on the table doesn't exist.
+   * @param tableName the name of the table to look for.
+   */
+  private async getTableStreamArn(tableName: string): Promise<string> {
+    const table = await this.dynamoService.describeTable(tableName);
+    const streamArn = table?.latestStreamArn;
+
+    if (!table) {
+      throw new Error(`Table ${tableName} doesn't exist.`);
+    }
+
+    if (!streamArn) {
+      throw new Error('Failed to find the stream arn to connect the function to.');
+    }
+
+    return streamArn;
   }
 
   /**
