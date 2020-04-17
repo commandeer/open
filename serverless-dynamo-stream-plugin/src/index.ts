@@ -4,7 +4,7 @@ import Serverless from 'serverless'
 import { DynamoService } from './dynamo/dynamoService';
 import { LambdaService } from './lambda/lambdaService';
 import { IamService } from './iam/iamService';
-import { DynamoStream, DynamoStreamType, IDynamoStream, StreamSpecification } from '@/dynamo/types';
+import { DynamoStream, DynamoStreamType, IDynamoStream, StreamSpecification, Table } from '@/dynamo/types';
 import { RolePolicy } from '@/iam/types';
 
 export class ServerlessDynamoStreamPlugin {
@@ -51,15 +51,14 @@ export class ServerlessDynamoStreamPlugin {
     this.commands = {
       'dynamo-stream': {
         usage: 'Creates and connects DynamoDB streams for pre-existing tables with AWS Lambdas',
-        lifecycleEvents: ['create', 'connect'],
+        lifecycleEvents: ['connect'],
       },
     };
 
     // bind the lifecycle hooks
     this.hooks = {
-      'dynamo-stream:create': this.createDynamoStream.bind(this),
-      'dynamo-stream:connect': this.connectDynamoStreamToLambda.bind(this),
-      'after:deploy:deploy': this.runAll.bind(this),
+      'dynamo-stream:connect': this.run.bind(this),
+      'after:deploy:deploy': this.run.bind(this),
     };
 
     // configure AWS.
@@ -75,93 +74,7 @@ export class ServerlessDynamoStreamPlugin {
     this.iamService = new IamService();
   }
 
-  async runAll() {
-    await this.createDynamoStream();
-    await this.connectDynamoStreamToLambda();
-  }
-
-  /**
-   * @description creates or updates Dynamo streams if needed.
-   */
-  async createDynamoStream(): Promise<boolean> {
-    this.serverless.cli.log('dynamoStream:create - creating/updating DynamoDB streams if needed');
-    const lambdaToStreams = this.getLambdaStreams();
-    const functionNames = Object.keys(lambdaToStreams);
-
-    // Exit early if there are no existing streams in serverless.yml
-    if (functionNames.length <= 0) {
-      return false;
-    }
-
-    this.serverless.cli.log(`Found some functions for existing dynamo streams: ${functionNames}`);
-
-    // update stream specification for each table if needed
-    for (const [, events] of Object.entries(lambdaToStreams)) {
-      for (const event of events) {
-        try {
-          // get a stream specification of the table
-          const stream = await this.getStreamSpecification(event.tableName);
-
-          // enable the stream if needed
-          if (await this.enableStreamIfNeeded(stream, event.tableName, event.streamType)) {
-            this.serverless.cli.log(`Updated the stream for table ${event.tableName} to ${event.streamType}`);
-          }
-        } catch (error) {
-          this.serverless.cli.log(`Error updating a stream for table ${event.tableName}: ${error.message ? error.message : error}`
-            + ' Skipping dynamo stream update.');
-        }
-      }
-    }
-
-    return true;
-  }
-
-  /**
-   * @description enables the DynamoDB stream if needed.
-   * @param currentStream the current stream specification.
-   * @param tableName the table name for the stream.
-   * @param targetStreamType what we want the stream type to be.
-   */
-  private async enableStreamIfNeeded(
-    currentStream: StreamSpecification,
-    tableName: string,
-    targetStreamType: DynamoStreamType
-  ): Promise<boolean> {
-
-    // update the stream if it's not enabled or its stream type is not what's specified in serverless.yml
-    if (!currentStream.isEnabled || (currentStream.isEnabled && currentStream.viewType !== targetStreamType)) {
-      let updateStream = new StreamSpecification({
-        isEnabled: true,
-        viewType: targetStreamType,
-      });
-      updateStream.isEnabled = true;
-      await this.dynamoService.updateTable(tableName, updateStream);
-
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  /**
-   * @description returns the stream specification for the table.
-   * @param tableName the table name to look for.
-   * @throws an error when the table isn't found.
-   */
-  private async getStreamSpecification(tableName: string): Promise<StreamSpecification> {
-    const table = await this.dynamoService.describeTable(tableName);
-    if (!table) {
-      throw new Error(`Table ${tableName} is not found.`);
-    }
-
-    if (!table.streamSpecification) {
-      throw new Error(`Stream specification is missing on the table ${tableName}`);
-    }
-
-    return table.streamSpecification;
-  }
-
-  async connectDynamoStreamToLambda(): Promise<boolean> {
+  async run(): Promise<boolean> {
     this.serverless.cli.log('dynamoStream:connect - connecting functions to DynamoDB streams');
     const lambdaToStreams = this.getLambdaStreams();
 
@@ -179,8 +92,22 @@ export class ServerlessDynamoStreamPlugin {
       for (const event of events) {
 
         try {
+          // get a table stream specification
+          const table = await this.getTable(event.tableName);
+          if (!table.streamSpecification) {
+            throw new Error(`Stream specification is missing on the table ${event.tableName}`);
+          }
+
+          // enable the stream if needed
+          if (await this.enableStreamIfNeeded(table.streamSpecification, event.tableName, event.streamType)) {
+            this.serverless.cli.log(`Updated the stream for table ${event.tableName} to ${event.streamType}`);
+          }
+
           // get a table stream arn
-          const streamArn = await this.getTableStreamArn(event.tableName);
+          const streamArn = table?.latestStreamArn;
+          if (!streamArn) {
+            throw new Error('Failed to find the stream arn to connect the function to.');
+          }
 
           // get a function role name
           const lambdaRoleName = await this.getLambdaRoleName(fullFunctionName);
@@ -279,26 +206,6 @@ export class ServerlessDynamoStreamPlugin {
   }
 
   /**
-   * @description get stream arn for the table.
-   * @throws an exception if either a table doesn't exist or an arn on the table doesn't exist.
-   * @param tableName the name of the table to look for.
-   */
-  private async getTableStreamArn(tableName: string): Promise<string> {
-    const table = await this.dynamoService.describeTable(tableName);
-    const streamArn = table?.latestStreamArn;
-
-    if (!table) {
-      throw new Error(`Table ${tableName} doesn't exist.`);
-    }
-
-    if (!streamArn) {
-      throw new Error('Failed to find the stream arn to connect the function to.');
-    }
-
-    return streamArn;
-  }
-
-  /**
    * @description returns an object containing a lambda name as a key and the array of streams as a value.
    */
   getLambdaStreams(): { [key: string]: DynamoStream[] } {
@@ -315,6 +222,47 @@ export class ServerlessDynamoStreamPlugin {
     }
 
     return lambdaToStreams;
+  }
+
+  /**
+   * @description enables the DynamoDB stream if needed.
+   * @param currentStream the current stream specification.
+   * @param tableName the table name for the stream.
+   * @param targetStreamType what we want the stream type to be.
+   */
+  private async enableStreamIfNeeded(
+    currentStream: StreamSpecification,
+    tableName: string,
+    targetStreamType: DynamoStreamType
+  ): Promise<boolean> {
+
+    // update the stream if it's not enabled or its stream type is not what's specified in serverless.yml
+    if (!currentStream.isEnabled || (currentStream.isEnabled && currentStream.viewType !== targetStreamType)) {
+      let updateStream = new StreamSpecification({
+        isEnabled: true,
+        viewType: targetStreamType,
+      });
+      updateStream.isEnabled = true;
+      await this.dynamoService.updateTable(tableName, updateStream);
+
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * @description returns the stream specification for the table.
+   * @param tableName the table name to look for.
+   * @throws an error when the table isn't found.
+   */
+  private async getTable(tableName: string): Promise<Table> {
+    const table = await this.dynamoService.describeTable(tableName);
+    if (!table) {
+      throw new Error(`Table ${tableName} is not found.`);
+    }
+
+    return table;
   }
 
 }
