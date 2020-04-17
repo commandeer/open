@@ -4,13 +4,13 @@
     "declaration": true,
     "esModuleInterop": true,
     "lib": [
-      "esnext"
+      "es2019"
     ],
     "module": "commonjs",
     "outDir": "dist",
     "strict": true,
     "strictNullChecks": true,
-    "target": "esnext",
+    "target": "es2019",
     "paths": {
       "@/*": [
         "src/*"

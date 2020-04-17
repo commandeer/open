@@ -29,5 +29,11 @@
     "@types/node": "13.11.1",
     "@types/serverless": "1.67.0",
     "typescript": "3.8.3"
+  },
+  "dependencies": {
+    "module-alias": "2.2.2"
+  },
+  "_moduleAliases": {
+    "@": "dist"
   }
 }

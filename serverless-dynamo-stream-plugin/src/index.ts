@@ -1,3 +1,4 @@
+import 'module-alias/register';
 import { config } from 'aws-sdk';
 import Serverless from 'serverless'
 import { DynamoService } from './dynamo/dynamoService';
