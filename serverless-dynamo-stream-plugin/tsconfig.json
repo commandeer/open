@@ -1,6 +1,6 @@
 {
-  "baseUrl": ".",
   "compilerOptions": {
+    "baseUrl": ".",
     "declaration": true,
     "esModuleInterop": true,
     "lib": [
@@ -10,7 +10,12 @@
     "outDir": "dist",
     "strict": true,
     "strictNullChecks": true,
-    "target": "esnext"
+    "target": "esnext",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    }
   },
   "exclude": [
     ".idea",
@@ -19,10 +24,5 @@
   ],
   "include": [
     "src/**/*"
-  ],
-  "paths": {
-    "@/*": [
-      "src/*"
-    ]
-  }
+  ]
 }

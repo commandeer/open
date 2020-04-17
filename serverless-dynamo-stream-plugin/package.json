@@ -21,7 +21,8 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "prepublish": "tsc"
+    "build": "tsc",
+    "prepublish": "yarn build"
   },
   "devDependencies": {
     "@types/aws-sdk": "2.7.0",
