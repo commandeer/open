@@ -1,25 +1,15 @@
-'use strict';
-
-import Dynamo from 'aws-sdk/clients/dynamodb';
-import Iam from 'aws-sdk/clients/iam';
-import Lambda from 'aws-sdk/clients/lambda';
 import { config } from 'aws-sdk';
 import Serverless from 'serverless'
-import { DynamoStream, IDynamoStream, StreamSpecification } from './types';
 import { DynamoService } from './dynamo/dynamoService';
 import { LambdaService } from './lambda/lambdaService';
 import { IamService } from './iam/iamService';
+import { StreamSpecification, DynamoStream, IDynamoStream } from '@/dynamo/types';
 
 export class ServerlessDynamoStreamPlugin {
 
   readonly dynamoService: DynamoService;
   readonly lambdaService: LambdaService;
   readonly iamService: IamService;
-
-  // TODO: delete the clients once all services are in
-  readonly dynamoClient: Dynamo;
-  readonly iamClient: Iam;
-  readonly lambdaClient: Lambda;
 
   // Serverless parameters
   readonly serverless: Serverless;
@@ -77,11 +67,6 @@ export class ServerlessDynamoStreamPlugin {
         dynamodb: '2012-08-10',
       }
     });
-
-    // instantiate AWS clients
-    this.dynamoClient = new Dynamo();
-    this.lambdaClient = new Lambda();
-    this.iamClient = new Iam();
 
     this.dynamoService = new DynamoService();
     this.lambdaService = new LambdaService();
