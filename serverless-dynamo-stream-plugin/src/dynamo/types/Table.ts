@@ -9,8 +9,6 @@ export class Table implements ITable {
     if (table.streamSpecification) {
       this.streamSpecification = new StreamSpecification(table.streamSpecification);
     }
-    if (table.latestStreamArn) {
-      this.latestStreamArn = table.latestStreamArn;
-    }
+    this.latestStreamArn = table?.latestStreamArn;
   }
 }

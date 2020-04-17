@@ -1,6 +1,6 @@
 import 'module-alias/register';
-import { config } from 'aws-sdk';
 import Serverless from 'serverless'
+import { config } from 'aws-sdk';
 import { DynamoService } from './dynamo/dynamoService';
 import { LambdaService } from './lambda/lambdaService';
 import { IamService } from './iam/iamService';
