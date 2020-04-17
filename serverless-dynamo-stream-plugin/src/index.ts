@@ -6,6 +6,8 @@ import { LambdaService } from './lambda/lambdaService';
 import { IamService } from './iam/iamService';
 import { DynamoStream, DynamoStreamType, IDynamoStream, StreamSpecification, Table } from '@/dynamo/types';
 import { RolePolicy } from '@/iam/types';
+import { EventSourcePosition } from '@/_base/EventSourcePosition';
+import { EventSourceMappingState } from '@/lambda/types';
 
 export class ServerlessDynamoStreamPlugin {
 
@@ -123,9 +125,12 @@ export class ServerlessDynamoStreamPlugin {
             ? this.serverless.cli.log(`Created a new policy for Role ${lambdaRoleName} to access the stream ${streamArn}`)
             : this.serverless.cli.log(`Role ${lambdaRoleName} already has a policy for ${streamArn}`);
 
-          // create an event mapping
+          // create/activate an event mapping if needed
           this.serverless.cli.log(`Creating event mapping between lambda ${functionName} and DynamoDB table stream ${event.tableName}`);
-          await this.lambdaService.createEventSourceMapping(streamArn, fullFunctionName, event.startingPosition);
+          const mappingCreatedOrActivated = await this.createOrActivateMappingIfNeeded(streamArn, fullFunctionName, event.startingPosition);
+          mappingCreatedOrActivated
+            ? this.serverless.cli.log(`Mapping of lambda ${fullFunctionName} to table ${event.tableName} stream is now active.`)
+            : this.serverless.cli.log(`Active mapping lambda ${fullFunctionName} to table ${event.tableName} stream already exists.`);
 
         } catch (error) {
           this.serverless.cli.log(`Failed to get the stream arn for table ${event.tableName}.`
@@ -265,6 +270,34 @@ export class ServerlessDynamoStreamPlugin {
     return table;
   }
 
+  /**
+   * @description creates a new mapping if it doesn't exist, or activates an inactive existing mapping.
+   * @param streamArn the stream arn for the mapping.
+   * @param fullFunctionName the function name to connect the mapping to.
+   * @param startingPosition the starting position for the stream.
+   */
+  private async createOrActivateMappingIfNeeded(
+    streamArn: string,
+    fullFunctionName: string,
+    startingPosition: EventSourcePosition
+  ): Promise<boolean> {
+
+    const existingMappings = await this.lambdaService.listEventSourceMappings(fullFunctionName);
+    let existingMapping = existingMappings.find(mapping => mapping.eventSourceArn === streamArn);
+    let createdOrActivated = false;
+
+    if (!existingMapping) {
+      // create an active source mapping if it doesn't exist
+      await this.lambdaService.createEventSourceMapping(streamArn, fullFunctionName, startingPosition);
+      createdOrActivated = true;
+    } else if (existingMapping && existingMapping.state !== EventSourceMappingState.ENABLED) {
+      // activate an inactive mapping if it exists and it's not active
+      await this.lambdaService.updateEventSourceMapping(existingMapping, true);
+      createdOrActivated = true;
+    }
+
+    return createdOrActivated;
+  }
 }
 
 module.exports = ServerlessDynamoStreamPlugin;
