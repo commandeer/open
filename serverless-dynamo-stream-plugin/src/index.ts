@@ -56,8 +56,8 @@ export class ServerlessDynamoStreamPlugin {
 
     // bind the lifecycle hooks
     this.hooks = {
-      'dynamoStream:create': this.createDynamoStream.bind(this),
-      'dynamoStream:connect': this.connectDynamoStreamToLambda.bind(this),
+      'dynamo-stream:create': this.createDynamoStream.bind(this),
+      'dynamo-stream:connect': this.connectDynamoStreamToLambda.bind(this),
       'after:deploy:deploy': this.runAll.bind(this),
     };
 
