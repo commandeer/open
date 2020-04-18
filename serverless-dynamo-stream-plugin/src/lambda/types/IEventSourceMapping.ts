@@ -1,4 +1,4 @@
-import { EventSourceMappingState } from '@/lambda/types/EventSourceMappingState';
+import { EventSourceMappingState } from './EventSourceMappingState';
 
 export interface IEventSourceMapping {
   id?: string;

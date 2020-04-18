@@ -4,10 +4,10 @@ import { config } from 'aws-sdk';
 import { DynamoService } from './dynamo/dynamoService';
 import { LambdaService } from './lambda/lambdaService';
 import { IamService } from './iam/iamService';
-import { DynamoStream, DynamoStreamType, IDynamoStream, StreamSpecification, Table } from '@/dynamo/types';
-import { RolePolicy } from '@/iam/types';
-import { EventSourcePosition } from '@/_base/EventSourcePosition';
-import { EventSourceMappingState } from '@/lambda/types';
+import { DynamoStream, DynamoStreamType, IDynamoStream, StreamSpecification, Table } from './dynamo/types';
+import { RolePolicy } from './iam/types';
+import { EventSourcePosition } from './_base/EventSourcePosition';
+import { EventSourceMappingState } from './lambda/types';
 
 export class ServerlessDynamoStreamPlugin {
 
