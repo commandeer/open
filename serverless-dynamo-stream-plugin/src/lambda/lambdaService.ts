@@ -1,6 +1,6 @@
 import Lambda from 'aws-sdk/clients/lambda';
 import { EventSourceMapping, EventSourceMappingState, FunctionConfiguration } from './types';
-import { EventSourcePosition } from '@/_base/EventSourcePosition';
+import { EventSourcePosition } from '../_base/EventSourcePosition';
 
 export class LambdaService {
   private readonly client: Lambda;
