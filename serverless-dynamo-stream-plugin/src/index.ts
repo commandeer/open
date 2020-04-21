@@ -95,13 +95,12 @@ export class ServerlessDynamoStreamPlugin {
 
         try {
           // get a table stream specification
-          const table = await this.getTable(event.tableName);
-          if (!table.streamSpecification) {
-            throw new Error(`Stream specification is missing on the table ${event.tableName}`);
-          }
+          let table = await this.getTable(event.tableName);
 
           // enable the stream if needed
-          if (await this.enableStreamIfNeeded(table.streamSpecification, event.tableName, event.streamType)) {
+          const updatedTable = await this.enableStreamIfNeeded(event.tableName, event.streamType, table.streamSpecification);
+          if (updatedTable) {
+            table = updatedTable;
             this.serverless.cli.log(`Updated the stream for table ${event.tableName} to ${event.streamType}`);
           }
 
@@ -229,29 +228,28 @@ export class ServerlessDynamoStreamPlugin {
   }
 
   /**
-   * @description enables the DynamoDB stream if needed.
+   * @description enables the DynamoDB stream if needed and the returns a new table if updated.
    * @param currentStream the current stream specification.
    * @param tableName the table name for the stream.
    * @param targetStreamType what we want the stream type to be.
    */
   private async enableStreamIfNeeded(
-    currentStream: StreamSpecification,
     tableName: string,
-    targetStreamType: DynamoStreamType
-  ): Promise<boolean> {
+    targetStreamType: DynamoStreamType,
+    currentStream?: StreamSpecification,
+  ): Promise<Table | undefined> {
 
     // update the stream if it's not enabled or its stream type is not what's specified in serverless.yml
-    if (!currentStream.isEnabled || (currentStream.isEnabled && currentStream.viewType !== targetStreamType)) {
+    if (!currentStream || !currentStream.isEnabled || (currentStream.isEnabled && currentStream.viewType !== targetStreamType)) {
       let updateStream = new StreamSpecification({
         isEnabled: true,
         viewType: targetStreamType,
       });
       updateStream.isEnabled = true;
-      await this.dynamoService.updateTable(tableName, updateStream);
 
-      return true;
+      return this.dynamoService.updateTable(tableName, updateStream);
     } else {
-      return false;
+      return undefined;
     }
   }
 
