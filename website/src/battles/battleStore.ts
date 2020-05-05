@@ -1,6 +1,6 @@
 import { ActionTree, GetterTree, Module, MutationTree } from 'vuex';
 import { IRootState } from '../store';
-import { Battle, BattleService } from '../battles';
+import { Battle, BattleService } from '.';
 
 const namespaced: boolean = true;
 
@@ -44,7 +44,7 @@ const getters: GetterTree<IBattleState, IRootState> = {};
 
 const mutations: MutationTree<IBattleState> = {
 
-  battlsCleared(state) {
+  battlesCleared(state) {
     state.error = false;
     state.battles = [];
   },
@@ -66,5 +66,5 @@ export const battleStore: Module<IBattleState, IRootState> = {
   state,
   getters,
   actions,
-  mutations
+  mutations,
 };

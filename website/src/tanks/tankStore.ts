@@ -1,7 +1,7 @@
 import { ActionTree, GetterTree, Module, MutationTree } from 'vuex';
-import { TankService } from '../tanks/tankService';
+import { TankService } from './tankService';
 import { IRootState } from '../store';
-import { Tank } from '../tanks/tank';
+import { Tank } from './types';
 
 const namespaced: boolean = true;
 

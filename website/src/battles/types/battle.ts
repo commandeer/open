@@ -1,8 +1,6 @@
 import { v4 as uuid } from 'uuid';
-import { BattleStatus } from './BattleStatus';
-import { BattleType } from './BattleType';
-import { IBattle } from './IBattle';
-import { Tank } from '../tanks/tank';
+import { BattleStatus, BattleType, IBattle } from './';
+import { Tank } from '../../tanks';
 
 const battleSample: IBattle = {
   name: 'Battle Royale',

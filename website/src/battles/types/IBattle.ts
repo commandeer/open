@@ -1,8 +1,6 @@
-import { ITank } from '../tanks/ITank';
-import { BattleStatus } from './BattleStatus';
-import { IPosition } from './IPosition';
-import { ITrackable } from '../_base/ITrackable';
-import { BattleType } from './BattleType';
+import { ITank } from '../../tanks';
+import { BattleStatus, BattleType,  IPosition } from './';
+import { ITrackable } from '../../_base/ITrackable';
 
 export interface IBattle extends ITrackable {
 
