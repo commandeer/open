@@ -23,6 +23,7 @@ const enLang = {
   more_links: 'More Links',
   name: 'Name',
   no_tanks: 'No Tanks',
+  personnel: 'Personnel',
   raw_data: 'Raw Data',
   status: 'Status',
   submit_a_service: 'Submit a Service',

@@ -1,0 +1,21 @@
+{
+  "scripts": {
+    "deploy": "sls deploy",
+    "test": "mocha -r ts-node/register/transpile-only tests/setup.ts \"tests/handlers/**/*.test.ts\" --timeout 30000 --exit"
+  },
+  "dependencies": {
+    "aws-sdk": "2.556.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "8.10.24",
+    "@types/mocha": "5.2.6",
+    "@types/sinon-chai": "3.2.2",
+    "chai": "4.2.0",
+    "chai-shallow-deep-equal": "1.4.6",
+    "lambda-tester": "3.6.0",
+    "mocha": "5.2.0",
+    "serverless-plugin-typescript": "1.1.9",
+    "ts-node": "8.1.0",
+    "typescript": "3.6.4"
+  }
+}

@@ -54,7 +54,7 @@
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { State, Action, Getter } from 'vuex-class';
 import Attribute from '../_base/Attribute.vue';
-import { ITankState, Tank } from '../stores/tankStore';
+import { ITankState, Tank } from './tankStore';
 
 const namespace: string = 'tankStore';
 

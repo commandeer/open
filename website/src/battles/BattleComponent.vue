@@ -41,8 +41,8 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { State, Action, Getter } from 'vuex-class';
-import { IBattleState, Battle } from '../stores/battleStore';
-import { Tank } from '../stores/tankStore';
+import { IBattleState, Battle } from './battleStore';
+import { Tank } from '../tanks';
 
 const namespace: string = 'battleStore';
 
