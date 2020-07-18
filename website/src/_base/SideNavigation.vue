@@ -117,6 +117,10 @@ export default class SideNavigation extends Vue {
       to: { 'name': 'homePage' },
       active: true,
     }, {
+      title: `${this.$t('personnel')}`,
+      to: { 'name': 'personnelPage' },
+      active: true,
+    }, {
       title: `${this.$t('tanks')}`,
       to: { 'name': 'tanksPage' },
       active: true,

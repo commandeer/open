@@ -2,3 +2,5 @@ node_modules
 .idea
 .build
 .serverless
+*.serverless
+.terraform

@@ -1,0 +1,10 @@
+---
+- hosts: all
+  remote_user: bob
+  vars:
+    stage: development
+  tasks:
+  - import_tasks: dynamo-tables.yml
+  - import_tasks: sns-topics.yml
+  - import_tasks: sqs-queues.yml
+  - import_tasks: s3-buckets.yml

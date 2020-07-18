@@ -1,0 +1,48 @@
+- name: Create EMAIL_SEND SQS queue
+  sqs_queue:
+    name: EMAIL_SEND
+    default_visibility_timeout: 120
+    message_retention_period: 86400
+    maximum_message_size: 1024
+    delivery_delay: 30
+    receive_message_wait_time: 20
+- name: Create ETL SQS queue
+  sqs_queue:
+    name: ETL
+    default_visibility_timeout: 120
+    message_retention_period: 86400
+    maximum_message_size: 1024
+    delivery_delay: 30
+    receive_message_wait_time: 20
+- name: Create EVENTS SQS queue
+  sqs_queue:
+    name: EVENTS
+    default_visibility_timeout: 120
+    message_retention_period: 86400
+    maximum_message_size: 1024
+    delivery_delay: 30
+    receive_message_wait_time: 20
+- name: Create OFFLINE_ANALYSIS SQS queue
+  sqs_queue:
+    name: OFFLINE_ANALYSIS
+    default_visibility_timeout: 120
+    message_retention_period: 86400
+    maximum_message_size: 1024
+    delivery_delay: 30
+    receive_message_wait_time: 20
+- name: Create PROCESS_ORDER SQS queue
+  sqs_queue:
+    name: PROCESS_ORDER
+    default_visibility_timeout: 120
+    message_retention_period: 86400
+    maximum_message_size: 1024
+    delivery_delay: 30
+    receive_message_wait_time: 20
+- name: Create USER_CREATE SQS queue
+  sqs_queue:
+    name: USER_CREATE
+    default_visibility_timeout: 120
+    message_retention_period: 86400
+    maximum_message_size: 1024
+    delivery_delay: 30
+    receive_message_wait_time: 20

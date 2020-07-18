@@ -1,4 +1,4 @@
-import { Tank } from './tank';
+import { Tank } from './types/tank';
 
 const tanksLocal = require('../_mocks/tanks.json');
 

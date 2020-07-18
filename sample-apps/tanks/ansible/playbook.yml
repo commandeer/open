@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  remote_user: bob
+  tasks:
+    - import_tasks: tanks-bucket.yml
+    - import_tasks: tank-history-s3-bucket.yml

@@ -1,0 +1,17 @@
+service: commandeer
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  memorySize: 256
+  region: us-west-1
+  stage: ${opt:stage, 'dev'}
+  timeout: 30
+  versionFunctions: false
+
+plugins:
+  - serverless-plugin-typescript
+
+functions:
+  inviteHandler: ${file(./handlers/dynamo-streams/inviteHandler.yml):inviteHandler}
+  userHandler: ${file(./handlers/dynamo-streams/userHandler.yml):userHandler}

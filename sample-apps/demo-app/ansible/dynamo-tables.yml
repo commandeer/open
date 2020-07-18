@@ -1,0 +1,33 @@
+- name: Create a demo items table
+  dynamodb_table:
+    name: Item
+    hash_key_name: id
+    hash_key_type: STRING
+    range_key_name: create_time
+    range_key_type: NUMBER
+    read_capacity: 2
+    write_capacity: 2
+    tags:
+      DEPARTMENT: ORDERING
+- name: Create a demo orders table
+  dynamodb_table:
+    name: Order
+    hash_key_name: id
+    hash_key_type: STRING
+    range_key_name: create_time
+    range_key_type: NUMBER
+    read_capacity: 2
+    write_capacity: 2
+    tags:
+      DEPARTMENT: ORDERING
+- name: Create a demo transaction table
+  dynamodb_table:
+    name: Transaction
+    hash_key_name: id
+    hash_key_type: STRING
+    range_key_name: create_time
+    range_key_type: NUMBER
+    read_capacity: 2
+    write_capacity: 2
+    tags:
+      DEPARTMENT: ORDERING
