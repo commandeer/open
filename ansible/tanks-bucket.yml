@@ -1,7 +1,20 @@
-# Create commandeer-tanks s3 bucket for saving tanks
-- s3_bucket:
-    name: commandeer-tanks
+- name: Create the S3 Tanks bucket
+  s3_bucket:
+    name: commandeer-tank
     versioning: yes
     tags:
-      DEPARTMENT: MACHINERY
-      ENVIRONMENT: DEV
+      name: Tanks
+      type: demo
+
+- name: Upload tank A1 configuration
+  aws_s3:
+    bucket: commandeer-tank
+    object: tanks/a1.json
+    src: "./a1.json"
+    mode: put
+
+- name: Create a hangar folder for tanks
+  aws_s3:
+    bucket: commandeer-tank
+    object: tanks/hangar
+    mode: create
