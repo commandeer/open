@@ -17,16 +17,15 @@ plugins:
 functions:
 
   # Dynamo Streams
-  tankDynamoStreamEvent: ${file(./handlers/dynamo-streams/tankDynamoStreamHandler.yml):tankDynamoStreamHandler}
+  #  tankDynamoStreamEvent: ${file(./handlers/dynamo-streams/tankDynamoStreamHandler.yml):tankDynamoStreamHandler}
 
   # S3 Events
   tankS3FileCreatedEvent: ${file(./handlers/s3/tankS3FileCreatedHandler.yml):tankS3FileCreatedHandler}
 
   # SQS Events
-#   tankSqsMessageReceiveEvent: ${file(./handlers/sqs/tankSqsMessageReceivedHandler.yml):tankSqsMessageReceivedHandler}
+  #  tankSqsMessageReceiveEvent: ${file(./handlers/sqs/tankSqsMessageReceivedHandler.yml):tankSqsMessageReceivedHandler}
 
 custom:
-  tanksBucket: ${self:service}-${self:provider.stage}-tanks
   localstack:
     stages:
       # list of stages for which the plugin should be enabled

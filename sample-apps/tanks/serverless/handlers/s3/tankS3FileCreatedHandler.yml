@@ -7,7 +7,7 @@ tankS3FileCreatedHandler:
 
   events:
     - existingS3:
-        bucket: ${self:custom.tanksBucket}
+        bucket: commandeer-tank
         event: s3:ObjectCreated:*
         rules:
           - suffix: .json
