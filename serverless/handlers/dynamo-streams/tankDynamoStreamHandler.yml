@@ -6,7 +6,9 @@ tankDynamoStreamHandler:
     ENVIRONMENT: DEV
 
   events:
-    - existingDynamoStream:
-        tableName: Tank
-        streamType: NEW_IMAGE
-        startingPosition: LATEST
+    - stream:
+      type: dynamodb
+      batchSize: 1
+      startingPosition: LATEST
+      tableName: Tank
+      arn: { Fn::GetAtt: [ Tank, StreamArn ] }
