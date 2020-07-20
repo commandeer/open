@@ -6,7 +6,6 @@
     "@types/aws-lambda": "8.10.24",
     "serverless-plugin-typescript": "1.1.7",
     "serverless-localstack": "0.4.21",
-    "ts-node": "8.1.0",
     "typescript": "3.6.4"
   }
 }
