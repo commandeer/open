@@ -9,8 +9,11 @@ const process: Handler = async (event: any, context: Context) => {
   console.log('tankHandler.process', { event, context });
 
   try {
-    console.log('Received event', { event });
-    context.succeed(true);
+    const shot = {
+      message: 'Boom! 💥',
+      event,
+    };
+    context.succeed(shot);
   } catch (exception) {
     context.fail(exception);
   }
