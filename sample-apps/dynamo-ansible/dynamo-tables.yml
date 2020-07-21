@@ -1,0 +1,29 @@
+- name: Create Items table
+  dynamodb_table:
+    name: Item
+    hash_key_name: id
+    hash_key_type: STRING
+    range_key_name: orderId
+    range_key_type: STRING
+    read_capacity: 1
+    write_capacity: 1
+
+- name: Create Orders table
+  dynamodb_table:
+    name: Order
+    hash_key_name: id
+    hash_key_type: STRING
+    range_key_name: userId
+    range_key_type: STRING
+    read_capacity: 1
+    write_capacity: 1
+
+- name: Create Transaction table
+  dynamodb_table:
+    name: Transaction
+    hash_key_name: id
+    hash_key_type: STRING
+    range_key_name: orderId
+    range_key_type: STRING
+    read_capacity: 1
+    write_capacity: 1

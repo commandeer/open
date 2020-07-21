@@ -1,0 +1,6 @@
+---
+- hosts: localhost
+  remote_user: bob
+  tasks:
+    - import_tasks: dynamo-tables.yml
+
