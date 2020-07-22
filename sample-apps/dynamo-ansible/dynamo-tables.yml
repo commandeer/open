@@ -1,29 +1,20 @@
-- name: Create Items table
+- name: Create Tank table
   dynamodb_table:
-    name: Item
+    name: Tank
     hash_key_name: id
     hash_key_type: STRING
-    range_key_name: orderId
-    range_key_type: STRING
     read_capacity: 1
     write_capacity: 1
 
-- name: Create Orders table
+- name: Create Battle table
   dynamodb_table:
-    name: Order
+    name: Battle
     hash_key_name: id
     hash_key_type: STRING
-    range_key_name: userId
-    range_key_type: STRING
     read_capacity: 1
     write_capacity: 1
-
-- name: Create Transaction table
-  dynamodb_table:
-    name: Transaction
-    hash_key_name: id
-    hash_key_type: STRING
-    range_key_name: orderId
-    range_key_type: STRING
-    read_capacity: 1
-    write_capacity: 1
+    indexes:
+      - name: tankId
+        type: global_all
+        hash_key_name: tankId
+        hash_key_type: STRING
