@@ -1,4 +1,4 @@
-service: commandeer-tanks-stream
+service: commandeer-docs-dynamo-stream
 
 provider:
   name: aws
