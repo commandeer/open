@@ -45,6 +45,9 @@ export class ServerlessDynamoStreamPlugin {
    */
   readonly finalWaitPeriod: number = 60000;
 
+  private readonly maxIamWaitAttempts: number = 3;
+  private readonly iamWaitIntervalMillis: number = 5000;
+
   constructor(serverless: Serverless, options: Serverless.Options) {
     this.serverless = serverless;
     this.options = options;
@@ -124,7 +127,24 @@ export class ServerlessDynamoStreamPlugin {
             ? this.serverless.cli.log(`Created a new policy for Role ${lambdaRoleName} to access the stream ${streamArn}`)
             : this.serverless.cli.log(`Role ${lambdaRoleName} already has a policy for ${streamArn}`);
 
-          // create/activate an event mapping if needed
+          // IAM takes some time to propagate,
+          // retrying the request and catching the error causes multiple mappings to be created,
+          // fetching the policy document says the updated policy is there, where in reality the create mapping call fails,
+          // so a real world problem solution is to wait until IAM catches up.
+          // https://github.com/aws/aws-sdk-js/issues/850
+          if (newPermissionsAdded) {
+            let attempts = 0;
+            while (attempts <= this.maxIamWaitAttempts) {
+
+              attempts
+                ? this.serverless.cli.log('.')
+                : this.serverless.cli.log('Hang in there, IAM takes some time to process new permissions.');
+
+              attempts += 1;
+              await this.sleep(this.iamWaitIntervalMillis);
+            }
+          }
+
           const mappingCreatedOrActivated = await this.createOrActivateMappingIfNeeded(streamArn, fullFunctionName, event.startingPosition);
           mappingCreatedOrActivated
             ? this.serverless.cli.log(`Mapping of lambda ${fullFunctionName} to table ${event.tableName} stream is now active.`)
@@ -297,6 +317,12 @@ export class ServerlessDynamoStreamPlugin {
     }
 
     return createdOrActivated;
+  }
+
+  private sleep(ms: number) {
+    return new Promise((resolve) => {
+      setTimeout(resolve, ms);
+    });
   }
 }
 
