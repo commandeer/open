@@ -1,10 +1,9 @@
-service: commandeer-tanks
+service: commandeer-tanks-stream
 
 provider:
   name: aws
   runtime: nodejs10.x
   memorySize: 256
-  region: us-east-1
   stage: ${opt:stage, 'development'}
   timeout: 30
   versionFunctions: false
@@ -12,13 +11,6 @@ provider:
 plugins:
   - serverless-dynamo-stream-plugin
   - serverless-plugin-typescript
-  - serverless-localstack
 
 functions:
   tankHandler: ${file(./handlers/tankHandler.yml):tankHandler}
-
-custom:
-  localstack:
-    stages:
-      # list of stages for which the plugin should be enabled
-      - local
