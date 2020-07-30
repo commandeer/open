@@ -130,7 +130,7 @@ export class ServerlessDynamoStreamPlugin {
           // IAM takes some time to propagate,
           // retrying the request and catching the error causes multiple mappings to be created,
           // fetching the policy document says the updated policy is there, where in reality the create mapping call fails,
-          // so a real world problem solution is to wait until IAM catches up.
+          // so a real world solution is to wait until IAM catches up.
           // https://github.com/aws/aws-sdk-js/issues/850
           if (newPermissionsAdded) {
             let attempts = 0;
