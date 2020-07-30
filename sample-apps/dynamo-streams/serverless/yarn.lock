@@ -802,10 +802,10 @@ sax@>=0.6.0:
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
   integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
 
-serverless-dynamo-stream-plugin@0.1.3:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/serverless-dynamo-stream-plugin/-/serverless-dynamo-stream-plugin-0.1.3.tgz#2b05752b611acfd3b4746a1e6a2ecc43849e9862"
-  integrity sha512-Vys2tBmVAWebdF5JRXdXJgDJnxMgAZ98+aD5jeVnFY69jAn89YSJh32zBwc3UPGHATtIblUdJ5ulX2bzjkN9tA==
+serverless-dynamo-stream-plugin@0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/serverless-dynamo-stream-plugin/-/serverless-dynamo-stream-plugin-0.1.4.tgz#5ca26cc1f7760c811816dd4701fba1325c429f94"
+  integrity sha512-jqsqYBPZd6Q/jgI63AAfcy3FjmP5clVxy4jcNXqZ5Z7GL70DZ47LsAeUZmNdLn5WNOWC0ooEwNdjKzwtfLL0eA==
   dependencies:
     module-alias "2.2.2"
 

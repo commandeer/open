@@ -1,6 +1,6 @@
 {
   "name": "serverless-dynamo-stream-plugin",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Creates and connects DynamoDB streams for pre-existing tables with AWS Lambdas using Serverless",
   "repository": "https://github.com/commandeer/open/tree/development/serverless-dynamo-stream-plugin",
   "homepage": "https://github.com/commandeer/open/tree/development/serverless-dynamo-stream-plugin",

@@ -4,7 +4,7 @@
   },
   "devDependencies": {
     "@types/aws-lambda": "8.10.24",
-    "serverless-dynamo-stream-plugin": "0.1.3",
+    "serverless-dynamo-stream-plugin": "0.1.4",
     "serverless-plugin-typescript": "1.1.7",
     "typescript": "3.6.4"
   }
