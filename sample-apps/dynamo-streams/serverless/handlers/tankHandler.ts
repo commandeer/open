@@ -6,7 +6,7 @@ import { Context, Handler } from 'aws-lambda';
  * @param context context object
  */
 const process: Handler = async (event: any, context: Context) => {
-  console.log('tankHandler.process', { event, context });
+  console.log('tankHandler.process', { event: JSON.stringify(event) });
 
   try {
     const shot = {
