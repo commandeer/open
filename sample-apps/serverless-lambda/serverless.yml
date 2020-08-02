@@ -1,4 +1,4 @@
-service: commandeer-tanks
+service: commandeer-serverless-lambda
 
 provider:
   name: aws
