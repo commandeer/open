@@ -1,0 +1,16 @@
+service: commandeer-serverless-lambda
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  memorySize: 256
+  region: us-east-1
+  stage: ${opt:stage, 'dev'}
+  timeout: 30
+  versionFunctions: false
+
+plugins:
+  - serverless-plugin-typescript
+
+functions:
+  tankHandler: ${file(./handlers/tankHandler.yml):tankHandler}

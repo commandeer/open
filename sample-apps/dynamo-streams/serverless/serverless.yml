@@ -1,0 +1,16 @@
+service: commandeer-docs-dynamo-stream
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  memorySize: 256
+  stage: ${opt:stage, 'development'}
+  timeout: 30
+  versionFunctions: false
+
+plugins:
+  - serverless-dynamo-stream-plugin
+  - serverless-plugin-typescript
+
+functions:
+  tankHandler: ${file(./handlers/tankHandler.yml):tankHandler}

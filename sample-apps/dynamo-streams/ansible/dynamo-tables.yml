@@ -1,0 +1,7 @@
+- name: Create Battle table
+  dynamodb_table:
+    name: Battle
+    hash_key_name: id
+    hash_key_type: STRING
+    read_capacity: 1
+    write_capacity: 1

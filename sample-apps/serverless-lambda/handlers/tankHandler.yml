@@ -1,0 +1,3 @@
+tankHandler:
+  handler: handlers/tankHandler.process
+  timeout: 900
