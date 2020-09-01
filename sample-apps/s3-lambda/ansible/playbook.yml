@@ -1,0 +1,5 @@
+---
+- hosts: localhost
+  remote_user: bob
+  tasks:
+    - import_tasks: tanks-bucket.yml
