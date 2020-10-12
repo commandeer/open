@@ -66,6 +66,20 @@ export class ServerlessDynamoStreamPlugin {
       'after:deploy:deploy': this.run.bind(this),
     };
 
+    // define the new event schema if serverless supports it
+    if ((serverless as any).configSchemaHandler) {
+      (serverless as any).configSchemaHandler.defineFunctionEvent('aws', 'existingDynamoStream', {
+        type: 'object',
+        properties: {
+          tableName: { type: 'string' },
+          streamType: { type: 'string' },
+          startingPosition: { type: 'string' },
+        },
+        required: ['tableName', 'streamType', 'startingPosition'],
+        additionalProperties: false,
+      });
+    }
+
     // configure AWS.
     config.update({
       region: serverless.service.provider.region,
