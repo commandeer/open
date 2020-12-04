@@ -6,7 +6,7 @@ Commandeer is a tool built by developers for developers that solves three things
 
 <a href="https://www.producthunt.com/posts/commandeer-2?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-commandeer-2" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=169496&theme=dark" alt="Commandeer - Cloud management, reimagined. | Product Hunt Embed" style="width: 250px; height: 54px;" width="250px" height="54px" /></a>
 
-<img src="https://s3.us-west-1.amazonaws.com/commander-development-images/commandeer-logo.png" alt="commandeer" width="200"/>
+<img src="https://images.commandeer.be/commandeer-logo.png" alt="commandeer" width="200"/>
 
 - [Download Commandeer App (Mac/Windows/Linux)](https://getcommandeer.com/docs/download-app)
 
@@ -20,7 +20,7 @@ A demo application for help in creating a service to run in Commandeer
 - [Tank Demo Website](https://tanks.getcommandeer.com)
 - [Code and Readme](https://github.com/commandeer/open/tree/master/website)
 
-![Tank Service Animation](https://commander-development-images.s3.amazonaws.com/tank-service-2.gif)
+![Tank Service Animation](https://images.commandeer.be/tank-service-2.gif)
 
 ## Docker Compose
 
