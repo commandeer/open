@@ -1,0 +1,8 @@
+tankHandler:
+  handler: handlers/tankHandler.process
+  timeout: 900
+  events:
+    - existingDynamoStream:
+        tableName: Battle
+        streamType: NEW_IMAGE
+        startingPosition: LATEST

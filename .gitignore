@@ -1,8 +1,6 @@
 node_modules
 .idea
-
-*.serverless
 .build
 .serverless
-
+*.serverless
 .terraform

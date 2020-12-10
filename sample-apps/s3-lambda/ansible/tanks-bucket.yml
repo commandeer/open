@@ -1,0 +1,4 @@
+# Create commandeer-tanks s3 bucket for saving tanks
+- s3_bucket:
+    name: commandeer-tanks
+    versioning: yes

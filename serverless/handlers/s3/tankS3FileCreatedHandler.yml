@@ -6,8 +6,9 @@ tankS3FileCreatedHandler:
     ENVIRONMENT: DEV
 
   events:
-    - existingS3:
-        bucket: ${self:custom.tanksBucket}
+    - s3:
+        bucket: commandeer-tank
         event: s3:ObjectCreated:*
+#        existing: true
         rules:
           - suffix: .json
