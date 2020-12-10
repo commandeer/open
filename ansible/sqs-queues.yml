@@ -1,0 +1,17 @@
+- name: Create the tanks bucket
+  aws_s3:
+    bucket: commandeer-{{ stage }}-tanks
+    mode: create
+    permission: public-read
+
+- name: Create the tanks history bucket
+  aws_s3:
+    bucket: commandeer-{{ stage }}-tanks-history
+    mode: create
+    permission: public-read
+
+- name: Create the users history bucket
+  aws_s3:
+    bucket: commandeer-{{ stage }}-users-history
+    mode: create
+    permission: public-read

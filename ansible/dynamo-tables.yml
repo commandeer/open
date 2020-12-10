@@ -1,0 +1,15 @@
+- name: Create the Tank table
+  dynamodb_table:
+    name: Tank
+    hash_key_name: id
+    hash_key_type: STRING
+    read_capacity: 1
+    write_capacity: 1
+
+- name: Create the User table
+  dynamodb_table:
+    name: User
+    hash_key_name: id
+    hash_key_type: STRING
+    read_capacity: 1
+    write_capacity: 1

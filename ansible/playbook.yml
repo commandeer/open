@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  remote_user: bob
+  vars:
+    stage: local
+  tasks:
+  - import_tasks: dynamo-tables.yml
+  - import_tasks: s3-buckets.yml

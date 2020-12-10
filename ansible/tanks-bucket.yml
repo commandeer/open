@@ -1,9 +1,0 @@
-- hosts: localhost
-  tasks:
-    - name: Create the S3 Tanks bucket
-      s3_bucket:
-        name: commandeer-tanks-test
-        versioning: yes
-        tags:
-          name: Tanks
-          type: demo
