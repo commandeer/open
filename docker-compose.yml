@@ -28,6 +28,16 @@ services:
       - "${TMPDIR:-/tmp/localstack}:/tmp/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
 
+  # container for portainer
+  #    entrypoint: http://localhost:9000
+  portainer:
+    image: portainer/portainer-ce:2.0.0
+    command: -H unix:///var/run/docker.sock
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
   #  container for serverless
   #    entrypoint: serverless
   serverless:
@@ -40,3 +50,5 @@ services:
     container_name: commandeer-terraform
     image: hashicorp/terraform:0.12.18
 
+volumes:
+  portainer_data:
