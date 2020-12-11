@@ -1,18 +1,25 @@
-# Commandeer - Manage 28+ Cloud Services from a Desktop App (Available on Mac, Windows, and Linux) 
+# The Commandeer Desktop App - Manage 28+ of the best Cloud Services (Available on Mac, Windows, and Linux) 
+
+
 <img src="https://images.commandeer.be/commandeer-logo.png" alt="commandeer" width="200"/>
 
 Commandeer is a tool built by developers for developers that solves three things in the cloud. First, we are focused on the deployment of your IAC. Secondly, we enable you to ‘Test your Plumbing’. Lastly, Commandeer provides you the ability to easily view your data. (Manage AWS, Algolia, Slack, Twilio, SendGrid, Serverless, LocalStack, Ansible, Docker and more from your desktop)
+
+- [Download Commandeer App](https://getcommandeer.com/docs/download-app) - Available on Mac, Windows, Linux
+- [Issues Board](https://github.com/commandeer/open/issues) - You can submit any bugs or feature requests you may have here.
+- [Live Commandeer App Project Kanban Board](https://github.com/commandeer/open/issues) - You can view your issues (bugs and features) going through our development Kanban style board.
+
+***
 
 [![MadeWithVueJs.com shield](https://madewithvuejs.com/storage/repo-shields/1867-shield.svg)](https://madewithvuejs.com/p/commandeer/shield-link)
 
 <a href="https://www.producthunt.com/posts/commandeer-2?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-commandeer-2" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=169496&theme=dark" alt="Commandeer - Cloud management, reimagined. | Product Hunt Embed" style="width: 250px; height: 54px;" width="250px" height="54px" /></a>
 
-- [Download Commandeer App (Mac/Windows/Linux)](https://getcommandeer.com/docs/download-app)
-- [Live GitHub Commandeer App Kanban Board ](https://github.com/commandeer/open/projects/1)
+***
 
 ## 28+ Supported Services
 
-## Docker and LocalStack Support
+### Docker and LocalStack Support
   - [Docker](https://docs.getcommandeer.com/docs/Docker/)
   - [LocalStack](https://docs.getcommandeer.com/docs/LocalStack/)
 
@@ -55,16 +62,6 @@ Commandeer is a tool built by developers for developers that solves three things
 ## Contents of this Open-Source Repo
 
 The code base for the Commandeer App is closed-source.  To make a great product, we feel that is is better to only serve out a final, polished product with every release.  If you look at our [Release History](https://docs.getcommandeer.com/releases/) you will notice that we have very few minor revisions, which are usually quick patches after a major release.  This is because we have a hyper-focus on quality within all our tooling, but especially with our Desktop App, as it is a tool specifically meant to help you with your day to day work.
-
-### 1. Commandeer Desktop App Bugs and Feature Requests
-
-[Issues Board](https://github.com/commandeer/open/issues) - You can submit any bugs or feature requests you may have here.
-
-### 2. Commandeer App Project Kanban Board
-
-[Kanban Board](https://github.com/commandeer/open/issues) - You can submit any bugs or feature requests you may have here.
-
-## 3. One off code examples
 
 ### Docker Compose
 
