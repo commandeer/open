@@ -1,5 +1,11 @@
 version: '3'
 
+#######
+#   ansible-runner - Ansible for deploying IaC
+#   localstack - default version of LocalStack to run for LocalStack connectivity
+#   portainer - portainer instanace to manage Docker from a local website
+#   serverless - Serverless Framework for depolying IaC
+#   terraform - Terraform for deploying IaC
 services:
 
   #  container for serverless
