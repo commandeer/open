@@ -8,7 +8,9 @@ Commandeer is a tool built by developers for developers that solves three things
 
 <img src="https://images.commandeer.be/commandeer-logo.png" alt="commandeer" width="200"/>
 
+
 - [Download Commandeer App (Mac/Windows/Linux)](https://getcommandeer.com/docs/download-app)
+- [Live GitHub Commandeer App Kanban Board ](https://github.com/commandeer/open/projects/1)
 
 
 
