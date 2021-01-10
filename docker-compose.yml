@@ -14,11 +14,17 @@ services:
     container_name: commandeer-ansible-runner
     image: ansible/ansible-runner:1.4.4
 
+  #  container for cassandra
+  #    entrypoint: cassandra
+  cassandra:
+    container_name: commandeer-cassandra
+    image: cassandra:3.11.6
+
   #  container for localstack
   #    entrypoint: localstack
   localstack:
     container_name: commandeer-localstack
-    image: localstack/localstack:0.10.6
+    image: localstack/localstack:0.11.3
     ports:
       - "4567-4597:4567-4597"
       - "${PORT_WEB_UI-8080}:${PORT_WEB_UI-8080}"
@@ -31,8 +37,14 @@ services:
       - KINESIS_ERROR_PROBABILITY=${KINESIS_ERROR_PROBABILITY- }
       - DOCKER_HOST=unix:///var/run/docker.sock
     volumes:
-      - "${TMPDIR:-/tmp/localstack}:/tmp/localstack"
+      # - "${TMPDIR:-/tmp/localstack}:/tmp/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
+
+  #  container for mongo
+  #    entrypoint: mongo
+  mongodb:
+    container_name: commandeer-mongo
+    image: mongo:4.2.8
 
   #  container for nginx
   #    entrypoint: nginx
@@ -53,6 +65,12 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
+
+  #  container for redis
+  #    entrypoint: redis
+  redis:
+    container_name: commandeer-redis
+    image: redis:alpine3.11
 
   #  container for serverless
   #    entrypoint: serverless
