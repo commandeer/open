@@ -46,6 +46,12 @@ services:
     container_name: commandeer-mongo
     image: mongo:4.2.8
 
+  #  container for mysql
+  #    entrypoint: mysql
+  mysql:
+    container_name: commandeer-mysql
+    image: mysql
+
   #  container for nginx
   #    entrypoint: nginx
   nginx:
@@ -68,6 +74,12 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
+
+  #  container for postgres
+  #    entrypoint: postgres
+  postgres:
+    container_name: commandeer-postgres
+    image: postgres
 
   #  container for redis
   #    entrypoint: redis
