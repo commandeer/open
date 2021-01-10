@@ -34,6 +34,16 @@ services:
       - "${TMPDIR:-/tmp/localstack}:/tmp/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
 
+  #  container for nginx
+  #    entrypoint: nginx
+  nginx:
+    container_name: commandeer-nginx
+    image: nginx:alpine
+    ports:
+      - 80:80
+    volumes:
+      - nginx-data:/usr/share/nginx/html
+
   # container for portainer
   #    entrypoint: http://localhost:9000
   portainer:
@@ -57,4 +67,5 @@ services:
     image: hashicorp/terraform:0.12.18
 
 volumes:
+  nginx-data:
   portainer_data:
