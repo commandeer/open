@@ -8,7 +8,7 @@ version: '3'
 #   terraform - Terraform for deploying IaC
 services:
 
-  #  container for serverless
+  #  container for ansible
   #    entrypoint: ansible-runner
   ansible-runner:
     container_name: commandeer-ansible-runner
