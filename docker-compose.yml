@@ -59,6 +59,7 @@ services:
   # container for portainer
   #    entrypoint: http://localhost:9000
   portainer:
+    container_name: commandeer-portainer
     image: portainer/portainer-ce:2.0.0
     command: -H unix:///var/run/docker.sock
     restart: always
