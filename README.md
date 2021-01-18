@@ -7,7 +7,8 @@ Commandeer is a tool built by developers for developers that solves three things
 
 - [Download Commandeer App](https://getcommandeer.com/docs/download-app) - Available on Mac, Windows, Linux
 - [Issues Board](https://github.com/commandeer/open/issues) - You can submit any bugs or feature requests you may have here.
-- [Live Commandeer App Project Kanban Board](https://github.com/commandeer/open/issues) - You can view your issues (bugs and features) going through our development Kanban style board.
+- [GitHub Project Kanban Board](https://github.com/commandeer/open/issues) - You can view your issues (bugs and features) going through our development Kanban style board.
+- [Trello Product Roadmap](https://trello.com/b/qE80w9Xh/commandeer-app-2021-product-roadmap-vote-now)
 
 ***
 
