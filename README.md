@@ -19,7 +19,7 @@ Commandeer is a tool built by developers for developers that solves three things
 
 ***
 
-## 28+ Supported Services
+## 30+ Supported Services
 
 ### Docker and LocalStack Support
   - [Docker](https://docs.getcommandeer.com/docs/Docker/)
