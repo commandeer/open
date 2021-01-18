@@ -1,5 +1,6 @@
-# The Commandeer Desktop App - Manage 28+ of the best Cloud Services (Available on Mac, Windows, and Linux) 
+# The Commandeer Developer IDE - Manage 30+ of the best Cloud Services
 
+- Available on Mac, Windows, and Linux
 
 <img src="https://images.commandeer.be/commandeer-logo.png" alt="commandeer" width="200"/>
 
