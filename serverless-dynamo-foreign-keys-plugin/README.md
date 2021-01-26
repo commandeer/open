@@ -50,7 +50,9 @@ resources:
       Properties:
         TableName: Team
         AttributeDefinitions:
-          - AttributeName: email
+          - AttributeName: name
+            AttributeType: S
+          - AttributeName: teamId
             AttributeType: S
         KeySchema:
           - AttributeName: id
