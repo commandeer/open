@@ -38,18 +38,30 @@ plugins:
 
 ### existingDynamoStream event
 
-The plugin adds a new type of event for your Dynamo tables called `existingDynamoStream`.
-This event accepts the table name and some other parameters (more optional parameters to come in the future).
-Here is how you can configure your `tankHandler` Lambda to connect to `Battle` DynamoDB table stream.
+The plugin adds a new type of field for your Dynamo tables called `relationships`.
+This event accepts the column name, the foreign table name, and the foreign table column to relate to.
+Here is how you can configure your `Team` DynamoDB table to connect to the `User` DynamoDB table.
 
 ```yaml
-tankHandler:
-  handler: handlers/dynamo-streams/tankHandler.process
-  events:
-    - existingDynamoStream:
-        tableName: Battle
-        streamType: NEW_IMAGE
-        startingPosition: LATEST
+resources:
+  Resources:
+    teamsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Team
+        AttributeDefinitions:
+          - AttributeName: email
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        Relationships:
+          - ColumnName: teamId
+            RelatedTableName: Team
+            RelatedTableId: Id
 ```
 
 ## Running
@@ -62,13 +74,10 @@ The plugin runs automatically after the deploy phase.
 If you deploy your Serverless infrastructure using the `sls deploy` command,
 the plugin starts running automatically once the deploy is finished.
 
-2) `sls dynamo-stream`
+2) `sls foreign-keys`
 
-In case you would like to run the plugin on demand, there is a separate command for it called `dynamo-stream`.
-Running `sls dynamo-stream` will not run the deploy and it will only try to connect the lambdas to your DynamoDB streams.
-Please note that the plugin relies on having a successful serverless deploy first.
-Meaning that before running your `dynamo-stream` command,
-you'll need to make sure all lambdas are already deployed by Serverless.
+In case you would like to run the plugin on demand, there is a separate command for it called `foreign-keys`.
+Running `sls foreign-keys` will not run the deploy and it will only put the data into the tags for the DynamoDB tables.
 
 ## Release
 
