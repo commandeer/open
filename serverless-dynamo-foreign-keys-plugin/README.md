@@ -1,15 +1,11 @@
 # Serverless Dynamo Stream Plugin
 
-Creates and connects DynamoDB streams for pre-existing tables with AWS Lambdas using Serverless.
+Creates Tags for a DynamoDB table that explains the entiry relationship.
 
 ## Purpose
 
-Serverless provides the ability to connect your DynamoDB stream with your Lambda out of the box **if** the Dynamo table is created by Serverless itself, and not only that, if you are trying to do it directly with just serverless, the Dynamo DB table cannot be pre-existing, it will throw an error.
-
-That being said, if you use Terraform, Ansible or any other tool to create your resources outside of Serverless,
-there is no way to connect your Lambda managed by Serverless with the pre-existing DynamoDB table using a stream.
-
-This plugin solves this problem. 
+Allows you to view relationships between tables.  While DynamoDB is a NoSQL database, having
+foreign keys clearly defined helps to have a better working model of your system.
 
 ## Install
 
@@ -18,13 +14,13 @@ This plugin solves this problem.
 Using your favorite package manager, simply install the package into your project.
 
 ```
-yarn install serverless-dynamo-stream-plugin
+yarn install serverless-dynamo-foreign-keys-plugin
 ```
 
 or
 
 ```
-npm install serverless-dynamo-stream-plugin
+npm install serverless-dynamo-foreign-keys-plugin
 ```
 
 ### Add to serverless.yml
@@ -34,7 +30,7 @@ Add the plugin to the `plugins` section in `serverless.yml` file.
 ```
 ...
 plugins:
-  - serverless-dynamo-stream-plugin
+  - serverless-dynamo-foreign-keys-plugin
 ...
 ```
 

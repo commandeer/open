@@ -4,12 +4,9 @@ Creates and connects DynamoDB streams for pre-existing tables with AWS Lambdas u
 
 ## Purpose
 
-Serverless provides the ability to connect your DynamoDB stream with your Lambda out of the box **if** the Dynamo table is created by Serverless itself, and not only that, if you are trying to do it directly with just serverless, the Dynamo DB table cannot be pre-existing, it will throw an error.
+This plugin allows you to connect a DynamoDB stream to a Lambda for a table that exists outside of Serverless code.  Meaning if you have a DynamoDB table being created via Ansible, Terraform, or another IaC tool, this will allow you to then connect it to a Lambda.
 
-That being said, if you use Terraform, Ansible or any other tool to create your resources outside of Serverless,
-there is no way to connect your Lambda managed by Serverless with the pre-existing DynamoDB table using a stream.
-
-This plugin solves this problem. 
+Note: Serverless can only connect tables created within Serverless, and it will throw an error if the table already exists.  Because DynamoDB tables are not usually ephemeral, this plugin is needed for most use cases.
 
 ## Install
 
