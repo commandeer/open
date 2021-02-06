@@ -12,16 +12,16 @@ export class HotStockService {
    * @returns {IStock[]}
    * @memberof HotStockService
    */
-  public async static getHotStocks(): Promise<IStock[]> {
-    console.info('HotStockService.getHotStocks', { event });
+  public static async getHotStocks(): Promise<IStock[]> {
+    console.info('HotStockService.getHotStocks');
 
     // if already cached, return the hot stocks
     if (this._hotStocks && this._hotStocks.length) {
       return this._hotStocks;
     }
 
-    const updatedAt =  moment().toDate();
-
+    const updatedAt = moment().toDate();
+   
     // AMC
     const amcStock: IStock = {
       bloombergTerminalUrl: 'CAN_YOU_GET_THIS_?',

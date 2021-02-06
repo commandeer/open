@@ -1,5 +1,5 @@
 import { Context, Handler } from 'aws-lambda';
-import { IHttpResponse, IStock, StockMarket } from './types';
+import { IHttpResponse, IStock } from './types';
 import { HotStockService } from './hotStockService';
 
 /**
