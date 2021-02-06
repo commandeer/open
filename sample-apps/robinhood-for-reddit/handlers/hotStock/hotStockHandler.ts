@@ -36,7 +36,17 @@ const process: Handler = async (event: any, context: Context) => {
 
     // return the objects   
     console.debug('returning objects', { hotStocks });
-    context.succeed(hotStocks);
+
+    const response: IHttpResponse = {
+      statusCode: 200,
+      body: JSON.stringify(hotStocks),
+      headers: {
+        "Access-Control-Allow-Origin" : "*", // Required for CORS support to work
+        "Access-Control-Allow-Credentials" : true // Required for cookies, authorization headers with HTTPS
+      }
+    };
+
+    context.succeed(response);
   } catch (exception) {
     context.fail(exception);
   }

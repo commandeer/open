@@ -1,5 +1,5 @@
 hotStockHandler:
-  handler: handlers/hotStock/hotStockHandler.handler
+  handler: handlers/hotStock/hotStockHandler.process
   events:
     - http:
         path: great-deals
