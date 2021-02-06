@@ -14,4 +14,4 @@ plugins:
 
 functions:
   # api gateway
-  hotStockHandler: ${file(./handlers/api-gateway/hotStockHandler.yml):hotStockHandler}
+  hotStockHandler: ${file(./handlers/hotStock/hotStockHandler.yml):hotStockHandler}

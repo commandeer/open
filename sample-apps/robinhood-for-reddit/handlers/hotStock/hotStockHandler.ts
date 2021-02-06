@@ -1,6 +1,6 @@
 import * from 'moment';
 import { Context, Handler } from 'aws-lambda';
-import { IStock, StockMarket, } from './types';
+import { IStock, StockMarket } from './types';
 
 /**
  * @description handle a request to get hot stocks

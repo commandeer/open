@@ -1,5 +1,5 @@
 hotStockHandler:
-  handler: handlers/api-gateway/hotStockHandler.handler
+  handler: handlers/hotStock/hotStockHandler.handler
   events:
     - http:
         path: great-deals

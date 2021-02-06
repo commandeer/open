@@ -1,4 +1,4 @@
 export enum StockMarket {
-  NASQAQ: 'NASQAQ',
-  NYSE: 'NYSE'
+  NASQAQ = 'NASQAQ',
+  NYSE = 'NYSE',
 }

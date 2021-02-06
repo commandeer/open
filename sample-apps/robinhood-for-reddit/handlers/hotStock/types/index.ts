@@ -1,2 +1,2 @@
-export * from '/IStock';
-export * from '/StockMarket';
+export * from './IStock';
+export * from './StockMarket';
