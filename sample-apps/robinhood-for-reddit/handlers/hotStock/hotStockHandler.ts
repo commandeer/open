@@ -1,6 +1,6 @@
-import moment from 'moment';
 import { Context, Handler } from 'aws-lambda';
-import { IStock, StockMarket } from './types';
+import { IHttpResponse, IStock, StockMarket } from './types';
+import { HotStockService } from './hotStockService';
 
 /**
  * @description handle a request to get hot stocks
@@ -11,32 +11,10 @@ const process: Handler = async (event: any, context: Context) => {
   console.info('hotStockHandler.process', { event });
 
   try {
-    // array of hot stocks to return
-    const hotStocks: IStock[] = [];
+    // get the array of hot stocks from the hot stock service
+    const hotStocks: IStock[] = await HotStockService.getHotStocks();
 
-    // GameStop
-    const gamestopStock: IStock = {
-      bloombergTerminalUrl: 'CAN_YOU_GET_THIS_?',
-      companyName: 'GameStop Corp.',
-      companyUrl: 'https://www.gamestop.com',
-      hasElonMuskTweetedAboutIt: true,
-      id: '123',
-      isHot: true,
-      marketSymbol: 'GME',
-      redditMentions: 1000,
-      stockMarket: StockMarket.NYSE,
-      value: 61.30,
-      updatedAt: moment().toDate(),
-    };
-
-    console.debug('gamestop object', { gamestopStock });
-
-    // add gamestop stock
-    hotStocks.push(gamestopStock);
-
-    // return the objects   
-    console.debug('returning objects', { hotStocks });
-
+    // create a valid response object
     const response: IHttpResponse = {
       statusCode: 200,
       body: JSON.stringify(hotStocks),
@@ -48,6 +26,7 @@ const process: Handler = async (event: any, context: Context) => {
 
     context.succeed(response);
   } catch (exception) {
+    console.error('hotStockHandler.error', { exception });
     context.fail(exception);
   }
 };
