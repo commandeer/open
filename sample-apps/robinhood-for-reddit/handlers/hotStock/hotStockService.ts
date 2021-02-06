@@ -30,7 +30,7 @@ export class HotStockService {
       hasElonMuskTweetedAboutIt: false,
       id: uuid(),
       isHot: true,
-      marketSymbol: 'GME',
+      marketSymbol: 'AMC',
       redditMentions: 1000,
       stockMarket: StockMarket.NYSE,
       value: 6.83,
