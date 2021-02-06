@@ -1,3 +1,5 @@
+import { StockMarket } from './StockMarket';
+
 export interface IStock {
 
   bloombergTerminalUrl?: string;

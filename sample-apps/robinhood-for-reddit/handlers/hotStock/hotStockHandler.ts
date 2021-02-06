@@ -1,4 +1,4 @@
-import * from 'moment';
+import moment from 'moment';
 import { Context, Handler } from 'aws-lambda';
 import { IStock, StockMarket } from './types';
 
@@ -20,10 +20,12 @@ const process: Handler = async (event: any, context: Context) => {
       companyName: 'GameStop Corp.',
       companyUrl: 'https://www.gamestop.com',
       hasElonMuskTweetedAboutIt: true,
+      id: '123',
+      isHot: true,
       marketSymbol: 'GME',
       redditMentions: 1000,
       stockMarket: StockMarket.NYSE,
-      value: 61.30
+      value: 61.30,
       updatedAt: moment().toDate(),
     };
 

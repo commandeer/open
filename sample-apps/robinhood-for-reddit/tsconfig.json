@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "declaration": true,
+    "esModuleInterop": true,
+    "lib": [
+      "es2019"
+    ],
+    "module": "commonjs",
+    "outDir": "dist",
+    "strict": true,
+    "strictNullChecks": true,
+    "target": "es2019",
+  }
+}
