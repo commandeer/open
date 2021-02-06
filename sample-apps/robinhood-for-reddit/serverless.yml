@@ -1,0 +1,17 @@
+service: robinhood-for-reddit
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  memorySize: 256
+  region: us-east-1
+  stage: ${opt:stage, 'dev'}
+  timeout: 30
+  versionFunctions: false
+
+plugins:
+  - serverless-plugin-typescript
+
+functions:
+  # api gateway
+  greatDealsHandler: ${file(./handlers/api-gateway/greatDealsHandler.yml):greatDealsHandler}
