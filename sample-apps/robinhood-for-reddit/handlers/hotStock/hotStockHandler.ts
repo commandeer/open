@@ -15,7 +15,7 @@ const process: Handler = async (event: any, context: Context) => {
     const hotStocks: IStock[] = [];
 
     // GameStop
-    const gamestopStock: IStock[] = {
+    const gamestopStock: IStock = {
       bloombergTerminalUrl: 'CAN_YOU_GET_THIS_?',
       companyName: 'GameStop Corp.',
       companyUrl: 'https://www.gamestop.com',
