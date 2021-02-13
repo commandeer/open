@@ -9,6 +9,11 @@ provider:
   timeout: 30
   versionFunctions: false
 
+custom:
+  localstack:
+    stages:
+      -local
+
 plugins:
   - serverless-plugin-typescript
   - serverless-localstack
