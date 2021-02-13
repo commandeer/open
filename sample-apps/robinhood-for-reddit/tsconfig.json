@@ -11,5 +11,10 @@
     "strict": true,
     "strictNullChecks": true,
     "target": "es2019",
-  }
+  },
+  "exclude": [
+    ".idea",
+    "node_modules",
+    "dist"
+  ],
 }
