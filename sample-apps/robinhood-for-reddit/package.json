@@ -3,6 +3,7 @@
     "test": "mocha -r ts-node/register/transpile-only tests/setup.ts \"tests/handlers/**/*.test.ts\" --timeout 30000 --exit"
   },
   "dependencies": {
+    "@types/uuid": "^8.3.0",
     "aws-sdk": "2.556.0",
     "moment": "2.29.1",
     "serverless-localstack": "^0.4.28",
