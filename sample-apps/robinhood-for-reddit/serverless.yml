@@ -12,7 +12,7 @@ provider:
 custom:
   localstack:
     stages:
-      -local
+      - local
 
 plugins:
   - serverless-plugin-typescript
