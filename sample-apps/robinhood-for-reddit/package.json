@@ -5,7 +5,8 @@
   "dependencies": {
     "aws-sdk": "2.556.0",
     "moment": "2.29.1",
-    "uuid": "8.3.2"
+    "serverless-localstack": "^0.4.28",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/aws-lambda": "8.10.24",
