@@ -1,5 +1,5 @@
 import { Context, Handler } from 'aws-lambda';
-import { IHttpResponse, IStock } from './types';
+import { HttpResponse, Stock } from './types';
 import { HotStockService } from './hotStockService';
 
 /**
@@ -8,26 +8,53 @@ import { HotStockService } from './hotStockService';
  * @param context context object
  */
 const process: Handler = async (event: any, context: Context) => {
-  console.info('hotStockHandler.process', { event });
-
   try {
-    // get the array of hot stocks from the hot stock service
-    const hotStocks: IStock[] = await HotStockService.getHotStocks();
+    console.info('hotStockHandler.process', { event });
 
-    // create a valid response object
-    const response: IHttpResponse = {
+    // get the array of hot stocks from the hot stock service
+    const hotStocks: Stock[] = await HotStockService.getHotStocks();
+
+    /*
+      create a valid response object
+        - sets cors and cookie settings
+        - sets to cache for 4 hours
+    */
+    const response = new HttpResponse({
       statusCode: 200,
       body: JSON.stringify(hotStocks),
       headers: {
-        "Access-Control-Allow-Origin" : "*", // Required for CORS support to work
-        "Access-Control-Allow-Credentials" : true // Required for cookies, authorization headers with HTTPS
+        "Access-Control-Allow-Origin" : "*",                        // Required for CORS support to work
+        "Access-Control-Allow-Credentials" : true,                  // Required for cookies, authorization headers with HTTPS
+        "Cache-Control": "public, max-age=14400, s-maxage=14400'"   // cache the response for 4 hours
       }
-    };
+    });
 
+    // return the response back
     context.succeed(response);
-  } catch (exception) {
-    console.error('hotStockHandler.error', { exception });
-    context.fail(exception);
+  } catch (error) {
+    // report the error to the console
+    console.error('hotStockHandler.error', { error });
+
+    let body = '';
+
+    try {
+      body = JSON.stringify(error);
+    } catch (ex) {
+      body = 'Unable to stringify result';
+    }
+
+    const response = new HttpResponse({
+      statusCode: 500,
+      body,
+      headers: {
+        "Access-Control-Allow-Origin" : "*",                        // Required for CORS support to work
+        "Access-Control-Allow-Credentials" : true,                  // Required for cookies, authorization headers with HTTPS
+        "Cache-Control": "no-cache"                                 // No Cache
+      }
+    });
+
+    // return back as success, but this is has a failed statusCode
+    context.succeed(response);
   }
 };
 
