@@ -1,0 +1,23 @@
+service: robinhood-for-reddit
+
+provider:
+  name: aws
+  runtime: nodejs13.x
+  memorySize: 256
+  region: us-east-1
+  stage: ${opt:stage, 'local'}
+  timeout: 30
+  versionFunctions: false
+
+custom:
+  localstack:
+    stages:
+      - local
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-localstack
+
+functions:
+  # api gateway
+  hotStockHandler: ${file(./handlers/hotStock/hotStockHandler.yml):hotStockHandler}

@@ -1,0 +1,9 @@
+hotStockHandler:
+  handler: handlers/hotStock/hotStockHandler.process
+  events:
+    - http:
+        path: great-deals
+        # cors: ${file(handlers/_base/cors.yml):cors}
+        method: get
+  environment:
+    VERBOSE: ${self:custom.verbose.${opt:stage}, false}
