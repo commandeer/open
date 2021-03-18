@@ -2,10 +2,10 @@ service: robinhood-for-reddit
 
 provider:
   name: aws
-  runtime: nodejs13.x
+  runtime: nodejs12.x
   memorySize: 256
   region: us-east-1
-  stage: ${opt:stage, 'local'}
+  stage: dev
   timeout: 30
   versionFunctions: false
 
