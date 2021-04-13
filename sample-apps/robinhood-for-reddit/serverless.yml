@@ -2,12 +2,12 @@ service: robinhood-for-reddit
 
 provider:
   name: aws
-  runtime: nodejs13.x
+  runtime: nodejs10.x
   memorySize: 256
   region: us-east-1
   stage: ${opt:stage, 'local'}
   timeout: 30
-  versionFunctions: false
+  versionFunctions: true
 
 custom:
   localstack:
@@ -17,6 +17,7 @@ custom:
 plugins:
   - serverless-plugin-typescript
   - serverless-localstack
+  - serverless-offline
 
 functions:
   # api gateway

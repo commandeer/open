@@ -47,7 +47,6 @@ const process: Handler = async (event: any, context: Context) => {
       statusCode: 500,
       body,
       headers: {
-        "Access-Control-Allow-Origin" : "*",                        // Required for CORS support to work
         "Access-Control-Allow-Credentials" : true,                  // Required for cookies, authorization headers with HTTPS
         "Cache-Control": "no-cache"                                 // No Cache
       }
