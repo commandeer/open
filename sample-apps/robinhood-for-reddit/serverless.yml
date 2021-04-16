@@ -7,7 +7,7 @@ provider:
   region: us-east-1
   stage: dev
   timeout: 30
-  versionFunctions: false
+  versionFunctions: true
 
 custom:
   localstack:
@@ -17,6 +17,7 @@ custom:
 plugins:
   - serverless-plugin-typescript
   - serverless-localstack
+  - serverless-offline
 
 functions:
   # api gateway

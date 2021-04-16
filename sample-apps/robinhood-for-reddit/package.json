@@ -4,11 +4,11 @@
     "test": "mocha -r ts-node/register/transpile-only tests/setup.ts \"tests/handlers/**/*.test.ts\" --timeout 30000 --exit"
   },
   "dependencies": {
-    "@types/uuid": "^8.3.0",
+    "@types/uuid": "8.3.0",
     "aws-sdk": "2.556.0",
     "moment": "2.29.1",
-    "serverless-localstack": "^0.4.28",
-    "uuid": "^8.3.2"
+    "serverless-localstack": "0.4.28",
+    "uuid": "8.3.2"
   },
   "devDependencies": {
     "@types/aws-lambda": "8.10.24",
@@ -18,6 +18,7 @@
     "chai-shallow-deep-equal": "1.4.6",
     "lambda-tester": "3.6.0",
     "mocha": "5.2.0",
+    "serverless-offline": "6.8.0",
     "serverless-plugin-typescript": "1.1.7",
     "ts-node": "8.1.0",
     "typescript": "3.6.4"
