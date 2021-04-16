@@ -1,0 +1,50 @@
+service: commandeer-tanks
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  memorySize: 256
+  region: us-east-1
+  stage: ${opt:stage, 'development'}
+  timeout: 30
+  versionFunctions: false
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-localstack
+
+functions:
+
+  # Dynamo Streams
+  #  tankDynamoStreamEvent: ${file(./handlers/dynamo-streams/tankDynamoStreamHandler.yml):tankDynamoStreamHandler}
+
+  # S3 Events
+  tankS3FileCreatedEvent: ${file(./handlers/s3/tankS3FileCreatedHandler.yml):tankS3FileCreatedHandler}
+
+  # SQS Events
+  #  tankSqsMessageReceiveEvent: ${file(./handlers/sqs/tankSqsMessageReceivedHandler.yml):tankSqsMessageReceivedHandler}
+
+custom:
+  localstack:
+    stages:
+      # list of stages for which the plugin should be enabled
+      - local
+    host: http://localhost  # optional - LocalStack host to connect to
+#    autostart: true  # optional - start LocalStack in Docker on Serverless deploy
+    endpoints:
+      # This section is optional - can be used for customizing the target endpoints
+      S3: http://localhost:4572
+      DynamoDB: http://localhost:4570
+      CloudFormation: http://localhost:4581
+      Elasticsearch: http://localhost:4571
+      ES: http://localhost:4578
+      SNS: http://localhost:4575
+      SQS: http://localhost:4576
+      Lambda: http://localhost:4574
+      Kinesis: http://localhost:4568
+#    lambda:
+      # Enable this flag to improve performance
+#      mountCode: True
+    docker:
+      # Enable this flag to run "docker ..." commands as sudo
+      sudo: False

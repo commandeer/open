@@ -1,0 +1,14 @@
+tankS3FileCreatedHandler:
+  handler: handlers/s3/tankS3FileCreatedHandler.process
+  timeout: 900
+  tags:
+    DEPARTMENT: MACHINERY
+    ENVIRONMENT: DEV
+
+  events:
+    - s3:
+        bucket: commandeer-tank
+        event: s3:ObjectCreated:*
+#        existing: true
+        rules:
+          - suffix: .json

@@ -1,13 +1,13 @@
 <template>
   <v-layout row wrap>
-    <h1>Battles</h1>
+    <h1>Personnel</h1>
   </v-layout>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { State, Action, Getter } from 'vuex-class';
-import { ITankState, Tank } from './tankStore';
+import { ITankState, Tank } from '../stores/tankStore';
 
 const namespace: string = 'battleStore';
 

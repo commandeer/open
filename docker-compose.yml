@@ -1,20 +1,34 @@
 version: '3'
 
+#######
+#   ansible-runner - Ansible for deploying IaC
+#   localstack - default version of LocalStack to run for LocalStack connectivity
+#   portainer - portainer instanace to manage Docker from a local website
+#   serverless - Serverless Framework for depolying IaC
+#   terraform - Terraform for deploying IaC
 services:
 
-  #  container for serverless
+  #  container for ansible
   #    entrypoint: ansible-runner
   ansible-runner:
     container_name: commandeer-ansible-runner
     image: ansible/ansible-runner:1.4.4
 
+  #  container for cassandra
+  #    entrypoint: cassandra
+  cassandra:
+    container_name: commandeer-cassandra
+    image: cassandra:3.11.6
+
   #  container for localstack
   #    entrypoint: localstack
   localstack:
     container_name: commandeer-localstack
-    image: localstack/localstack:0.10.6
+    image: localstack/localstack:0.11.3
+    network_mode: bridge
     ports:
-      - "4567-4597:4567-4597"
+      - "4566:4566"
+      - "4571:4571"
       - "${PORT_WEB_UI-8080}:${PORT_WEB_UI-8080}"
     environment:
       - SERVICES=${SERVICES- }
@@ -24,9 +38,57 @@ services:
       - LAMBDA_EXECUTOR=${LAMBDA_EXECUTOR- }
       - KINESIS_ERROR_PROBABILITY=${KINESIS_ERROR_PROBABILITY- }
       - DOCKER_HOST=unix:///var/run/docker.sock
+      - HOST_TMP_FOLDER=${TMPDIR}
     volumes:
       - "${TMPDIR:-/tmp/localstack}:/tmp/localstack"
       - "/var/run/docker.sock:/var/run/docker.sock"
+
+  #  container for mongo
+  #    entrypoint: mongo
+  mongodb:
+    container_name: commandeer-mongo
+    image: mongo:4.2.8
+
+  #  container for mysql
+  #    entrypoint: mysql
+  mysql:
+    container_name: commandeer-mysql
+    image: mysql
+
+  #  container for nginx
+  #    entrypoint: nginx
+  nginx:
+    container_name: commandeer-nginx
+    image: nginx:alpine
+    ports:
+      - 80:80
+    volumes:
+      - nginx-data:/usr/share/nginx/html
+
+  # container for portainer
+  #    entrypoint: http://localhost:9000
+  portainer:
+    container_name: commandeer-portainer
+    image: portainer/portainer-ce:2.0.0
+    command: -H unix:///var/run/docker.sock
+    restart: always
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+
+  #  container for postgres
+  #    entrypoint: postgres
+  postgres:
+    container_name: commandeer-postgres
+    image: postgres
+
+  #  container for redis
+  #    entrypoint: redis
+  redis:
+    container_name: commandeer-redis
+    image: redis:alpine3.11
 
   #  container for serverless
   #    entrypoint: serverless
@@ -40,3 +102,6 @@ services:
     container_name: commandeer-terraform
     image: hashicorp/terraform:0.12.18
 
+volumes:
+  nginx-data:
+  portainer_data:

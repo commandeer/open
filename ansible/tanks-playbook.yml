@@ -1,0 +1,15 @@
+# Create commandeer-tanks s3 bucket for saving tanks
+- s3_bucket:
+    name: commandeer-tanks
+    versioning: yes
+    tags:
+      DEPARTMENT: MACHINERY
+      ENVIRONMENT: DEV
+
+# Create commandeer-tanks-history s3 bucket for saving history of tanks
+- s3_bucket:
+    name: commandeer-tanks-history
+    versioning: yes
+    tags:
+      DEPARTMENT: MACHINERY
+      ENVIRONMENT: DEV
