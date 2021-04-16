@@ -11,7 +11,14 @@ This small tutorial will teach you how to do the following things
 ![how-reddit-and-elon-used-robinhood-to-take-over-the-financial-world.png](https://s3.us-west-2.amazonaws.com/robinhood-for-reddit/how-reddit-and-elon-used-robinhood-to-take-over-the-financial-world.png)
   
 
-- LINK TO [Blog Post]
-- LINK TO Related Documents
+## Setup
+- download code
+- yarn install
+
+## Run Tests
+- yarn test
+
+## Deploy
+- yarn deploy
 
 Don't forget to Star this repo so you will be notified of other interesting Serverless and Container based cloud examples.
