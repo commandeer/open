@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "deploy": "sls deploy",
     "test": "mocha -r ts-node/register/transpile-only tests/setup.ts \"tests/handlers/**/*.test.ts\" --timeout 30000 --exit"
   },
   "dependencies": {
