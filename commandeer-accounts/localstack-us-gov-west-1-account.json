@@ -1,13 +1,15 @@
 {
-  "name": "Local AWS US Gov Account - ( Default Region: US Gov West 1 - us-gov-west-1, LocalStack Port: 4568 )",
+  "name": "Local AWS US Gov 2 Account",
+  "description": "Default Region: US Gov West 1 - us-gov-west-1, LocalStack Port: 4569",
+  "isLocal": true,
   "aws": {
-    "region":"us-gov-east-1",
+    "region":"us-gov-west-1",
     "accessKeyId":"LOCAL",
     "secretAccessKey":"LOCAL"
   },
   "localstack": {
     "autoRemove": false,
     "dockerImageName": "localstack/localstack:0.12.11",
-    "url": "http://localhost:4568"
+    "url": "http://localhost:4569"
   }
 }

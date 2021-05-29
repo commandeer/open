@@ -1,5 +1,7 @@
 {
-  "name": "Local AWS US West Account - ( Default Region: US West 2 - us-west-2, LocalStack Port: 4569 )",
+  "name": "Local AWS US 4 Account",
+  "description": "Default Region: US West 2 - us-west-2, LocalStack Port: 4571",
+  "isLocal": true,
   "aws": {
     "region":"us-west-2",
     "accessKeyId":"LOCAL",
@@ -8,6 +10,6 @@
   "localstack": {
     "autoRemove": false,
     "dockerImageName": "localstack/localstack:0.12.11",
-    "url": "http://localhost:4569"
+    "url": "http://localhost:4571"
   }
 }

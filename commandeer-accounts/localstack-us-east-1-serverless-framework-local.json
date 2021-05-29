@@ -1,6 +1,6 @@
 {
-  "name": "Local AWS US Account 1",
-  "description": "Default Region: US East 1 - us-east-1, LocalStack Port: 4566",
+  "name": "LocalStack & Serverless Account",
+  "description": "Default Region: US East 1 - us-east-1, LocalStack Port: 4571 )",
   "isLocal": true,
   "aws": {
     "region":"us-east-1",
@@ -10,6 +10,9 @@
   "localstack": {
     "autoRemove": false,
     "dockerImageName": "localstack/localstack:0.12.11",
-    "url": "http://localhost:4567"
+    "url": "http://localhost:4571"
+  },
+  "serverless": {
+    "stage": "local",
   }
 }
