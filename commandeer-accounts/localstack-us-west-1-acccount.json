@@ -1,5 +1,5 @@
 {
-  "name": "Local AWS US 3 Account",
+  "name": "Local AWS US 2 Account",
   "description": "Default Region: US West 1 - us-west-1, LocalStack Port: 4570",
   "isLocal": true,
   "aws": {
