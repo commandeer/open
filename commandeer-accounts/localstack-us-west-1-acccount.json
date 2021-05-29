@@ -1,0 +1,13 @@
+{
+  "name": "Local AWS US Account - ( Default: US Gov East - us-west-1 )",
+  "aws": {
+    "region":"us-west-1",
+    "accessKeyId":"LOCAL",
+    "secretAccessKey":"LOCAL"
+  },
+  "localstack": {
+    "autoRemove": false,
+    "dockerImageName": "localstack/localstack:0.12.5",
+    "url": "http://localhost:4569",
+  }
+}
