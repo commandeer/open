@@ -7,7 +7,7 @@
   },
   "localstack": {
     "autoRemove": false,
-    "dockerImageName": "localstack/localstack:0.12.5",
-    "url": "http://localhost:4567",
+    "dockerImageName": "localstack/localstack:0.12.11",
+    "url": "http://localhost:4567"
   }
 }
