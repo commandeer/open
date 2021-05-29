@@ -1,5 +1,5 @@
 {
-  "name": "Local AWS US Gov Account - ( Default: US Gov West - us-gov-west-1 )",
+  "name": "Local AWS US Gov Account - ( Default Region: US Gov West 1 - us-gov-west-1, LocalStack Port: 4568 )",
   "aws": {
     "region":"us-gov-east-1",
     "accessKeyId":"LOCAL",
