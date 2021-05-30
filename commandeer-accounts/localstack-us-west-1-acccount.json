@@ -5,7 +5,23 @@
   "aws": {
     "region":"us-west-1",
     "accessKeyId":"LOCAL",
-    "secretAccessKey":"LOCAL"
+    "secretAccessKey":"LOCAL",
+    "apigatewayEndpoint": "http://localhost:4570",
+    "appSyncEndpoint": "http://localhost:4570",
+    "cloudFormationEndpoint": "http://localhost:4570",
+    "cloudwatchEndpoint": "http://localhost:4570",
+    "cloudwatchLogsEndpoint": "http://localhost:4570",
+    "cloudwatchEventsEndpoint": "http://localhost:4570",
+    "cognitoEndpoint": "http://localhost:4570",
+    "dynamoEndpoint": "http://localhost:4570",
+    "ec2Endpoint": "http://localhost:4570",
+    "ecsEndpoint": "http://localhost:4570",
+    "iamEndpoint": "http://localhost:4570",
+    "lambdaEndpoint": "http://localhost:4570",
+    "s3Endpoint": "http://localhost:4570",
+    "s3Prefix": "",
+    "snsEndpoint": "http://localhost:4570",
+    "sqsEndpoint": "http://localhost:4570"
   },
   "localstack": {
     "autoRemove": false,
