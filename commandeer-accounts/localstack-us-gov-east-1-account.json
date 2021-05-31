@@ -1,0 +1,31 @@
+{
+  "name": "Local AWS US Gov 1 Account",
+  "description": "Default Region: US Gov East 1- us-gov-east-1, LocalStack Port: 4568",
+  "isLocal": true,
+  "aws": {
+    "region":"us-gov-east-1",
+    "accessKeyId":"LOCAL",
+    "secretAccessKey":"LOCAL",
+    "apigatewayEndpoint": "http://localhost:4568",
+    "appSyncEndpoint": "http://localhost:4568",
+    "cloudFormationEndpoint": "http://localhost:4568",
+    "cloudwatchEndpoint": "http://localhost:4568",
+    "cloudwatchLogsEndpoint": "http://localhost:4568",
+    "cloudwatchEventsEndpoint": "http://localhost:4568",
+    "cognitoEndpoint": "http://localhost:4568",
+    "dynamoEndpoint": "http://localhost:4568",
+    "ec2Endpoint": "http://localhost:4568",
+    "ecsEndpoint": "http://localhost:4568",
+    "iamEndpoint": "http://localhost:4568",
+    "lambdaEndpoint": "http://localhost:4568",
+    "s3Endpoint": "http://localhost:4568",
+    "s3Prefix": "",
+    "snsEndpoint": "http://localhost:4568",
+    "sqsEndpoint": "http://localhost:4568"
+  },
+  "localstack": {
+    "autoRemove": false,
+    "dockerImageName": "localstack/localstack:0.12.11",
+    "url": "http://localhost:4568"
+  }
+}

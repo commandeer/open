@@ -1,0 +1,31 @@
+{
+  "name": "Default Local Account",
+  "description": "Default Region: US East 1 - us-east-1, LocalStack Port: 4566",
+  "isLocal": true,
+  "aws": {
+    "region":"us-east-1",
+    "accessKeyId":"LOCAL",
+    "secretAccessKey":"LOCAL",
+    "apigatewayEndpoint": "http://localhost:4566",
+    "appSyncEndpoint": "http://localhost:4566",
+    "cloudFormationEndpoint": "http://localhost:4566",
+    "cloudwatchEndpoint": "http://localhost:4566",
+    "cloudwatchLogsEndpoint": "http://localhost:4566",
+    "cloudwatchEventsEndpoint": "http://localhost:4566",
+    "cognitoEndpoint": "http://localhost:4566",
+    "dynamoEndpoint": "http://localhost:4566",
+    "ec2Endpoint": "http://localhost:4566",
+    "ecsEndpoint": "http://localhost:4566",
+    "iamEndpoint": "http://localhost:4566",
+    "lambdaEndpoint": "http://localhost:4566",
+    "s3Endpoint": "http://localhost:4566",
+    "s3Prefix": "",
+    "snsEndpoint": "http://localhost:4566",
+    "sqsEndpoint": "http://localhost:4566"
+  },
+  "localstack": {
+    "autoRemove": false,
+    "dockerImageName": "localstack/localstack:0.12.11",
+    "url": "http://localhost:4566"
+  }
+}
