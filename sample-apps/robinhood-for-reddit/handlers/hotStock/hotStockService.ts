@@ -1,8 +1,9 @@
 import moment from 'moment';
 import { v4 as uuid } from 'uuid';
 import { IStock, StockMarket } from './types';
+import { BaseService } from '../_base/services/baseService';
 
-export class HotStockService {
+export class HotStockService extends BaseService {
 
   private static _hotStocks: IStock[] = [];
 
@@ -13,7 +14,7 @@ export class HotStockService {
    * @memberof HotStockService
    */
   public static async getHotStocks(): Promise<IStock[]> {
-    console.info('HotStockService.getHotStocks');
+    this.debug('HotStockService.getHotStocks');
 
     // if already cached, return the hot stocks
     if (this._hotStocks && this._hotStocks.length) {
@@ -59,4 +60,10 @@ export class HotStockService {
     return this._hotStocks;
   }
   
+  public static async loadHotStocks(): Promise<boolean> {
+    this.debug('HotStockService.loadHotStocks');
+
+
+  }
+
 }
