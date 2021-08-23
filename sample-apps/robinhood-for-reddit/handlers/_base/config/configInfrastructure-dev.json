@@ -1,0 +1,14 @@
+{
+  "environment": "dev",
+  "athena": {
+    "databaseName": "robinhood",
+    "s3OutputLocation": "s3://robinhood-dev-analytics"
+  },
+  "aws": {
+    "accessKeyId": "",
+    "secretAccessKey": "",
+    "region": "us-west-1",
+    "athenaEndpointUrl": "https://athena.us-west-1.amazonaws.com",
+    "dynamoEndpointUrl": "https://dynamodb.us-west-1.amazonaws.com",
+  },
+}
