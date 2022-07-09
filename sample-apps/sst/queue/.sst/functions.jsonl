@@ -1,0 +1,1 @@
+{"id":"bobwall-oasis-MyStack-Bucket-Notification_Bucket_resize","handler":"functions/resize.handler","runtime":"nodejs16.x","srcPath":"backend","bundle":{"externalModules":["sharp"]},"root":"/Users/bobwall/Development/oasis"}
