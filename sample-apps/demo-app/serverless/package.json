@@ -4,7 +4,7 @@
     "test": "mocha -r ts-node/register/transpile-only tests/setup.ts \"tests/handlers/**/*.test.ts\" --timeout 30000 --exit"
   },
   "dependencies": {
-    "aws-sdk": "2.556.0"
+    "aws-sdk": "2.814.0"
   },
   "devDependencies": {
     "@types/aws-lambda": "8.10.24",
