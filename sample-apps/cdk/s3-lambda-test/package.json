@@ -1,0 +1,56 @@
+{
+  "name": "video-aws",
+  "license": "UNLICENSED",
+  "version": "0.1.1",
+  "bin": {
+    "video-cdk": "bin/video-cdk.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "VIDEO_ENV=local yarn test:complete",
+    "test:base": "mocha --require ts-node/register -r tsconfig-paths/register",
+    "test:complete": "yarn test:default --timeout 300000 --exit",
+    "test:default": "yarn test:base --config ./mocha-config.js",
+    "cdk": "cdk",
+    "deploy:lcl": "cdklocal deploy --all --parameters envName=lcl --parameters accountId=test --require-approval never",
+    "deploy": "cdk deploy --all --parameters envName=$VIDEO_ENV --parameters accountId=$CDK_DEFAULT_ACCOUNT --require-approval never"
+  },
+  "dependencies": {
+    "@sendgrid/mail": "7.7.0",
+    "aws-cdk": "2.43.1",
+    "aws-cdk-lib": "2.29.1",
+    "aws-cdk-local": "2.15.0",
+    "aws-lambda": "1.0.7",
+    "constructs": "10.1.42",
+    "flatted": "3.2.6",
+    "moment": "2.29.4",
+    "mongoose": "6.5.3",
+    "source-map-support": "0.5.20",
+    "uuid": "8.3.2"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "8.10.102",
+    "@types/chai": "4.2.21",
+    "@types/chai-as-promised": "7.1.5",
+    "@types/expect": "24.3.0",
+    "@types/lambda-tester": "3.6.1",
+    "@types/mocha": "9.1.1",
+    "@types/moment": "2.13.0",
+    "@types/mongoose": "5.11.97",
+    "@types/node": "18.6.5",
+    "@types/sinon-chai": "3.2.5",
+    "@types/uuid": "8.3.4",
+    "chai": "4.3.4",
+    "chai-as-promised": "7.1.1",
+    "chai-shallow-deep-equal": "1.4.6",
+    "lambda-tester": "4.0.1",
+    "mocha": "9.2.2",
+    "mocha-loader": "5.1.5",
+    "sinon": "13.0.1",
+    "ts-node": "10.4.0",
+    "tsconfig-paths": "3.10.1",
+    "tsconfig-paths-webpack-plugin": "3.5.1",
+    "typescript": "4.4.2"
+  }
+}
