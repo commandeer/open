@@ -6,7 +6,7 @@
   "dependencies": {
     "aws-sdk": "2.1145.0",
     "circular-json": "0.5.9",
-    "moment": "2.29.3",
+    "moment": "2.29.4",
     "sharp": "0.30.6"
   },
   "devDependencies": {
