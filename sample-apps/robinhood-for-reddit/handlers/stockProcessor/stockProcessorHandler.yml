@@ -1,0 +1,11 @@
+stockProcessorHandler:
+  handler: handlers/stockProcessor/stockProcessorHandler.process
+  environment:
+    VERBOSE: false
+  events:
+    - schedule:
+        name: ${self:service}-${self:provider.stage}-daily-stock-processor
+        description: 'Runs daily stock processing: Everyday, 7 AM EST (11 AM GMT)'
+        rate: cron(0 12 ? * * *)
+        enabled: true
+        timeout: 900  # 15 minute timeout

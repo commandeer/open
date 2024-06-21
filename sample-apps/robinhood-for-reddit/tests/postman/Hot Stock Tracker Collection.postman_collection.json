@@ -1,0 +1,26 @@
+{
+	"info": {
+		"_postman_id": "2555dccb-9563-4870-9154-99bf8f85478f",
+		"name": "Hot Stock Tracker Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Current Great Deals",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_URL}}/great-deals",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"great-deals"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

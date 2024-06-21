@@ -1,6 +1,7 @@
 import { Context, Handler } from 'aws-lambda';
 import { HttpResponse, Stock } from './types';
 import { HotStockService } from './hotStockService';
+import { LoggerService } from '../_base/services/logger/loggerService';
 
 /**
  * @description handle a request to get hot stocks
@@ -9,7 +10,7 @@ import { HotStockService } from './hotStockService';
  */
 const process: Handler = async (event: any, context: Context) => {
   try {
-    console.info('hotStockHandler.process', { event });
+    LoggerService.debug('hotStockHandler.process', { event });
 
     // get the array of hot stocks from the hot stock service
     const hotStocks: Stock[] = await HotStockService.getHotStocks();
@@ -33,7 +34,7 @@ const process: Handler = async (event: any, context: Context) => {
     context.succeed(response);
   } catch (error) {
     // report the error to the console
-    console.error('hotStockHandler.error', { error });
+    LoggerService.error('hotStockHandler.error', { error });
 
     let body = '';
 

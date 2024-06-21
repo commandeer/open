@@ -1,0 +1,10 @@
+{
+  "environment": "local",
+  "aws": {
+    "accessKeyId": "LOCAL_NO_KEY",
+    "secretAccessKey": "LOCAL_NO_ACCESS_KEY",
+    "region": "us-west-1",
+    "dynamoEndpointUrl": "http://localhost:4566",
+    "iotEndpoint": "http://localhost:4566"
+  },
+}
