@@ -1,0 +1,38 @@
+{
+  "name": "serverless-dynamo-foreign-keys-plugin",
+  "version": "0.0.1",
+  "description": "Creates foreign key relationships in DynamoDB",
+  "repository": "https://github.com/commandeer/open/tree/development/serverless-foreign-keys-plugin",
+  "homepage": "https://github.com/commandeer/open/tree/development/serverless-foreign-keys-plugin",
+  "bugs": "https://github.com/commandeer/open/projects/3",
+  "author": "Bob Wall from Commandeer | https://getcommandeer.com",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "keywords": [
+    "AWS",
+    "Serverless",
+    "Dynamo DB",
+    "Commandeer",
+    "Foreign Keys",
+    "Database Relationships",
+    "NoSQL"
+  ],
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "tsc",
+    "prepublish": "yarn build"
+  },
+  "devDependencies": {
+    "@types/aws-sdk": "2.7.0",
+    "@types/node": "13.11.1",
+    "@types/serverless": "1.67.0",
+    "typescript": "3.8.3"
+  },
+  "dependencies": {
+    "module-alias": "2.2.2"
+  },
+  "_moduleAliases": {
+    "@": "dist"
+  }
+}
